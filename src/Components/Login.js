@@ -5,12 +5,12 @@ import { connect } from "react-redux";
 import { loginUser } from "../Actions/authActions";
 import classnames from "classnames";
 
- class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "Tigs",
-            password: "Password",
+            username: "",
+            password: "",
             errors: {}
         };
     }
@@ -18,9 +18,9 @@ import classnames from "classnames";
     componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-          this.props.history.push("/loggedIn");
+            this.props.history.push("/loggedIn");
         }
-      }
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
@@ -54,26 +54,26 @@ import classnames from "classnames";
         console.log(this.state.username);
     }
 
-render() {
-    return (<form onSubmit={this.handleSubmit}>
-        <DataInput name='username' type="text" onChange={this.changeState} />
-        <DataInput name='password' type='password' onChange={this.changeState} />
-        <button>Submit</button>
-    </form>
-    );
-}
+    render() {
+        return (<form onSubmit={this.handleSubmit}>
+            <DataInput name='username' type="text" onChange={this.changeState} />
+            <DataInput name='password' type='password' onChange={this.changeState} />
+            <button>Submit</button>
+        </form>
+        );
+    }
 }
 
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
-  };
-  const mapStateToProps = state => ({
+};
+const mapStateToProps = state => ({
     auth: state.auth,
     errors: state.errors
-  });
-  export default connect(
+});
+export default connect(
     mapStateToProps,
     { loginUser }
-  )(Login);
+)(Login);

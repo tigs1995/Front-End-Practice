@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import './App.css';
 import Display from './Components/Display';
 import Login from "./Components/Login";
 import { Provider } from "react-redux";
-import Store from "./Store";
+import store from "./Store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./Utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./Actions/authActions";
@@ -18,12 +18,12 @@ if (sessionStorage.jwtToken) {
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
   // Set user and isAuthenticated
-  Store.dispatch(setCurrentUser(decoded));
+  store.dispatch(setCurrentUser(decoded));
 // Check for expired token
   const currentTime = Date.now() / 1000; // to get in milliseconds
   if (decoded.exp < currentTime) {
     // Logout user
-    Store.dispatch(logoutUser());
+    store.dispatch(logoutUser());
     // Redirect to login
     window.location.href = "./login";
   }
@@ -33,17 +33,17 @@ if (sessionStorage.jwtToken) {
 export default class App extends Component {
   render() {
     return (
-      <Provider Store={Store}>
-      <Router>
-        <Link to="/">Home</Link>
-        <Route exact path="/" component={Login}></Route>
-        {/* <Route path="/loggedIn/:username" component={Display}></Route> */}
-        <Switch>
-              <PrivateRoute exact path="/loggedIn" component={Display} />
-            </Switch>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Link to="/">Home</Link>
+          <Route exact path="/" component={Login}></Route>
+          {/* <Route path="/loggedIn/:username" component={Display}></Route> */}
+          <Switch>
+            <PrivateRoute exact path="/loggedIn" component={Display} />
+          </Switch>
+        </Router>
       </Provider>
-  );
+    );
   }
 
 }
