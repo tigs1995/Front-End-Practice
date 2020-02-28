@@ -6,7 +6,7 @@ export default class Display extends React.Component{
         return(
             <div>
                 Thank you for logging in!
-                Username: {this.props.username}
+                Username: {this.props.match.params.username}
             </div>
         );
     }

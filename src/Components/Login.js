@@ -6,19 +6,28 @@ export default class Login extends Component {
         super(props);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            errors: {}
         };
     }
 
     handleSubmit = (event) =>{
         event.preventDefault();
-        this.props.history.push("/loggedIn");
+        this.props.history.push("/loggedIn/" + this.state.username);
+    }
+
+    changeState = ({target: {name, value}}) => {
+        this.setState({
+            username: value,
+            password: value
+        }) 
+        console.log(this.state.username);
     }
 
     render() {
         return (<form onSubmit={this.handleSubmit}>
-            <DataInput name = 'username' type="text"/>
-            <DataInput name= 'password' type='password'/>
+            <DataInput name = 'username' type="text" onChange={this.changeState}/>
+            <DataInput name= 'password' type='password' onChange={this.changeState}/>
             <button>Submit</button>
             </form>
         );
