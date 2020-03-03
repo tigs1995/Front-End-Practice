@@ -14,7 +14,7 @@ export default class HomePage extends React.Component {
 
     render() {
         return (<div>
-            <button onClick={()=> window.location.href="./CitizenSearch"} name="Citizen">Citizen</button>
+            <button onClick={()=> window.location.href="./CitizenSearch"} name="Citizen">Citizen </button>
             <button onClick={()=> window.location.href="./VehicleSearch"} name="Vehicle">Vehicle</button>
             <button onClick={()=> window.location.href="./LocationSearch"} name="Location">Location</button>
 </div>
