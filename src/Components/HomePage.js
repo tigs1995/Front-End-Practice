@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../Actions/authActions";
 
-class Display extends React.Component {
+class HomePage extends React.Component {
 
     onLogoutClick = e => {
         e.preventDefault();
@@ -46,7 +46,7 @@ class Display extends React.Component {
     }
 }
 
-Display.propTypes = {
+HomePage.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
 };
@@ -57,4 +57,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { logoutUser }
-)(Display);
+)(HomePage);

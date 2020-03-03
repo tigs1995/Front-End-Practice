@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import './App.css';
-import Display from './Components/Display';
+import HomePage from './Components/HomePage';
 import Login from "./Components/Login";
 import { Provider } from "react-redux";
 import store from "./Store";
@@ -37,9 +37,9 @@ export default class App extends Component {
         <Router>
           <Link to="/">Home</Link>
           <Route exact path="/" component={Login}></Route>
-          {/* <Route path="/loggedIn/:username" component={Display}></Route> */}
+          {/* <Route path="/loggedIn/:username" component={HomePage}></Route> */}
           <Switch>
-            <PrivateRoute exact path="/loggedIn" component={Display} />
+            <PrivateRoute exact path="/loggedIn" component={HomePage} />
           </Switch>
         </Router>
       </Provider>
