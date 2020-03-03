@@ -15,12 +15,12 @@ import VehicleSearch from "./Components/SearchPages/VehicleSearch";
 import LocationSearch from "./Components/SearchPages/LocationSearch";
 import CitizenSearch from "./Components/SearchPages/CitizenSearch";
 
-// import VehicleCitizen from "./Components/CitizenInfo/VehicleCitizen";
-// import AssociatesCitizen from "./Components/CitizenInfo/AssociatesCitizen";
-// import HomePageCitizen from "./Components/CitizenInfo/HomePageCitizen";
-// import FinancialsCitizen from "./Components/CitizenInfo/FinancialsCitizen";
+import VehicleCitizen from "./Components/CitizenInfo/VehicleCitizen";
+import AssociatesCitizen from "./Components/CitizenInfo/AssociatesCitizen";
+import HomePageCitizen from "./Components/CitizenInfo/HomePageCitizen";
+import FinancialsCitizen from "./Components/CitizenInfo/FinancialsCitizen";
 
-// import Location from "./Components/Map/Location";
+import Location from "./Components/Map/Location";
 
 // // Check for token to keep user logged in
 // if (sessionStorage.jwtToken) {
@@ -45,6 +45,32 @@ import CitizenSearch from "./Components/SearchPages/CitizenSearch";
 export default class App extends Component {
   render() {
     return (
+
+      <Provider store={store}>
+        <Router>
+          <Route exact path="/" component={HomePage}></Route>
+          <Route path="/CitizenSearch" component={CitizenSearch}></Route>
+          <Route path="/LocationSearch" component={LocationSearch}></Route>
+          <Route path="/VehicleSearch" component={VehicleSearch}></Route>
+          <Route path="/CitizenHome/:name" component={HomePageCitizen}></Route>
+          <Route path="/CitizenFinancials/:id" component={FinancialsCitizen}></Route>
+          <Route path="/CitizenAssociates/:id" component={AssociatesCitizen}></Route>
+          <Route path="/CitizenVehicles/:id" component={VehicleCitizen}></Route>
+          <Route path="/CitizenHome/:name" component={CitizenSearch}></Route>
+          <Route path="/CitizenHome/:name" component={CitizenSearch}></Route>
+          <Route path="/CitizenHome/:name" component={CitizenSearch}></Route>
+          <Route path="/Map/:search" component={Location}></Route>
+        </Router>
+      </Provider>
+
+    );
+  }
+
+}
+
+// export default class App extends Component {
+//   render() {
+//     return (
       // <Provider store={store}>
       //   <Router>
       //     <Link to="/">Home</Link>
@@ -56,26 +82,7 @@ export default class App extends Component {
       //   </Router>
       // </Provider>
 
-      <Provider store={store}>
-        <Router>
-          <Route exact path="/" component={HomePage}></Route>
-          <Route path="/CitizenSearch" component={CitizenSearch}></Route>
-          <Route path="/LocationSearch" component={LocationSearch}></Route>
-          <Route path="/VehicleSearch" component={VehicleSearch}></Route>
-          {/* <Route path="/CitizenHome/:name" component={HomePageCitizen}></Route>
-          <Route path="/CitizenFinancials/:id" component={FinancialsCitizen}></Route>
-          <Route path="/CitizenAssociates/:id" component={AssociatesCitizen}></Route>
-          <Route path="/CitizenVehicles/:id" component={VehicleCitizen}></Route>
-          <Route path="/CitizenHome/:name" component={CitizenSearch}></Route>
-          <Route path="/CitizenHome/:name" component={CitizenSearch}></Route>
-          <Route path="/CitizenHome/:name" component={CitizenSearch}></Route>
-          <Route path="/Map/:search" component={Location}></Route> */}
-        </Router>
-      </Provider>
-
-    );
-  }
-
-}
+  //   );
+  // }
 
 
