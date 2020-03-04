@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Component } from 'react';
 import DataInput from "../DataInput";
 import axios from "axios";
 
 import {CHECK_EXISTING_VEHICLE, BASE_URL} from "../Constants";
 
-export default class VehicleSearch extends React.Component(){
+export default class VehicleSearch extends Component{
 constructor(props){
     super(props);
     this.state = {
@@ -21,7 +21,7 @@ constructor(props){
         event.preventDefault();
         axios.get(`${BASE_URL}${CHECK_EXISTING_VEHICLE}${this.state.vehicleRegNo}`)
         .then(response => {
-            if (response.data == !false){
+            if (response.data === !false){
                 this.props.history.push("/CitizenVehicles/" + response.data)
             }
         }).catch(error =>{

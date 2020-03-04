@@ -16,7 +16,7 @@ export default class CitizenSearch extends Component {
 
     handleChange = e => {
         e.preventDefault();
-        const { name, value } = e.target;
+        const { value } = e.target;
         this.setState({ name: value });
     }
 
