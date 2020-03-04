@@ -8,8 +8,8 @@ export default class CitizenSearch extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: null,
-            lastName: null,
+            forenames: null,
+            surname: null,
             errorMessage: null
         }
     }
@@ -21,7 +21,7 @@ export default class CitizenSearch extends Component {
     }
 
     handleSubmit = e => {
-        axios.get(`${BASE_URL}${CHECK_EXISTING_CITIZEN}`, { firstName: this.state.firstName, lastName: this.state.lastName }).then(response => {
+        axios.get(`${BASE_URL}${CHECK_EXISTING_CITIZEN}`, { forenames: this.state.forenames, surname: this.state.surname }).then(response => {
             if (response.data.Error) {
                 this.setState({ errorMessage: response.dataError });
             }
@@ -39,8 +39,8 @@ export default class CitizenSearch extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <DataInput type='text' placeholder='First Name' name='firstName' onChange={this.handleChange}></DataInput>
-                <DataInput type='text' placeholder='Last Name' name='lastName' onChange={this.handleChange}></DataInput>
+                <DataInput type='text' placeholder='Forenames' name='forenames' onChange={this.handleChange}></DataInput>
+                <DataInput type='text' placeholder='Surname' name='surname' onChange={this.handleChange}></DataInput>
                 <button>Search</button>
             </form>
 

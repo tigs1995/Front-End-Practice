@@ -8,24 +8,24 @@ export default class VehicleSearch extends Component{
 constructor(props){
     super(props);
     this.state = {
-        vehicleRegNo: ""
+        vehicleRegistrationNo: ""
     }
 }
 
 
     handleChange = ({target: {value}}) => {
-        this.setState({vehicleRegNo: value});
+        this.setState({vehicleRegistrationNo: value});
     } 
 
     handleSubmit = (event) => {
         event.preventDefault();
-        axios.get(`${BASE_URL}${CHECK_EXISTING_VEHICLE}${this.state.vehicleRegNo}`)
+        axios.get(`${BASE_URL}${CHECK_EXISTING_VEHICLE}${this.state.vehicleRegistrationNo}`)
         .then(response => {
             if (response.data === !false){
                 this.props.history.push("/CitizenVehicles/" + response.data)
             }
         }).catch(error =>{
-            alert("There is no such registration in our database. \n Please enter another registration.")
+            alert("There is no such vehicle in our database. \n Please enter another registration.")
         })
     }
 
@@ -34,7 +34,7 @@ constructor(props){
 
     render(){
         return(<form onSubmit={this.handSubmit}>
-            <DataInput type="text" name="vehicleRegistrationNumber" placeholder="Vehicle Registration Number" onChange={this.handleChange}></DataInput>
+            <DataInput type="text" name="vehicleRegistrationNo" placeholder="Vehicle Registration Number" onChange={this.handleChange}></DataInput>
             <button type="submit">Search</button>
         </form>
             
