@@ -15,6 +15,9 @@ import VehicleSearch from "./Components/SearchPages/VehicleSearch";
 import LocationSearch from "./Components/SearchPages/LocationSearch";
 import CitizenSearch from "./Components/SearchPages/CitizenSearch";
 
+import CitzizenList from "./Components/ListPage/CitizenList";
+import VehicleList from "./Components/ListPage/VehicleList";
+
 import VehicleCitizen from "./Components/CitizenInfo/VehicleCitizen";
 import AssociatesCitizen from "./Components/CitizenInfo/AssociatesCitizen";
 import HomePageCitizen from "./Components/CitizenInfo/HomePageCitizen";
@@ -52,11 +55,10 @@ export default class App extends Component {
           <Route path="/CitizenSearch" component={CitizenSearch}></Route>
           <Route path="/LocationSearch" component={LocationSearch}></Route>
           <Route path="/VehicleSearch" component={VehicleSearch}></Route>
-          <Route path="/CitizenHome/:name" component={HomePageCitizen}></Route>
-          <Route
-            path="/CitizenFinancials/:id"
-            component={FinancialsCitizen}
-          ></Route>
+          <Route path="/CitizenList/:name" component={CitzizenList}></Route>
+          <Route path="/VehicleList/:reg" component={VehicleList}></Route>
+          <Route path="/CitizenHome/:id" component={HomePageCitizen}></Route>
+          <Route path="/CitizenFinancials/:id" component={FinancialsCitizen}></Route>
           <Route
             path="/CitizenAssociates/:id"
             component={AssociatesCitizen}
