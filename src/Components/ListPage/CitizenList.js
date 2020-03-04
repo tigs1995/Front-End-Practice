@@ -1,50 +1,49 @@
 import React, { Component } from 'react';
-import DataTable from '../Table/DataTable';
+import TableHead from '../Table/TableHead';
+import TableBody from '../Table/TableBody';
+import axios from 'axios';
+import { CITIZEN_LIST, BASE_URL } from '../Constants';
 
-export default class CitizenList extends Component{
+export default class CitizenList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            citizenList: [
+                {"citizenID": "GDhf74" },
+                {"citizenID": "gfgfgfgf" }
+            ],
+            headerList: ["citizenID"]
+        }
+    }
 
-  
+    componentDidMount(props) {
+        const forenames = this.props.match.params.forenames;
+        const surname = this.props.match.params.surname;
+        axios.get(`${BASE_URL}${CITIZEN_LIST}`, { forenames: forenames, surname: surname }).then(response => {
+            if (response.data.Error) {
+                console.log(response.data.Error);
+            }
+            else {
+                this.setState({ citizenList: response.data });
+            }
+        })
+    }
+e
+    handleClick(e){
+        e.preventDefault();
+        console.log(e.target.value);
+    }
 
+    render() {
 
-    render(){  
-        const headings = [
-        'Product name',
-        'SKU',
-        'Stock quantity',
-        'Wholesale cost',
-        'Sale price',
-        'Quantity sold',
-        'Gross sales',
-        'Net sales',
-        'Notes',
-      ];
-
-      const rows = [
-        [
-          'Red and black plaid scarf with thin red stripes and thick black stripes',
-          124689325,
-          28,
-          '$35.00',
-          '$60.00',
-          12,
-          '$720.00',
-          '$300.00',
-          '',
-        ],
-        [
-          'Yellow plaid scarf',
-          124689389,
-          0,
-          '$35.00',
-          '$60.00',
-          20,
-          '$1200.00',
-          '$500.00',
-          'Currently on back order by the supplier. Do not place another order to restock.',
-        ] ];
-        return(
-
-          <DataTable headings={headings} rows={rows} />
+        return (
+            <div>
+                <p>Please click the citizen you want to view:</p>
+                <table id='tables'>
+                <TableHead headerList={this.state.headerList}></TableHead>
+                <TableBody onClick={this.handleClick} infoList={this.state.citizenList}></TableBody>
+                </table>
+            </div>
         );
     }
 }
