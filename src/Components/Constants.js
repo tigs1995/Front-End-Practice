@@ -1,6 +1,8 @@
 export const BASE_URL = '';
 export const CHECK_EXISTING_CITIZEN = '/citizenExists/';
 export const CHECK_EXISTING_VEHICLE = '/vehicleExists/';
+export const CITIZEN_LIST = '/citizenList/';
+export const VEHICLE_LIST = '/vehicleList/';
 export const GET_CITIZEN = '/getCitizen/';
 export const GET_FINANCIALS_ALL = '/getFinancialsAll';
 export const GET_VEHICLES_ALL = '/getVehiclesAll';
