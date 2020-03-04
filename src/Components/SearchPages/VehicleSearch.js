@@ -21,8 +21,8 @@ constructor(props){
         event.preventDefault();
         axios.get(`${BASE_URL}${CHECK_EXISTING_VEHICLE}${this.state.vehicleRegNo}`)
         .then(response => {
-            if (response == !false){
-                this.props.history.push("/CitizenVehicles/" + response)
+            if (response.data == !false){
+                this.props.history.push("/CitizenVehicles/" + response.data)
             }
         }).catch(error =>{
             alert("There is no such registration in our database. \n Please enter another registration.")
