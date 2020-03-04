@@ -9,14 +9,21 @@ export default class HomePage extends React.Component {
     //     e.preventDefault();
     //     this.props.logoutUser();
     // };
+    
 
     render() {
-        return (
-            <button>test button</button>
-          
+        return (<div>
+            <button onClick={()=> this.props.history.push("./CitizenSearch")} name="Citizen">Citizen </button>
+            <button onClick={()=> this.props.history.push("./VehicleSearch")} name="Vehicle">Vehicle</button>
+            <button onClick={()=> this.props.history.push("./LocationSearch")} name="Location">Location</button>
+                </div>
         );
     }
 }
+
+
+
+
 
 // render() {
     // const { user } = this.props.auth;
