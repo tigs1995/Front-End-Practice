@@ -6,7 +6,7 @@ export default class NavigationBar extends Component {
   render() {
     return (
       <Nav id="navigationBar">
-        <NavDropdown title="Dropdown" id="nav-dropdown">
+        <NavDropdown title="Menu" id="nav-dropdown">
           <NavDropdown.Item eventKey="4.1">
             <Nav.Link>
               <Link to="/">Home</Link>
