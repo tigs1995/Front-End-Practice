@@ -15,7 +15,7 @@ import VehicleSearch from "./Components/SearchPages/VehicleSearch";
 import LocationSearch from "./Components/SearchPages/LocationSearch";
 import CitizenSearch from "./Components/SearchPages/CitizenSearch";
 
-import CitzizenList from "./Components/ListPage/CitizenList";
+import CitizenList from "./Components/ListPage/CitizenList";
 import VehicleList from "./Components/ListPage/VehicleList";
 
 import VehicleCitizen from "./Components/CitizenInfo/VehicleCitizen";
