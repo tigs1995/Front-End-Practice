@@ -50,7 +50,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <NavigationBar />
+OptimisingContent
           <Route exact path="/" component={withRouter(HomePage)}></Route>
           <Route path="/CitizenSearch" component={withRouter(CitizenSearch)}></Route>
           <Route path="/LocationSearch" component={withRouter(LocationSearch)}></Route>
@@ -58,13 +58,13 @@ export default class App extends Component {
           <Route path="/CitizenList/:forenames/:surname" component={withRouter(CitzizenList)}></Route>
           <Route path="/VehicleList/:reg" component={withRouter(VehicleList)}></Route>
           <Route path="/CitizenHome/:id" component={withRouter(HomePageCitizen)}></Route>
-          <Route path="/CitizenFinancials/:id" component={withRouter(FinancialsCitizen)}></Route>
+          <Route path="/CitizenFinancials/:id/:forenames/:surname" component={FinancialsCitizen}></Route>
           <Route
             path="/CitizenAssociates/:id"
             component={withRouter(AssociatesCitizen)}
           ></Route>
-
           <Route path="/CitizenVehicles/:reg" component={withRouter(VehicleCitizen)}></Route>
+
 
           <Route path="/Map/:search" component={withRouter(Location)}></Route>
         </Router>
