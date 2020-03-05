@@ -1,62 +1,80 @@
 import React, { Component } from 'react'
-import columnsGenerator from "../SortingTable/columnsGenerator";
 import Styles from "../SortingTable/Styles";
 import SortingTable from "../SortingTable/SortingTable";
-
-
+import { GET_ANPR_INFO, GET_VEHICLE_OWNER, GET_VEHICLE_INFO, BASE_URL } from '../Constants';
+import axios from 'axios';
 
 export default class VehicleCitizen extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            vehicleDetails: [
-        { "RegID": "1234", "RegDate": "2020:20:18", "VehcileReg": "hegy48j", "Make": "Hyundai", "Model": "getz", "Colour": "Blue", "License": "GHDJKDJ4848" },
-        { "RegID": "3333", "RegDate": "2020:20:17", "VehcileReg": "hegy48j", "Make": "Hyundai", "Model": "getz", "Colour": "Blue", "License": "GHDJKDJ4848" }
-    ]
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      vehicleDetails: [
+        { "registrationID": "1234", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
+      ]
     }
+  }
 
-componentDidMount(){
-    const columns = columnsGenerator(this.state.vehicleDetails);
-    return columns;
+  componentDidMount() {
+    this.setState({ vehicleRegistrationNo: this.props.match.params.reg });
+    console.log(this.state.vehicleRegistrationNo);
+    axios.get(`${BASE_URL}${GET_VEHICLE_OWNER}${this.state.vehicleRegistrationNo}`).then(response => {
+      if (response.data.Error) {
+        console.log(response.data.Error);
+      }
+      else {
+        this.setState({ forenames: response.data.forenames });
+        this.setState({ surname: response.data.surname });
+      }
+    })
+
+    axios.get(`${BASE_URL}${GET_VEHICLE_INFO}${this.state.vehicleRegistrationNo}`).then(response => {
+      if (response.data.Error) {
+        console.log(response.data.Error);
+      }
+      else {
+        this.setState({ vehicleDetails: response.data });
+      }
+    })
+
+    axios.get(`${BASE_URL}${GET_ANPR_INFO}${this.state.vehicleRegistrationNo}`).then(response => {
+      if (response.data.Error) {
+        console.log(response.data.Error);
+      }
+      else {
+        this.setState({ ANPRDetails: response.data });
+      }
+    })
+  }
+
+  render() {
+
+    return (
+      <Styles>
+        <SortingTable data={this.state.vehicleDetails} />
+      </Styles>
+    );
+  }
 }
-
-
-// const columns =  [
-//           {
-//             Header: 'RegID',
-//             accessor: 'RegID',
-//           },
-//           {
-//             Header: 'RegDate',
-//             accessor: 'RegDate',
-//           },
-//           {
-//             Header: 'VehcileReg',
-//             accessor: 'VehcileReg',
-//           },
-//           {
-//             Header: 'Make',
-//             accessor: 'Make',
-//           },
-//           {
-//             Header: 'Model',
-//             accessor: 'Model',
-//           },
-//           {
-//             Header: 'Profile Progress',
-//             accessor: 'progress',
-//           }
-//     ]
-
-render(){
-
-   
-  return (
-    <Styles>
-      <SortingTable columns={this.columns} data={this.state.vehicleDetails} />
-    </Styles>
-  );
-}
- }
 
