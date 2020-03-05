@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import DataTable from "../Table/DataTable";
 import { BASE_URL, VEHICLE_LIST } from "../Constants";
 import axios from "axios";
 import { Card, ListItem } from "react-bootstrap";
