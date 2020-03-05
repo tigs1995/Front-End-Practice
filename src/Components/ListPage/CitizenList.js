@@ -31,7 +31,7 @@ export default class CitizenList extends Component {
     
     handleClick(e) {
         e.preventDefault();
-        console.log(e.target.value);
+        this.props.history.push(`/CitizenHome/${e.target.value}`)
     }
 
     compare(a, b) {
