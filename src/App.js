@@ -55,16 +55,25 @@ export default class App extends Component {
           <Route path="/CitizenSearch" component={CitizenSearch}></Route>
           <Route path="/LocationSearch" component={LocationSearch}></Route>
           <Route path="/VehicleSearch" component={VehicleSearch}></Route>
-          <Route path="/CitizenList/:forenames/:surname" component={CitzizenList}></Route>
+          <Route
+            path="/CitizenList/:forenames/:surname"
+            component={CitizenList}
+          ></Route>
           <Route path="/VehicleList/:reg" component={VehicleList}></Route>
           <Route path="/CitizenHome/:id" component={HomePageCitizen}></Route>
-          <Route path="/CitizenFinancials/:id" component={FinancialsCitizen}></Route>
+          <Route
+            path="/CitizenFinancials/:id/:forenames/:surname"
+            component={FinancialsCitizen}
+          ></Route>
           <Route
             path="/CitizenAssociates/:id"
             component={AssociatesCitizen}
           ></Route>
 
-          <Route path="/CitizenVehicles/:reg" component={VehicleCitizen}></Route>
+          <Route
+            path="/CitizenVehicles/:reg"
+            component={VehicleCitizen}
+          ></Route>
 
           <Route path="/Map/:search" component={Location}></Route>
         </Router>
