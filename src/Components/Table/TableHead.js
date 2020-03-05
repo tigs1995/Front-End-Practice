@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 
-export default class TableHead extends Component{
+    const TableHead = (props) => (
+        <tbody>
+            <tr>
+            {Object.keys(props.infoList[0]).map(name => (
+                    <td onClick={props.handleClick}>{name}</td>
+            ))}
+            </tr>
+        </tbody>
+    );
 
-    constructor(props){
-        super(props);
-        this.state = {
-            arr: [...props.headerList]
-        }
-    }
+    export default TableHead;
     
-  render() {
-      return (
-      <thead>
-          <tr>
-          {this.state.arr.map(listComponent => (
-                  <th id='tableHead'>{listComponent}</th>
-          ))}
-          </tr>
-      </thead>
-      )
-  }
-
-}

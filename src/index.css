@@ -26,5 +26,12 @@ code {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+}
 
+#nameOnPage{
+  text-align: left;
+}
+
+caption{
+  display: table-caption;
 }
