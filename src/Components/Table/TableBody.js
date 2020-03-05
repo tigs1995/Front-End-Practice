@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-const TableHead = (props) => (
+const TableBody = (props) => (
     <tbody>
         {props.infoList.map(listObject => (
             <tr >
@@ -14,4 +14,4 @@ const TableHead = (props) => (
     </tbody>
 );
 
-export default TableHead;
+export default TableBody;
