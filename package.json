@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^7.2.1",
@@ -14,6 +15,7 @@
     "jQuery": "^1.7.4",
     "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
+    "material-ui": "^0.20.2",
     "moment": "^2.24.0",
     "namor": "^2.0.2",
     "react": "^16.13.0",
