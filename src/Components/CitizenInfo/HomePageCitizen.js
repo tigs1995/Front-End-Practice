@@ -9,13 +9,15 @@ export default class HomePageCitizen extends React.Component{
     constructor(props){
         super(props);
         this.state ={
-            person : []
+            person : [],
+            citizenID: ''
         }
     }
 
     componentDidMount = () =>{
-       axios.get(`${BASE_URL}${GET_CITIZEN}${this.props.match.params.citizenID}`)
-    .then  (response =>{
+        console.log(this.props.match.params.id);
+       axios.post(`${BASE_URL}${GET_CITIZEN}`, { citizenID: this.props.match.params.id})
+    .then (response =>{
         console.log(response.data);
         this.setState({person: response.data})
     })
