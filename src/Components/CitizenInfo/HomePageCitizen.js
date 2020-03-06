@@ -15,7 +15,6 @@ export default class HomePageCitizen extends React.Component{
         this.setState({citizenID: this.props.match.params.id})
        axios.post(`${BASE_URL}${GET_CITIZEN}`, { citizenID: this.props.match.params.id})
     .then(response =>{
-        console.log(response.data);
         this.setState({personList: response.data})
     })
     .catch (error => {console.log("Error: " + error);
