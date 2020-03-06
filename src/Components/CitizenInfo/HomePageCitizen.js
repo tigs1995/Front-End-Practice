@@ -19,7 +19,6 @@ export default class HomePageCitizen extends React.Component{
     })
     .catch (error => {console.log("Error: " + error);
     });
-    // this.setState({ vehicleRegistrationNo: personList.vehicleRegistrations.})
     }
   
     handleClick = ({target : {name}}) => {

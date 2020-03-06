@@ -29,7 +29,8 @@ export default class CitizenList extends Component {
         })
     }
     
-    handleClick(e) {
+    handleClick = (e) => {
+        console.log(e.target.value);
         e.preventDefault();
         this.props.history.push(`/CitizenHome/${e.target.value}`)
     }
