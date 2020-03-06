@@ -8,31 +8,7 @@ export default class VehicleCitizen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      vehicleDetails: [
-        { "registrationID": "1234", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-        { "registrationID": "3333", "registrationDate": "2020:20:18", "vehicleRegistrationNo": "hegy48j", "make": "Hyundai", "model": "getz", "colour": "Blue", "driverLicenseID": "GHDJKDJ4848" },
-      ]
+      vehicleDetails: []
     }
   }
 
