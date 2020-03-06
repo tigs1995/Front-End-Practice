@@ -10,6 +10,7 @@ import bankData from "./bankData.json";
 import mapStyles from "./mapStyles";
 
 function Map() {
+  console.log(bankData);
   const [selectedPark, setSelectedPark] = useState(null);
 
   useEffect(() => {
@@ -31,35 +32,35 @@ function Map() {
       defaultCenter={{ lat: 53.02478, lng: -2.19952 }}
       defaultOptions={{ styles: mapStyles }}
     >
-      {/* {bankData.ATM.map(bank => (
+      {Object.values(bankData).map(bank => (
         <Marker
           key={bank.ATM_ID}
           position={{
-            lat: bank.latitude,
-            lng: bank.longitude
+            lat: parseInt(bank.latitude),
+            lng: parseInt(bank.longitude)
           }}
-          // onClick={() => { */}
-      // setSelectedPark(park);
-      {/* // }}
+          onClick={() => {
+            alert(bank);
+          }}
           // icon={{
           //   url: `/skateboarding.svg`,
           //   scaledSize: new window.google.maps.Size(25, 25)
           // }}
         />
-      ))} */}
+      ))}
       {selectedPark && (
         <InfoWindow
           onCloseClick={() => {
             setSelectedPark(null);
           }}
           position={{
-            lat: selectedPark.geometry.coordinates[1],
-            lng: selectedPark.geometry.coordinates[0]
+            lat: selectedPark.latitude,
+            lng: selectedPark.longitude
           }}
         >
           <div>
-            <h2>{selectedPark.properties.NAME}</h2>
-            <p>{selectedPark.properties.DESCRIPTIO}</p>
+            <h2>{selectedPark.latitude}</h2>
+            <p>{selectedPark.longitude}</p>
           </div>
         </InfoWindow>
       )}
