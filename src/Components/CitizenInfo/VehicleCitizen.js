@@ -9,65 +9,56 @@ export default class VehicleCitizen extends Component {
     super(props);
     this.state = {
       citizenID: '',
-      vehicleList: [3],
-      ANPRDetails: ''
+      vehicleList: [],
+      ANPRList: []
     }
   }
 
   componentDidMount() {
-    let ANPRList = [];
-    this.setState({citizenID: this.props.match.params.id})
+    let ANPRDetails = [];
+    this.setState({ citizenID: this.props.match.params.id })
 
-    axios.post(`${BASE_URL}${GET_CITIZEN}`, { citizenID: this.props.match.params.id})
-    .then(response =>{
-        this.setState({vehicleList: response.data.vehicleRegistrations})
-    })
-    .catch (error => {console.log("Error: " + error);
-    });    
-
-    for(let i = 0; i < this.state.vehicleList.length; i++){
-      let vehicleReg = this.state.vehicleList[i].vehicleRegistrationNo;
-      axios.post(`${BASE_URL}${GET_ANPR_INFO}`, { vehicleRegistrationNo: vehicleReg}).then(response => {
-        if (response.data.Error) {
-          console.log(response.data.Error);
+    axios.post(`${BASE_URL}${GET_CITIZEN}`, { citizenID: this.props.match.params.id })
+      .then(response => {
+        this.setState({ vehicleList: response.data.vehicleRegistrations })
+        console.log(this.state.vehicleList)
+        for (let i = 0; i < this.state.vehicleList.length; i++) {
+          let vehicleReg = this.state.vehicleList[i].vehicleRegistrationNo;
+          axios.post(`${BASE_URL}${GET_ANPR_INFO}`, { vehicleRegistrationNo: vehicleReg }).then(response => {
+            if (response.data.Error) {
+              console.log(response.data.Error);
+            }
+            else {
+              console.log(response.data)
+              ANPRDetails.push(response.data)
+            }
+          }).catch(error => {
+            console.log("Error: " + error);
+          });
         }
-        else {
-          ANPRList.push(response.data)
-        }
+        this.setState({ ANPRList: ANPRDetails });
       })
-    }
+      .catch(error => {
+        console.log("Error: " + error);
+      });
 
-
-
-
-    }
-    
-    // axios.get(`${BASE_URL}${GET_VEHICLE_OWNER}${this.state.vehicleRegistrationNo}`).then(response => {
-    //   if (response.data.Error) {
-    //     console.log(response.data.Error);
-    //   }
-    //   else {
-    //     this.setState({ forenames: response.data.forenames });
-    //     this.setState({ surname: response.data.surname });
-    //   }
-    // })
-
-    // axios.post(`${BASE_URL}${GET_VEHICLE_INFO}${this.state.vehicleRegistrationNo}`).then(response => {
-    //   if (response.data.Error) {
-    //     console.log(response.data.Error);
-    //   }
-    //   else {
-    //     this.setState({ vehicleDetails: response.data });
-    //   }
-    // })
-
+  }
 
   render() {
 
     return (
-      <Styles>
-        <SortingTable data={this.state.vehicleDetails} />
-      </Styles>
+      <div>
+        {/* <Styles>
+          <SortingTable data={this.state.vehicleList} />
+        </Styles>
+        <Styles>
+          <SortingTable data={this.state.ANPRList} />
+        </Styles> */}
+
+
+      </div>
+
+
     );
   }
 }

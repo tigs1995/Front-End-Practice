@@ -61,7 +61,7 @@ export default class App extends Component {
             path="/CitizenAssociates/:id"
             component={withRouter(AssociatesCitizen)}
           ></Route>
-          <Route path="/CitizenVehicles/:reg" component={withRouter(VehicleCitizen)}></Route>
+          <Route path="/CitizenVehicles/:id" component={withRouter(VehicleCitizen)}></Route>
 
 
           <Route path="/Map/:search" component={withRouter(Location)}></Route>
