@@ -7,7 +7,6 @@ export default class Header extends Component {
     return (
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="#home">Group Project</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <NavigationBar></NavigationBar>
       </Navbar>
     );

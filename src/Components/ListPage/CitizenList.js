@@ -17,9 +17,9 @@ export default class CitizenList extends Component {
     componentDidMount(props) {
         this.setState({forenames: this.props.match.params.forenames});
         this.setState({surname: this.props.match.params.surname});
-        // const forenames = this.props.match.params.forenames;
-        // const surname = this.props.match.params.surname;
-        axios.get(`${BASE_URL}${CITIZEN_LIST}`, { forenames: this.state.forenames, surname: this.state.surname }).then(response => {
+        const forenames = this.props.match.params.forenames;
+        const surname = this.props.match.params.surname;
+        axios.post(`${BASE_URL}${CITIZEN_LIST}`, { forenames: forenames, surname: surname }).then(response => {
             if (response.data.Error) {
                 console.log(response.data.Error);
             }
@@ -54,11 +54,11 @@ render() {
             <h4>You searched for: {this.state.forenames} {this.state.surname}</h4>
             <p>Please choose a citizen for more information:</p>
             {this.state.citizenList.sort(this.compare).map(citizen =>
-                <Card border="primary" class='citizenCard'>
+                <Card border="primary" className='citizenCard'>
                     <Card.Body>
                         <Card.Title>Citizen ID: {citizen.citizenID}</Card.Title>
                         <Card.Text>{citizen.forenames} {citizen.surname}</Card.Text>
-                        <button class='cardButton' value={citizen.citizenID} handleClick={this.handleClick}>Submit</button>
+                        <button className='cardButton' value={citizen.citizenID} onClick={this.handleClick}>Submit</button>
                     </Card.Body>
                 </Card>)}
         </div>

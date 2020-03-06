@@ -14,15 +14,13 @@ export default class CitizenSearch extends Component {
         }
     }
 
-    handleChange = e => {
-        e.preventDefault();
-        const { value } = e.target;
-        this.setState({ name: value });
+    handleChange = ({ target }) => {
+        this.setState({ [target.name]: target.value });
     }
 
     handleSubmit = e => {
         e.preventDefault();
-        axios.get(`${BASE_URL}${CHECK_EXISTING_CITIZEN}`, { forenames: this.state.forenames, surname: this.state.surname }).then(response => {
+        axios.post(`${BASE_URL}${CHECK_EXISTING_CITIZEN}`, { forenames: this.state.forenames, surname: this.state.surname }).then(response => {
             if (response.data.Error) {
                 this.setState({ errorMessage: response.dataError });
             }
@@ -30,7 +28,7 @@ export default class CitizenSearch extends Component {
                 this.setState({ errorMessage: 'Citizen not found.' });
             }
             else {
-                this.props.history.push(`CitizenList/${ {forenames: this.state.forenames, surname: this.state.surname} }`);
+                this.props.history.push(`CitizenList/${this.state.forenames}/${this.state.surname}`);
             }
         })
     }
