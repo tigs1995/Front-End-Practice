@@ -1,23 +1,19 @@
 import React, { Component } from "react";
 import { BASE_URL, VEHICLE_LIST } from "../Constants";
 import axios from "axios";
-import { Card, ListItem } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 export default class VehicleList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      vehicleList: [
-        { vehicleRegistrationNo: "A" },
-        { vehicleRegistrationNo: "B" }
-      ]
+      vehicleList: []
     };
   }
 
   componentDidMount(props) {
-    const vehicleRegistrationNo = this.props.match.params.reg;
     axios
-      .get(`${BASE_URL}${VEHICLE_LIST}`, { vehicleRegistrationNo })
+      .post(`${BASE_URL}${VEHICLE_LIST}`, { vehicleRegistrationNo: this.props.match.params.reg })
       .then(res => {
         console.log(res);
         this.setState({ vehicleList: res.data });
@@ -27,7 +23,7 @@ export default class VehicleList extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    console.log(e.target.value);
+    
   }
 
   compare(a, b) {
@@ -45,7 +41,6 @@ export default class VehicleList extends Component {
 
   render() {
     const headings = ["Vehicle Registration"];
-
     const rows = this.state.vehicleList.map(vehicle => [
       vehicle.vehicleRegistrationNo
     ]);
@@ -54,14 +49,14 @@ export default class VehicleList extends Component {
       <div id="cardList">
         <h4>Please choose a vehicle to view more information:</h4>
         {this.state.vehicleList.sort(this.compare).map(vehicle => (
-          <Card border="primary" class="vehicleCard">
+          <Card border="primary" className="vehicleCard">
             <Card.Body>
               <Card.Title>Vehicle Registration Number:</Card.Title>
               <Card.Text>{vehicle.vehicleRegistrationNo}</Card.Text>
               <button
-                class="cardButton"
+                className="cardButton"
                 value={vehicle.vehicleRegistrationNo}
-                handleClick={this.handleClick}
+                onClick={this.handleClick}
               >
                 Submit
               </button>
