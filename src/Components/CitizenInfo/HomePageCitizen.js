@@ -2,33 +2,30 @@ import React from "react";
 import {BASE_URL, GET_CITIZEN} from "../Constants";
 import axios from "axios";
 
-
-  
-
 export default class HomePageCitizen extends React.Component{
     constructor(props){
         super(props);
         this.state ={
-            person : [],
+            personList: [],
             citizenID: ''
         }
     }
 
     componentDidMount = () =>{
-        console.log(this.props.match.params.id);
+        this.setState({citizenID: this.props.match.params.id})
        axios.post(`${BASE_URL}${GET_CITIZEN}`, { citizenID: this.props.match.params.id})
-    .then (response =>{
+    .then(response =>{
         console.log(response.data);
-        this.setState({person: response.data})
+        this.setState({personList: response.data})
     })
     .catch (error => {console.log("Error: " + error);
     });
+    // this.setState({ vehicleRegistrationNo: personList.vehicleRegistrations.})
     }
   
     handleClick = ({target : {name}}) => {
         if (name === "vehicles"){
             this.props.history.push(`/CitizenVehicles/${this.state.citizenID}`);
-
         }
         if (name === "financials"){
             this.props.history.push(`/CitizenFinancials/${this.state.citizenID}`);
@@ -39,27 +36,18 @@ export default class HomePageCitizen extends React.Component{
     }
 
     render(){ 
+        const person = this.state.personList;
         return(
         <div> 
-            {this.state.person.map(customer => (
-            <div>
-            <p>{customer.fornames} {customer.surname}</p>
-            <p>{customer.citizenID}</p>
-            <p>{customer.dateOfBirth}</p>
-            <p>{customer.sex}</p>
-            <p/>
-            <p>{customer.homeAddress}</p>
-            <p>{customer.placeOfBirth}</p>
-            </div>
-
-            
-        ))}
+            <p>Citizen ID: {person.citizenID}</p>
+            <p>Date of birth: {person.dateOfBirth}</p>
+            <p>Place of birth: {person.placeOfBirth}</p>
+            <p>Address: {person.streetName} {person.city} {person.postcode}</p>
         
             <button onClick = {this.handleClick} name="vehicles" >Vehicles</button>
             <button onClick = {this.handleClick} name="financials" >Financials</button>
             <button name="whereabouts" >Whereabouts</button>
             <button onClick = {this.handleClick} name="associates" >Associates</button>
-
         </div>
 
         );
