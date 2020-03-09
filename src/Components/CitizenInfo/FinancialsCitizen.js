@@ -25,10 +25,7 @@ export default class FinancialsCitizen extends Component {
   componentDidMount(props) {
     this.setState({ citizenID: this.props.match.params.id });
     console.log(this.state.citizenID);
-    this.setState({ forenames: this.props.match.params.forenames });
-    console.log(this.state.forenames);
-    this.setState({ surname: this.props.match.params.surname });
-    console.log(this.state.surname);
+
     axios
       .get(`${BASE_URL}${GET_EPOS_INFO}${this.state.citizenID}`)
       .then(response => {

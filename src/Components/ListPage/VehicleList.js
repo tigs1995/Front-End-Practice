@@ -26,21 +26,20 @@ export default class VehicleList extends Component {
         this.setState({ vehicleList: res.data });
       })
       .catch(err => console.warn(err));
-
-    axios
-      .post(`${BASE_URL}${GET_VEHICLE_INFO}`, {
-        vehicleRegistrationNo: this.props.match.params.reg
-      })
-      .then(res => {
-        console.log(res);
-        this.setState({ citizenID: res.data.citizenID });
-      })
-      .catch(err => console.warn(err));
   }
 
   handleClick = e => {
     e.preventDefault();
-    this.props.history.push(`/CitizenVehicles/${e.target.value}`);
+    let id = "";
+    axios
+      .post(`${BASE_URL}${GET_VEHICLE_INFO}`, {
+        vehicleRegistrationNo: e.target.value
+      })
+      .then(res => {
+        this.props.history.push(`/CitizenVehicles/${res.data.citizenID}`);
+      })
+      .catch(err => console.warn(err));
+    console.log(this.state.citizenID);
   };
 
   compare(a, b) {
@@ -72,7 +71,7 @@ export default class VehicleList extends Component {
               <Card.Text>{vehicle.vehicleRegistrationNo}</Card.Text>
               <button
                 className="cardButton"
-                value={this.state.citizenID}
+                value={vehicle.vehicleRegistrationNo}
                 onClick={this.handleClick}
               >
                 Submit
