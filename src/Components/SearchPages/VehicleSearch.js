@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DataInput from "../DataInput";
 import axios from "axios";
-import { CHECK_EXISTING_VEHICLE, BASE_URL } from "../Constants";
+import { CHECK_EXISTING_VEHICLE, BASE_URL } from "../../config/Constants.json";
 
 export default class VehicleSearch extends Component {
   constructor(props) {

@@ -7,7 +7,7 @@ import {
   GET_VEHICLE_OWNER,
   GET_VEHICLE_INFO,
   BASE_URL
-} from "../Constants";
+} from "../../config/Constants.json";
 import axios from "axios";
 
 export default class VehicleCitizen extends Component {

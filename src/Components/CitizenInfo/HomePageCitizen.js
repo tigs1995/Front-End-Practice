@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BASE_URL, GET_CITIZEN } from "../Constants";
+import { BASE_URL, GET_CITIZEN } from "../../config/Constants.json";
 import axios from "axios";
 
 export default class HomePageCitizen extends Component {

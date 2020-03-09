@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {withGoogleMap,withScriptjs,GoogleMap,Marker,InfoWindow,Circle} from "react-google-maps";
-import bankData from "./bankData.json";
 import mapStyles from "./mapStyles";
 import axios from "axios";
-import {BASE_URL, GET_CITIZEN_FINANCIALS, GET_CITIZEN_CALLS, GET_CITIZEN_VEHICLES} from "../Constants";
+import {BASE_URL, GET_CITIZEN_FINANCIALS, GET_CITIZEN_CALLS, GET_CITIZEN_VEHICLES, MAP_URL} from "../../config/Constants.json";
 
 export default function App (){
-
-
-
     return (
       <div style={{ width: "100vw", height: "100vh" }}>
         <MapWrapped
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDBxnd19DzbFBaNgtX75EgNx6znWS9pzpY`}
+          googleMapURL={MAP_URL}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
@@ -97,7 +93,7 @@ export default function App (){
 
 
 
-      {Object.values(financeDataToUse).map(finances => (
+      {financeDataToUse.map(finances => (
         <Marker
           key={finances.atmId}
           position={{
@@ -113,7 +109,7 @@ export default function App (){
   
       ))} 
 
-{Object.values(callsDataToUse).map(calls => (
+{callsDataToUse.map(calls => (
         <Marker
       //    key={calls.ATM_ID}
           position={{

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { CITIZEN_LIST, BASE_URL } from '../Constants';
+import { CITIZEN_LIST, BASE_URL } from '../../config/Constants.json';
 import { Card } from "react-bootstrap";
 
 export default class CitizenList extends Component {

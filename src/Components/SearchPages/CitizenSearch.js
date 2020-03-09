@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DataInput from '../DataInput';
-import { CHECK_EXISTING_CITIZEN, BASE_URL } from '../Constants';
+import { CHECK_EXISTING_CITIZEN, BASE_URL } from '../../config/Constants.json';
 
 export default class CitizenSearch extends Component {
     

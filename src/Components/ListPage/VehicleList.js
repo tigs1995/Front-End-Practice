@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BASE_URL, VEHICLE_LIST } from "../Constants";
+import { BASE_URL, VEHICLE_LIST } from "../../config/Constants.json";
 import axios from "axios";
 import { Card } from "react-bootstrap";
 
