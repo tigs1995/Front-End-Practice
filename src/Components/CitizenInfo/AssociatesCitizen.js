@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "../SortingTable/Styles";
 import SortingTable from "../SortingTable/SortingTable";
-import {BASE_URL, GET_ASSOCIATES, GET_CITIZEN} from "../Constants";
+import {BASE_URL, GET_ASSOCIATES, GET_CITIZEN} from "../../config/Constants.json";
 import axios from "axios";
 
 export default class AssociatesCitizen extends React.Component{

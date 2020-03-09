@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {withGoogleMap,withScriptjs,GoogleMap,Marker,InfoWindow,Circle} from "react-google-maps";
-import bankData from "./bankData.json";
 import mapStyles from "./mapStyles";
 import axios from "axios";
-import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL} from "../Constants";
+import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL} from "../../config/Constants.json";
 
 
 

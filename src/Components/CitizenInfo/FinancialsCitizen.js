@@ -8,7 +8,7 @@ import {
   BASE_URL,
   GET_EPOS_INFO,
   GET_BANKCARD_INFO
-} from "../Constants";
+} from "../../config/Constants.json";
 
 export default class FinancialsCitizen extends Component {
   constructor(props) {
