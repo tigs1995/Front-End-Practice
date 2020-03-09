@@ -3,58 +3,51 @@ import {withGoogleMap,withScriptjs,GoogleMap,Marker,InfoWindow,Circle} from "rea
 import bankData from "./bankData.json";
 import mapStyles from "./mapStyles";
 import axios from "axios";
-import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL} from "../Constants";
-
-
+import {BASE_URL, GET_CITIZEN_FINANCIALS, GET_CITIZEN_CALLS, GET_CITIZEN_VEHICLES} from "../Constants";
 
 export default function App (){
 
 
 
-  return (
-    <div style={{ width: "100vw", height: "100vh" }}>
-      <MapWrapped
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDBxnd19DzbFBaNgtX75EgNx6znWS9pzpY`}
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `100%` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-      />
-    </div>
-  ); 
-}
-
-function Map() {
-    const [centreLat, setCentreLat] = useState(this.props.match.params.lat);
-    const [centreLong, setCentreLong] = useState(this.props.match.params.long);
-    const[circleRadius, setRadius] = useState(this.props.match.params.radius);
+    return (
+      <div style={{ width: "100vw", height: "100vh" }}>
+        <MapWrapped
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDBxnd19DzbFBaNgtX75EgNx6znWS9pzpY`}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `100%` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
+      </div>
+    ); 
+  }
+  function Map() {
+    const [centreLat, setCentreLat] = useState(54);
+    const [centreLong, setCentreLong] = useState(-2);
 
     const financeDataToUse = [];
     const callsDataToUse = [];
     const vehicleDataToUse = [];
+    const now = new Date();
 
     useEffect = () => {
         
-        axios.get(`${BASE_URL}
-                   ${GET_FINANCIALS_ALL}
-                   ${this.props.match.params.lat}
-                   ${this.props.match.params.long}
-                   ${this.props.match.params.radius}
-                   ${this.props.match.params.start}
-                   ${this.props.match.params.end}`)
-              .then(response =>{
-                  console.log(response.data);
-                  financeDataToUse = response.data;
-              })
-              .catch(error => {
-                  console.log(error);
-              });
+        // axios.get(`${BASE_URL}
+        //            ${GET_CITIZEN_FINANCIALS}
+        //            ${this.props.match.params.id}
+        //            ${this.startTime}
+        //            ${this.props.match.params.end}`)
+        //       .then(response =>{
+        //           console.log(response.data);
+        //           financeDataToUse = response.data;
+        //       })
+        //       .catch(error => {
+        //           console.log(error);
+        //       });
 
 
         axios.get(`${BASE_URL}
-              ${GET_CALLS_ALL}
-              ${this.props.match.params.lat}
-              ${this.props.match.params.long}
-              ${this.props.match.params.radius}
+              ${GET_CITIZEN_CALLS}
+              ${this.props.match.params.id}
               ${this.props.match.params.start}
               ${this.props.match.params.end}`)
          .then(response =>{
@@ -66,24 +59,21 @@ function Map() {
          });
 
 
-         axios.get(`${BASE_URL}
-                ${GET_VEHICLES_ALL}
-                ${this.props.match.params.lat}
-                ${this.props.match.params.long}
-                ${this.props.match.params.radius}
-                ${this.props.match.params.start}
-                ${this.props.match.params.end}`)
-    .then(response =>{
-        console.log(response.data);
-        vehicleDataToUse = response.data;
-    })
-    .catch(error => {
-        console.log(error);
-    });
-    }
-
-
-  const [selectedPark, setSelectedPark] = useState(null);
+    //      axios.get(`${BASE_URL}
+    //             ${GET_CITIZEN_VEHICLES}
+    //             ${this.props.match.params.id}
+    //             ${this.props.match.params.start}
+    //             ${this.props.match.params.end}`)
+    // .then(response =>{
+    //     console.log(response.data);${this.props.match.params.long}
+    //     ${this.props.match.params.radius}
+    //     vehicleDataToUse = response.data;
+    // })
+    // .catch(error => {
+    //     console.log(error);
+    // });
+    // }
+    const [selectedPark, setSelectedPark] = useState(null);
 
   useEffect(() => {
     const listener = e => {
@@ -114,7 +104,6 @@ function Map() {
             lat: parseInt(finances.latitude),
             lng: parseInt(finances.longitude)
           }}
-          icon={{fillColor: '#0000ff'}}
           
           onClick={() => {
             alert(finances);
@@ -131,7 +120,6 @@ function Map() {
             lat: parseInt(calls.latitude),
             lng: parseInt(calls.longitude)
           }}
-          icon={{fillColor: '#00FFFF'}}
           
           onClick={() => {
             alert(calls);
@@ -148,7 +136,6 @@ function Map() {
             lat: parseInt(vehicle.latitude),
             lng: parseInt(vehicle.longitude)
           }}
-          icon={{fillColor: '#FF00FF'}}
           
           onClick={() => {
             alert(vehicle);
@@ -188,6 +175,6 @@ function Map() {
    
   );
 
-}
+}}
 
 const MapWrapped = withScriptjs(withGoogleMap(Map));

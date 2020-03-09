@@ -14,10 +14,12 @@ export default class VehicleCitizen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
       citizenID: "",
       vehicleList: [],
       ANPRList: []
     };
+
   }
 
   componentWillMount() {
