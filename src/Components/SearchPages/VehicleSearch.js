@@ -2,6 +2,28 @@ import React, { Component } from "react";
 import DataInput from "../DataInput";
 import axios from "axios";
 import { CHECK_EXISTING_VEHICLE, BASE_URL } from "../../config/Constants.json";
+import styled from 'styled-components';
+
+const Styles = styled.div`
+  div {
+    
+    text-align: center;
+    margin: 15%;
+
+    input {
+    
+        padding: 0.5em;
+        margin: 0.5em;
+        color: ${props => props.inputColor || "palevioletred"};
+        background: papayawhip;
+        border-radius: 3px;
+      }
+
+}
+   
+`;
+
+    
 
 export default class VehicleSearch extends Component {
   constructor(props) {
@@ -38,6 +60,8 @@ export default class VehicleSearch extends Component {
 
   render() {
     return (
+      <Styles>
+        <div>
       <form onSubmit={this.handleSubmit}>
         <DataInput
           type="text"
@@ -48,6 +72,8 @@ export default class VehicleSearch extends Component {
         <button>Search</button>
         <span className="error">{this.state.errorMessage}</span>
       </form>
+      </div>
+      </Styles>
     );
   }
 }
