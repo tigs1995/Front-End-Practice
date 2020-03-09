@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {withGoogleMap,withScriptjs,GoogleMap,Marker,InfoWindow,Circle} from "react-google-maps";
 import mapStyles from "./mapStyles";
 import axios from "axios";
-import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL} from "../../config/Constants.json";
+import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL, MAP_URL} from "../../config/Constants.json";
 
 
 
@@ -13,7 +13,7 @@ export default function App (){
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <MapWrapped
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDBxnd19DzbFBaNgtX75EgNx6znWS9pzpY`}
+        googleMapURL={MAP_URL}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `100%` }} />}
         mapElement={<div style={{ height: `100%` }} />}
@@ -82,12 +82,12 @@ function Map() {
     }
 
 
-  const [selectedPark, setSelectedPark] = useState(null);
+  const [selectedPin, setSelectedPin] = useState(null);
 
   useEffect(() => {
     const listener = e => {
       if (e.key === "Escape") {
-        setSelectedPark(null);
+        setSelectedPin(null);
       }
     };
     window.addEventListener("keydown", listener);
@@ -166,19 +166,19 @@ function Map() {
                     strokeColor: "black"}}
                   }
                 />
-      {selectedPark && (
+      {selectedPin && (
         <InfoWindow
           onCloseClick={() => {
-            setSelectedPark(null);
+            setSelectedPin(null);
           }}
           position={{
-            lat: selectedPark.latitude,
-            lng: selectedPark.longitude
+            lat: selectedPin.latitude,
+            lng: selectedPin.longitude
           }}
         >
           <div>
-            <h2>{selectedPark.latitude}</h2>
-            <p>{selectedPark.longitude}</p>
+            <h2>{selectedPin.latitude}</h2>
+            <p>{selectedPin.longitude}</p>
           </div>
         </InfoWindow>
       )}
