@@ -29,6 +29,7 @@ import HomePageCitizen from "./Components/CitizenInfo/HomePageCitizen";
 import FinancialsCitizen from "./Components/CitizenInfo/FinancialsCitizen";
 import Header from "./Components/Header";
 import Location from "./Components/Map/Location";
+// import PersonLocation from "./Components/Map/PersonLocation";
 
 // // Check for token to keep user logged in
 // if (sessionStorage.jwtToken) {
@@ -97,10 +98,10 @@ export default class App extends Component {
             path="/Map/:lat:/long:/radius:/start:/end"
             component={withRouter(Location)}
           ></Route>
-          <Route
+          {/* <Route
             path="/CitizenMap/:id"
-            component={withRouter(Location)}
-          ></Route>
+            component={withRouter(PersonLocation)}
+          ></Route> */}
         </Router>
       </Provider>
     );
