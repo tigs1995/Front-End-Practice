@@ -35,6 +35,9 @@ export default class HomePageCitizen extends Component {
     if (name === "associates") {
       this.props.history.push(`/CitizenAssociates/${this.state.citizenID}`);
     }
+    if (name === "whereabouts") {
+      this.props.history.push(`/CitizenMap/${this.state.citizenID}`);
+    }
   };
 
   render() {
