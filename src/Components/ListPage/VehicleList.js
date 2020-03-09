@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { BASE_URL, VEHICLE_LIST } from "../../config/Constants.json";
+import {
+  BASE_URL,
+  VEHICLE_LIST,
+  GET_VEHICLE_INFO
+} from "../../config/Constants.json";
 import axios from "axios";
 import { Card } from "react-bootstrap";
 
@@ -7,7 +11,8 @@ export default class VehicleList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      vehicleList: []
+      vehicleList: [],
+      citizenID: ""
     };
   }
 
@@ -19,6 +24,16 @@ export default class VehicleList extends Component {
       .then(res => {
         console.log(res);
         this.setState({ vehicleList: res.data });
+      })
+      .catch(err => console.warn(err));
+
+    axios
+      .post(`${BASE_URL}${GET_VEHICLE_INFO}`, {
+        vehicleRegistrationNo: this.props.match.params.reg
+      })
+      .then(res => {
+        console.log(res);
+        this.setState({ citizenID: res.data.citizenID });
       })
       .catch(err => console.warn(err));
   }
@@ -57,7 +72,7 @@ export default class VehicleList extends Component {
               <Card.Text>{vehicle.vehicleRegistrationNo}</Card.Text>
               <button
                 className="cardButton"
-                value={vehicle.vehicleRegistrationNo}
+                value={this.state.citizenID}
                 onClick={this.handleClick}
               >
                 Submit
