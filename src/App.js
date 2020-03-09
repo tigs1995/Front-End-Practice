@@ -97,6 +97,10 @@ export default class App extends Component {
             path="/Map/:lat:/long:/radius:/start:/end"
             component={withRouter(Location)}
           ></Route>
+          <Route
+            path="/CitizenMap/:id"
+            component={withRouter(Location)}
+          ></Route>
         </Router>
       </Provider>
     );

@@ -10,7 +10,6 @@ import {
   GET_BANKCARD_INFO
 } from "../Constants";
 
-
 export default class FinancialsCitizen extends Component {
   constructor(props) {
     super(props);
@@ -18,34 +17,9 @@ export default class FinancialsCitizen extends Component {
       citizenID: "46456",
       forenames: "Lizzie",
       surname: "Colwell",
-      bankCards: [
-        {
-          BankCardID: "12233434353",
-          CardNumber: "787878797",
-          BankAccountID: "",
-          AccountNumber: "",
-          Bank: ""
-        },
-        {
-          BankCardID: "12233434353",
-          CardNumber: "787878797",
-          BankAccountID: "",
-          AccountNumber: "",
-          Bank: ""
-        }
-      ],
-      EPOSTransactions: [
-        {
-          Timestamp: "",
-          EPOSID: "",
-          BankCardNo: "",
-          PayeeAccount: "",
-          Amount: ""
-        }
-      ],
-      ATMTransactions: [
-        { Timestamp: "", ATMID: "", BankCardNo: "", Type: "", Amount: "" }
-      ]
+      bankCards: [],
+      EPOSTransactions: [],
+      ATMTransactions: []
     };
   }
   componentDidMount(props) {

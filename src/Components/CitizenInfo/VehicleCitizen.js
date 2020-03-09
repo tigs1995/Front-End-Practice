@@ -20,7 +20,7 @@ export default class VehicleCitizen extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let ANPRDetails = [];
     this.setState({ citizenID: this.props.match.params.id });
 
@@ -30,10 +30,8 @@ export default class VehicleCitizen extends Component {
       })
       .then(response => {
         this.setState({ vehicleList: response.data.vehicleRegistrations });
-        console.log(this.state.vehicleList);
         for (let i = 0; i < this.state.vehicleList.length; i++) {
           let vehicleReg = this.state.vehicleList[i].vehicleRegistrationNo;
-          console.log(vehicleReg);
           axios
             .post(`${BASE_URL}${GET_ANPR_INFO}`, {
               vehicleRegistrationNo: vehicleReg
@@ -42,16 +40,13 @@ export default class VehicleCitizen extends Component {
               if (response.data.Error) {
                 console.log(response.data.Error);
               } else {
-                console.log(response.data);
-                ANPRDetails.push(response.data);
+                this.setState({ ANPRList: response.data });
               }
             })
             .catch(error => {
               console.log("Error: " + error);
             });
         }
-        this.setState({ ANPRList: ANPRDetails });
-        console.log(this.state.ANPRList);
       })
       .catch(error => {
         console.log("Error: " + error);
@@ -59,15 +54,17 @@ export default class VehicleCitizen extends Component {
   }
 
   render() {
-    console.log(this.state.vehicleList);
-    debugger;
     return (
-      <Styles>
-        <SortingTable data={this.state.vehicleList} />
-      </Styles>
-      // {/* <Styles>
-      //   <SortingTable data={this.state.ANPRList} />
-      // </Styles> */}
+      <div>
+        <Styles>
+          <h2>Vehicles</h2>
+          <SortingTable data={this.state.vehicleList} />
+        </Styles>
+        <Styles>
+          <h2>ANPR Information</h2>
+          <SortingTable data={this.state.ANPRList} />
+        </Styles>
+      </div>
     );
   }
 }

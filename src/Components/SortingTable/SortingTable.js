@@ -3,8 +3,7 @@ import React from "react";
 import ColumnGenerator from "./ColumnGenerator";
 
 function SortingTable({ data }) {
-  console.log(data[0]);
-  const columns = ColumnGenerator(data[0]);
+  const columns = data[0] ? ColumnGenerator(data[0]) : [];
 
   const {
     getTableProps,
