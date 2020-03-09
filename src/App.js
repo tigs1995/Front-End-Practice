@@ -81,7 +81,7 @@ export default class App extends Component {
             component={withRouter(HomePageCitizen)}
           ></Route>
           <Route
-            path="/CitizenFinancials/:id/:forenames/:surname"
+            path="/CitizenFinancials/:id"
             component={FinancialsCitizen}
           ></Route>
           <Route

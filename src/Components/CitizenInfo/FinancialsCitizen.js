@@ -25,6 +25,13 @@ export default class FinancialsCitizen extends Component {
           BankAccountID: "",
           AccountNumber: "",
           Bank: ""
+        },
+        {
+          BankCardID: "12233434353",
+          CardNumber: "787878797",
+          BankAccountID: "",
+          AccountNumber: "",
+          Bank: ""
         }
       ],
       EPOSTransactions: [

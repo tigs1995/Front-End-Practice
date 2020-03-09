@@ -13,7 +13,9 @@ export default class VehicleList extends Component {
 
   componentDidMount(props) {
     axios
-      .post(`${BASE_URL}${VEHICLE_LIST}`, { vehicleRegistrationNo: this.props.match.params.reg })
+      .post(`${BASE_URL}${VEHICLE_LIST}`, {
+        vehicleRegistrationNo: this.props.match.params.reg
+      })
       .then(res => {
         console.log(res);
         this.setState({ vehicleList: res.data });
@@ -21,10 +23,10 @@ export default class VehicleList extends Component {
       .catch(err => console.warn(err));
   }
 
-  handleClick(e) {
+  handleClick = e => {
     e.preventDefault();
-    
-  }
+    this.props.history.push(`/CitizenVehicles/${e.target.value}`);
+  };
 
   compare(a, b) {
     const vehicleA = a.vehicleRegistrationNo;
