@@ -95,11 +95,11 @@ export default class App extends Component {
           ></Route>
 
           <Route
-            path="/Map/:lat:/long:/radius:/start:/end"
+            path="/Map/:lat:/long:/radius:/beforeTime:/afterTime"
             component={withRouter(Location)}
           ></Route>
           {/* <Route
-            path="/CitizenMap/:id"
+            path="/CitizenMap/:id:/beforeTime:/afterTime"
             component={withRouter(PersonLocation)}
           ></Route> */}
         </Router>

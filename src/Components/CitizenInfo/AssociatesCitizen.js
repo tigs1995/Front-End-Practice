@@ -14,7 +14,8 @@ export default class AssociatesCitizen extends Component {
 
     this.state = {
       associates: [],
-      citizenBeingSearched: ""
+      citizenBeingSearched: "",
+      errorMessage: ""
     };
   }
 
@@ -29,6 +30,8 @@ export default class AssociatesCitizen extends Component {
       .then(response => {
         if (response.data.Error) {
           console.log(response.data.Error);
+        } else if (response.data.Warning) {
+          this.setState({ errorMessage: response.data.Warning });
         } else {
           this.setState({ forenames: response.data.forenames });
           this.setState({ surname: response.data.surname });
@@ -52,6 +55,8 @@ export default class AssociatesCitizen extends Component {
       <div>
         <p>Associates of: {this.state.citizenBeingSearched}</p>
         <Styles>
+          <h2>Associates</h2>
+          <span id="error">{this.state.vehicleError}</span>
           <SortingTable data={this.state.associates} />
         </Styles>
       </div>
