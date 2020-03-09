@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, withRouter, Link, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  withRouter,
+  Link,
+  Switch
+} from "react-router-dom";
 import "./App.css";
 import Login from "./Components/Login";
 import { Provider } from "react-redux";
@@ -23,6 +29,7 @@ import HomePageCitizen from "./Components/CitizenInfo/HomePageCitizen";
 import FinancialsCitizen from "./Components/CitizenInfo/FinancialsCitizen";
 import Header from "./Components/Header";
 import Location from "./Components/Map/Location";
+// import PersonLocation from "./Components/Map/PersonLocation";
 
 // // Check for token to keep user logged in
 // if (sessionStorage.jwtToken) {
@@ -50,21 +57,51 @@ export default class App extends Component {
         <Router>
           <Header />
           <Route exact path="/" component={withRouter(HomePage)}></Route>
-          <Route path="/CitizenSearch" component={withRouter(CitizenSearch)}></Route>
-          <Route path="/LocationSearch" component={withRouter(LocationSearch)}></Route>
-          <Route path="/VehicleSearch" component={withRouter(VehicleSearch)}></Route>
-          <Route path="/CitizenList/:forenames/:surname" component={withRouter(CitizenList)}></Route>
-          <Route path="/VehicleList/:reg" component={withRouter(VehicleList)}></Route>
-          <Route path="/CitizenHome/:id" component={withRouter(HomePageCitizen)}></Route>
-          <Route path="/CitizenFinancials/:id/:forenames/:surname" component={FinancialsCitizen}></Route>
+          <Route
+            path="/CitizenSearch"
+            component={withRouter(CitizenSearch)}
+          ></Route>
+          <Route
+            path="/LocationSearch"
+            component={withRouter(LocationSearch)}
+          ></Route>
+          <Route
+            path="/VehicleSearch"
+            component={withRouter(VehicleSearch)}
+          ></Route>
+          <Route
+            path="/CitizenList/:forenames/:surname"
+            component={withRouter(CitizenList)}
+          ></Route>
+          <Route
+            path="/VehicleList/:reg"
+            component={withRouter(VehicleList)}
+          ></Route>
+          <Route
+            path="/CitizenHome/:id"
+            component={withRouter(HomePageCitizen)}
+          ></Route>
+          <Route
+            path="/CitizenFinancials/:id"
+            component={FinancialsCitizen}
+          ></Route>
           <Route
             path="/CitizenAssociates/:id"
             component={withRouter(AssociatesCitizen)}
           ></Route>
-          <Route path="/CitizenVehicles/:reg" component={withRouter(VehicleCitizen)}></Route>
+          <Route
+            path="/CitizenVehicles/:id"
+            component={withRouter(VehicleCitizen)}
+          ></Route>
 
-
-          <Route path="/Map/:search" component={withRouter(Location)}></Route>
+          <Route
+            path="/Map/:lat:/long:/radius:/start:/end"
+            component={withRouter(Location)}
+          ></Route>
+          {/* <Route
+            path="/CitizenMap/:id"
+            component={withRouter(PersonLocation)}
+          ></Route> */}
         </Router>
       </Provider>
     );
