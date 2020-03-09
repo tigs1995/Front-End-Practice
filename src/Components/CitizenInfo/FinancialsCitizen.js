@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Styles from "../SortingTable/Styles";
+import SortingTable from "../SortingTable/SortingTable";
+
 import {
   GET_ATM_INFO,
   BASE_URL,
   GET_EPOS_INFO,
   GET_BANKCARD_INFO
 } from "../Constants";
-import TableHead from "../Table/TableHead";
-import TableBody from "../Table/TableBody";
+
 
 export default class FinancialsCitizen extends Component {
   constructor(props) {
@@ -90,25 +92,9 @@ export default class FinancialsCitizen extends Component {
 
   render() {
     return (
-      <div id="tableList">
-        <p id="nameOnPage">
-          {this.state.forenames} {this.state.surname}
-        </p>
-        <h4>Bank Cards </h4>
-        <table>
-          <TableHead infoList={this.state.bankCards}></TableHead>
-          <TableBody infoList={this.state.bankCards}></TableBody>
-        </table>
-
-        <h4>EPOS Transactions</h4>
-        <table>
-          <TableHead infoList={this.state.EPOSTransactions}></TableHead>
-          <TableBody infoList={this.state.EPOSTransactions}></TableBody>
-        </table>
-        <h4>ATM Transactions</h4>
-        <TableHead infoList={this.state.ATMTransactions}></TableHead>
-        <TableBody infoList={this.state.ATMTransactions}></TableBody>
-      </div>
+      <Styles>
+        <SortingTable data={this.state.bankCards} />
+      </Styles>
     );
   }
 }

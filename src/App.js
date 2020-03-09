@@ -14,16 +14,14 @@ import HomePage from "./Components/HomePage";
 import VehicleSearch from "./Components/SearchPages/VehicleSearch";
 import LocationSearch from "./Components/SearchPages/LocationSearch";
 import CitizenSearch from "./Components/SearchPages/CitizenSearch";
-
-import CitzizenList from "./Components/ListPage/CitizenList";
+import CitizenList from "./Components/ListPage/CitizenList";
 import VehicleList from "./Components/ListPage/VehicleList";
 
 import VehicleCitizen from "./Components/CitizenInfo/VehicleCitizen";
 import AssociatesCitizen from "./Components/CitizenInfo/AssociatesCitizen";
 import HomePageCitizen from "./Components/CitizenInfo/HomePageCitizen";
 import FinancialsCitizen from "./Components/CitizenInfo/FinancialsCitizen";
-import NavigationBar from "./Components/NavigationBar";
-
+import Header from "./Components/Header";
 import Location from "./Components/Map/Location";
 
 // // Check for token to keep user logged in
@@ -50,12 +48,12 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-OptimisingContent
+          <Header />
           <Route exact path="/" component={withRouter(HomePage)}></Route>
           <Route path="/CitizenSearch" component={withRouter(CitizenSearch)}></Route>
           <Route path="/LocationSearch" component={withRouter(LocationSearch)}></Route>
           <Route path="/VehicleSearch" component={withRouter(VehicleSearch)}></Route>
-          <Route path="/CitizenList/:forenames/:surname" component={withRouter(CitzizenList)}></Route>
+          <Route path="/CitizenList/:forenames/:surname" component={withRouter(CitizenList)}></Route>
           <Route path="/VehicleList/:reg" component={withRouter(VehicleList)}></Route>
           <Route path="/CitizenHome/:id" component={withRouter(HomePageCitizen)}></Route>
           <Route path="/CitizenFinancials/:id/:forenames/:surname" component={FinancialsCitizen}></Route>
