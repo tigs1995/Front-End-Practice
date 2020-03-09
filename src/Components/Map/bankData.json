@@ -1,0 +1,40 @@
+   [ {
+      "atmId": "4",
+      "operator": ",Clydesdale Bank",
+      "streetName": "East Street",
+      "postcode": "HP5 1FE",
+      "latitude": "51.7045445304116",
+      "longitude": "-0.6129165925750599"
+    },
+    {
+      "atmId": "5",
+      "operator": ",Clydesdale Bank",
+      "streetName": "East Street",
+      "postcode": "HP5 1FE",
+      "latitude": "52.7045445304116",
+      "longitude": "-0.6029165925750599"
+    },
+    {
+      "atmId": "6",
+      "operator": ",Clydesdale Bank",
+      "streetName": "East Street",
+      "postcode": "HP5 1FE",
+      "latitude": "53.7045445304116",
+      "longitude": "-0.6229165925750599"
+    },
+    {
+      "atmId": "7",
+      "operator": ",Clydesdale Bank",
+      "streetName": "East Street",
+      "postcode": "HP5 1FE",
+      "latitude": "51.8045445304116",
+      "longitude": "-0.6729165925750599"
+    },
+    {
+      "atmId": "8",
+      "operator": ",Clydesdale Bank",
+      "streetName": "East Street",
+      "postcode": "HP5 1FE",
+      "latitude": "54.7045445304116",
+      "longitude": "-0.629165925750599"
+    }]
