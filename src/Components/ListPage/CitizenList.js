@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { CITIZEN_LIST, BASE_URL } from '../../config/Constants.json';
 import { Card } from "react-bootstrap";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../Actions/authActions";
 
-export default class CitizenList extends Component {
+class CitizenList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,6 +16,11 @@ export default class CitizenList extends Component {
             ]
         }
     }
+
+    onLogoutClick = e => {
+        e.preventDefault();
+        this.props.logoutUser();
+    };
 
     componentDidMount(props) {
         this.setState({forenames: this.props.match.params.forenames});
@@ -49,7 +57,7 @@ export default class CitizenList extends Component {
     }
 
 render() {
-
+    const { user } = this.props.auth;
     return (
         <div id='cardList'>
             <h4>You searched for: {this.state.forenames} {this.state.surname}</h4>
@@ -66,3 +74,17 @@ render() {
     );
 }
 }
+
+
+CitizenList.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(
+    mapStateToProps,
+    { logoutUser }
+)(CitizenList);

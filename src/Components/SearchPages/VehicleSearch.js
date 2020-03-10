@@ -3,6 +3,9 @@ import DataInput from "../DataInput";
 import axios from "axios";
 import { CHECK_EXISTING_VEHICLE, BASE_URL } from "../../config/Constants.json";
 import styled from 'styled-components';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../Actions/authActions";
 
 const Styles = styled.div`
   div {
@@ -22,10 +25,9 @@ const Styles = styled.div`
 }
    
 `;
+  
 
-    
-
-export default class VehicleSearch extends Component {
+class VehicleSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,6 +35,12 @@ export default class VehicleSearch extends Component {
       errorMessage: null
     };
   }
+
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+};
+
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
@@ -59,6 +67,7 @@ export default class VehicleSearch extends Component {
   };
 
   render() {
+    const { user } = this.props.auth;
     return (
       <Styles>
         <div>
@@ -77,3 +86,17 @@ export default class VehicleSearch extends Component {
     );
   }
 }
+
+
+VehicleSearch.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(VehicleSearch);
