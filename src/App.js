@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Login from "./Components/Login";
+import Register from './Components/Register';
 import { Provider } from "react-redux";
 import store from "./Store";
 import jwt_decode from "jwt-decode";
@@ -63,6 +64,7 @@ export default class App extends Component {
             <NavigationBar currentPage="Home Page" signedIn="Admin"/>
           </PrivateRoute>
           <Route exact path="/"  component={withRouter(Login)}></Route>
+          <Route exact path="/register"  component={withRouter(Register)}></Route>
           <Switch>
           <PrivateRoute
             exact path="/HomePage"
