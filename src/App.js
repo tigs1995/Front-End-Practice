@@ -27,8 +27,9 @@ import VehicleCitizen from "./Components/CitizenInfo/VehicleCitizen";
 import AssociatesCitizen from "./Components/CitizenInfo/AssociatesCitizen";
 import HomePageCitizen from "./Components/CitizenInfo/HomePageCitizen";
 import FinancialsCitizen from "./Components/CitizenInfo/FinancialsCitizen";
-import Header from "./Components/Header";
+
 import Location from "./Components/Map/Location";
+import NavigationBar from "./Components/NavigationBar";
 // import PersonLocation from "./Components/Map/PersonLocation";
 
 // // Check for token to keep user logged in
@@ -51,12 +52,14 @@ import Location from "./Components/Map/Location";
 // }
 
 export default class App extends Component {
+
+
   render() {
     return (
       <Provider store={store}>
         <Router>
-          <Header />
-          <Route exact path="/" component={withRouter(HomePage)}></Route>
+          <NavigationBar currentPage="Home Page" signedIn="Admin"/>
+          <Route exact path="/"  component={withRouter(HomePage)}></Route>
           <Route
             path="/CitizenSearch"
             component={withRouter(CitizenSearch)}
