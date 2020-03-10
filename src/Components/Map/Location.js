@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {withGoogleMap,withScriptjs,GoogleMap,Marker,InfoWindow,Circle} from "react-google-maps";
+import {
+  withGoogleMap,
+  withScriptjs,
+  GoogleMap,
+  Marker,
+  InfoWindow,
+  Circle
+} from "react-google-maps";
 import mapStyles from "./mapStyles";
 import axios from "axios";
 import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL, MAP_URL} from "../../config/Constants.json";
@@ -7,8 +14,6 @@ import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL, MAP_URL} 
 
 
 export default function App (){
-
-
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
@@ -19,7 +24,7 @@ export default function App (){
         mapElement={<div style={{ height: `100%` }} />}
       />
     </div>
-  ); 
+  );
 }
 
 function Map() {
@@ -77,12 +82,11 @@ function Map() {
     .then(response =>{
         console.log(response.data);
         vehicleDataToUse = response.data;
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.log(error);
-    });
-    }
-
+      });
+  };
 
   const [selectedPin, setSelectedPin] = useState(null);
 
@@ -102,12 +106,9 @@ function Map() {
   return (
     <GoogleMap
       defaultZoom={10}
-      defaultCenter={ {lat: centreLat, lng: centreLong }}
+      defaultCenter={{ lat: centreLat, lng: centreLong }}
       defaultOptions={{ styles: mapStyles }}
     >
-
-
-
       {Object.values(financeDataToUse).map(finances => (
         <Marker
           key={finances.atmId}
@@ -115,46 +116,40 @@ function Map() {
             lat: parseInt(finances.latitude),
             lng: parseInt(finances.longitude)
           }}
-          icon={{fillColor: '#0000ff'}}
-          
+          icon={{ fillColor: "#0000ff" }}
           onClick={() => {
             alert(finances);
           }}
         />
-        
-  
-      ))} 
+      ))}
 
-{Object.values(callsDataToUse).map(calls => (
+      {Object.values(callsDataToUse).map(calls => (
         <Marker
-      //    key={calls.ATM_ID}
+          //    key={calls.ATM_ID}
           position={{
             lat: parseInt(calls.latitude),
             lng: parseInt(calls.longitude)
           }}
-          icon={{fillColor: '#00FFFF'}}
-          
+          icon={{ fillColor: "#00FFFF" }}
           onClick={() => {
             alert(calls);
           }}
         />
-        
-  
-      ))} 
+      ))}
 
-{Object.values(vehicleDataToUse).map(vehicle => (
+      {Object.values(vehicleDataToUse).map(vehicle => (
         <Marker
-  //        key={vehicle.ATM_ID}
+          //        key={vehicle.ATM_ID}
           position={{
             lat: parseInt(vehicle.latitude),
             lng: parseInt(vehicle.longitude)
           }}
-          icon={{fillColor: '#FF00FF'}}
-          
+          icon={{ fillColor: "#FF00FF" }}
           onClick={() => {
             alert(vehicle);
           }}
         />
+
         
   
       ))} 
@@ -169,6 +164,7 @@ function Map() {
                   }
                 />
       {selectedPin && (
+
         <InfoWindow
           onCloseClick={() => {
             setSelectedPin(null);
@@ -184,11 +180,9 @@ function Map() {
           </div>
         </InfoWindow>
       )}
- <button onClick={() => setRadius(500000)}>heello</button>
+      <button onClick={() => setRadius(500000)}>heello</button>
     </GoogleMap>
-   
   );
-
 }
 
 const MapWrapped = withScriptjs(withGoogleMap(Map));

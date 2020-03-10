@@ -17,11 +17,11 @@ code {
   float: right;
 }
 
-#tableHead{
+#tableHead {
   padding: 0 100px 0 0;
 }
 
-#cardList{
+#cardList {
   width: 300px;
   height: 580px;
   text-align: center;
@@ -29,10 +29,14 @@ code {
   margin-right: auto;
 }
 
-#nameOnPage{
+#nameOnPage {
   text-align: left;
 }
 
-caption{
+caption {
   display: table-caption;
+}
+
+#error {
+  color: red;
 }

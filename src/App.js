@@ -29,27 +29,28 @@ import HomePageCitizen from "./Components/CitizenInfo/HomePageCitizen";
 import FinancialsCitizen from "./Components/CitizenInfo/FinancialsCitizen";
 
 import Location from "./Components/Map/Location";
+
 import NavigationBar from "./Components/NavigationBar";
 // import PersonLocation from "./Components/Map/PersonLocation";
 
-// // Check for token to keep user logged in
-// if (sessionStorage.jwtToken) {
-//   // Set auth token header auth
-//   const token = sessionStorage.jwtToken;
-//   setAuthToken(token);
-//   // Decode token and get user info and exp
-//   const decoded = jwt_decode(token);
-//   // Set user and isAuthenticated
-//   store.dispatch(setCurrentUser(decoded));
-// // Check for expired token
-//   const currentTime = Date.now() / 1000; // to get in milliseconds
-//   if (decoded.exp < currentTime) {
-//     // Logout user
-//     store.dispatch(logoutUser());
-//     // Redirect to login
-//     window.location.href = "./login";
-//   }
-// }
+// Check for token to keep user logged in
+if (sessionStorage.jwtToken) {
+  // Set auth token header auth
+  const token = sessionStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+// Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // Redirect to login
+    window.location.href = "./login";
+  }
+}
 
 export default class App extends Component {
 
@@ -98,11 +99,11 @@ export default class App extends Component {
           ></Route>
 
           <Route
-            path="/Map/:lat:/long:/radius:/:start:/end"
+            path="/Map/:lat/:long/:radius/:beforeTime/:afterTime"
             component={withRouter(Location)}
           ></Route>
           {/* <Route
-            path="/CitizenMap/:id"
+            path="/CitizenMap/:id:/beforeTime:/afterTime"
             component={withRouter(PersonLocation)}
           ></Route> */}
         </Router>

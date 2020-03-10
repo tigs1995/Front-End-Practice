@@ -14,68 +14,64 @@ export default class FinancialsCitizen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      citizenID: "46456",
-      forenames: "Lizzie",
-      surname: "Colwell",
+      citizenID: "",
+      forenames: "",
+      surname: "",
       bankCards: [],
       EPOSTransactions: [],
-      ATMTransactions: []
+      ATMTransactions: [],
+      error: ""
     };
   }
   componentDidMount(props) {
     this.setState({ citizenID: this.props.match.params.id });
-    console.log(this.state.citizenID);
-    this.setState({ forenames: this.props.match.params.forenames });
-    console.log(this.state.forenames);
-    this.setState({ surname: this.props.match.params.surname });
-    console.log(this.state.surname);
-    axios
-      .get(`${BASE_URL}${GET_EPOS_INFO}${this.state.citizenID}`)
-      .then(response => {
-        if (response.data.Error) {
-          console.log(response.data.Error);
-        } else {
-          this.setState({ EPOSTransactions: response.data });
-        }
-      });
+    console.log("CitizenID", this.props.match.params.id);
+
+    // axios
+    //   .post(`${BASE_URL}${GET_EPOS_INFO}${this.state.citizenID}`)
+    //   .then(response => {
+    //     if (response.data.Error) {
+    //       console.log(response.data.Error);
+    //     } else {
+    //       this.setState({ EPOSTransactions: response.data });
+    //     }
+    //   });
 
     axios
-      .get(`${BASE_URL}${GET_BANKCARD_INFO}${this.state.citizenID}`)
+      .post(`${BASE_URL}${GET_BANKCARD_INFO}`, {
+        citizenID: this.props.match.params.id
+      })
       .then(response => {
         if (response.data.Error) {
           console.log(response.data.Error);
+        } else if (response.data.Warning) {
+          this.setState({ error: response.data.Warning });
         } else {
+          console.log("Bank cards", response.data);
           this.setState({ bankCards: response.data });
         }
       });
 
-    axios
-      .get(`${BASE_URL}${GET_ATM_INFO}${this.state.citizenID}`)
-      .then(response => {
-        if (response.data.Error) {
-          console.log(response.data.Error);
-        } else {
-          this.setState({ ATMTransactions: response.data });
-        }
-      });
-  }
-
-  handleClick(e) {
-    e.preventDefault();
-    console.log(e.target.value);
-  }
-
-  headerList(arr) {
-    const headerList = [];
-    Object.keys(arr).map(key => headerList.push(key));
-    return headerList;
+    // axios
+    //   .get(`${BASE_URL}${GET_ATM_INFO}${this.state.citizenID}`)
+    //   .then(response => {
+    //     if (response.data.Error) {
+    //       console.log(response.data.Error);
+    //     } else {
+    //       this.setState({ ATMTransactions: response.data });
+    //     }
+    //   });
   }
 
   render() {
     return (
-      <Styles>
-        <SortingTable data={this.state.bankCards} />
-      </Styles>
+      <div>
+        <Styles>
+          <h2>Bank cards</h2>
+          <span id="error">{this.state.error}</span>
+          <SortingTable data={this.state.bankCards} />
+        </Styles>
+      </div>
     );
   }
 }

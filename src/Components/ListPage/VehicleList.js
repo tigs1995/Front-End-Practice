@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { BASE_URL, VEHICLE_LIST } from "../../config/Constants.json";
+import {
+  BASE_URL,
+  VEHICLE_LIST,
+  GET_VEHICLE_INFO
+} from "../../config/Constants.json";
 import axios from "axios";
 import { Card } from "react-bootstrap";
 
@@ -7,7 +11,8 @@ export default class VehicleList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      vehicleList: []
+      vehicleList: [],
+      citizenID: ""
     };
   }
 
@@ -25,7 +30,16 @@ export default class VehicleList extends Component {
 
   handleClick = e => {
     e.preventDefault();
-    this.props.history.push(`/CitizenVehicles/${e.target.value}`);
+    let id = "";
+    axios
+      .post(`${BASE_URL}${GET_VEHICLE_INFO}`, {
+        vehicleRegistrationNo: e.target.value
+      })
+      .then(res => {
+        this.props.history.push(`/CitizenVehicles/${res.data.citizenID}`);
+      })
+      .catch(err => console.warn(err));
+    console.log(this.state.citizenID);
   };
 
   compare(a, b) {
