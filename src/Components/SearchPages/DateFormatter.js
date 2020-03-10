@@ -14,7 +14,7 @@ function DateFormatter(date) {
   }
 
   let finalDate =
-    year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
+  year + "-" + month + "-" + day + "T" + hour + ":" + min + ":" + sec + "Z";
   return finalDate;
 }
 
