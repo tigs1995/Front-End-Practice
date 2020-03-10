@@ -2,6 +2,38 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DataInput from '../DataInput';
 import { CHECK_EXISTING_CITIZEN, BASE_URL } from '../../config/Constants.json';
+import styled from 'styled-components';
+
+
+const Styles = styled.div`
+  div {
+    text-align: center;
+    margin: 15%;
+
+    input {
+    
+        padding: 0.5em;
+        margin: 0.5em;
+        color: ${props => props.inputColor || "palevioletred"};
+        background: papayawhip;
+        border-radius: 3px;
+      }
+}
+`;
+
+const Button = styled.button`
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+
+  /* Color the border and text with theme.main */
+  color: ${props => props.theme.main};
+  border: 2px solid ${props => props.theme.main};
+`;
+
+    
+
 
 export default class CitizenSearch extends Component {
     
@@ -36,12 +68,18 @@ export default class CitizenSearch extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+           <Styles>
+               <div>
+            <form id = "citizenForm" onSubmit={this.handleSubmit}>
+              
                 <DataInput type='text' placeholder='Forenames' name='forenames' onChange={this.handleChange}></DataInput>
                 <DataInput type='text' placeholder='Surname' name='surname' onChange={this.handleChange}></DataInput>
-                <button>Search</button>
+               
+                <Button>Search</Button>
                 <span className='error'>{this.state.errorMessage}</span>
             </form>
+            </div>
+         </Styles>
 
         )
     }
