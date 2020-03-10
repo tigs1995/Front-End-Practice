@@ -84,12 +84,12 @@ function Map() {
     }
 
 
-  const [selectedPark, setSelectedPark] = useState(null);
+  const [selectedPin, setSelectedPin] = useState(null);
 
   useEffect(() => {
     const listener = e => {
       if (e.key === "Escape") {
-        setSelectedPark(null);
+        setSelectedPin(null);
       }
     };
     window.addEventListener("keydown", listener);
@@ -168,19 +168,19 @@ function Map() {
                     strokeColor: "black"}}
                   }
                 />
-      {selectedPark && (
+      {selectedPin && (
         <InfoWindow
           onCloseClick={() => {
-            setSelectedPark(null);
+            setSelectedPin(null);
           }}
           position={{
-            lat: selectedPark.latitude,
-            lng: selectedPark.longitude
+            lat: selectedPin.latitude,
+            lng: selectedPin.longitude
           }}
         >
           <div>
-            <h2>{selectedPark.latitude}</h2>
-            <p>{selectedPark.longitude}</p>
+            <h2>{selectedPin.latitude}</h2>
+            <p>{selectedPin.longitude}</p>
           </div>
         </InfoWindow>
       )}
