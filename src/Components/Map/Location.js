@@ -9,18 +9,16 @@ import {
 } from "react-google-maps";
 import mapStyles from "./mapStyles";
 import axios from "axios";
-import {
-  BASE_URL,
-  GET_FINANCIALS_ALL,
-  GET_CALLS_ALL,
-  GET_VEHICLES_ALL
-} from "../../config/Constants.json";
+import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL, MAP_URL} from "../../config/Constants.json";
 
-export default function App() {
+
+
+export default function App (){
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <MapWrapped
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDBxnd19DzbFBaNgtX75EgNx6znWS9pzpY`}
+        googleMapURL={MAP_URL}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `100%` }} />}
         mapElement={<div style={{ height: `100%` }} />}
@@ -30,74 +28,58 @@ export default function App() {
 }
 
 function Map() {
-  const [centreLat, setCentreLat] = useState(this.props.match.params.lat);
-  const [centreLong, setCentreLong] = useState(this.props.match.params.long);
-  const [circleRadius, setRadius] = useState(this.props.match.params.radius);
+    const [centreLat, setCentreLat] = useState(this.props.match.params.lat);
+    const [centreLong, setCentreLong] = useState(this.props.match.params.long);
+    const[circleRadius, setRadius] = useState(this.props.match.params.radius);
+    const [startTime, setStartTime] = useState(this.props.match.params.start);
+    const [endTime, setEndTime] = useState(this.props.match.params.end);
 
-  const financeDataToUse = [];
-  const callsDataToUse = [];
-  const vehicleDataToUse = [];
+    const financeDataToUse = [];
+    const callsDataToUse = [];
+    const vehicleDataToUse = [];
 
-  useEffect = () => {
-    let latitude = this.props.match.params.lat;
-    let longitude = this.props.match.params.long;
-    let radius = this.props.match.params.radius;
-    let beforeTime = this.props.match.params.beforeTime;
-    let afterTime = this.props.match.params.afterTime;
+    useEffect = () => {
+        
+        axios.get(`${BASE_URL}
+                   ${GET_FINANCIALS_ALL}`, 
+                   {latitude: centreLat, 
+                    longitude: centreLong,
+                    radius: circleRadius,
+                    beforeTime: startTime,
+                    afterTime: endTime })
+              .then(response =>{
+                  console.log(response.data);
+                  financeDataToUse = response.data;
+              })
+              .catch(error => {
+                  console.log(error);
+              });
 
-    axios
-      .post(
-        `${BASE_URL}
-                   ${GET_FINANCIALS_ALL}`,
-        {
-          latitude: latitude,
-          longitude: longitude,
-          radius: radius,
-          beforeTime: beforeTime,
-          afterTime: afterTime
-        }
-      )
-      .then(response => {
-        console.log(response.data);
-        financeDataToUse = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
 
-    axios
-      .post(
-        `${BASE_URL}
+        axios.get(`${BASE_URL}
               ${GET_CALLS_ALL}`,
-        {
-          latitude: latitude,
-          longitude: longitude,
-          radius: radius,
-          beforeTime: beforeTime,
-          afterTime: afterTime
-        }
-      )
-      .then(response => {
-        console.log(response.data);
-        callsDataToUse = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+              {latitude: centreLat, 
+                longitude: centreLong,
+                radius: circleRadius,
+                beforeTime: startTime,
+                afterTime: endTime })
+         .then(response =>{
+             console.log(response.data);
+             callsDataToUse = response.data;
+         })
+         .catch(error => {
+             console.log(error);
+         });
 
-    axios
-      .get(
-        `${BASE_URL}
+
+         axios.get(`${BASE_URL}
                 ${GET_VEHICLES_ALL}`,
-        {
-          latitude: latitude,
-          longitude: longitude,
-          radius: radius,
-          beforeTime: beforeTime,
-          afterTime: afterTime
-        }
-      )
-      .then(response => {
+                {latitude: centreLat, 
+                  longitude: centreLong,
+                  radius: circleRadius,
+                  beforeTime: startTime,
+                  afterTime: endTime })
+    .then(response =>{
         console.log(response.data);
         vehicleDataToUse = response.data;
       })
@@ -106,12 +88,12 @@ function Map() {
       });
   };
 
-  const [selectedPark, setSelectedPark] = useState(null);
+  const [selectedPin, setSelectedPin] = useState(null);
 
   useEffect(() => {
     const listener = e => {
       if (e.key === "Escape") {
-        setSelectedPark(null);
+        setSelectedPin(null);
       }
     };
     window.addEventListener("keydown", listener);
@@ -167,32 +149,34 @@ function Map() {
             alert(vehicle);
           }}
         />
-      ))}
-      <Circle
-        defaultCenter={{
-          lat: centreLat,
-          lng: centreLong
-        }}
-        radius={circleRadius}
-        options={{
-          options: {
-            strokeColor: "black"
-          }
-        }}
-      />
-      {selectedPark && (
+
+        
+  
+      ))} 
+           <Circle
+                  defaultCenter={{
+                    lat: centreLat,
+                    lng: centreLong
+                  }}
+                  radius={circleRadius}
+                  options={{options: {
+                    strokeColor: "black"}}
+                  }
+                />
+      {selectedPin && (
+
         <InfoWindow
           onCloseClick={() => {
-            setSelectedPark(null);
+            setSelectedPin(null);
           }}
           position={{
-            lat: selectedPark.latitude,
-            lng: selectedPark.longitude
+            lat: selectedPin.latitude,
+            lng: selectedPin.longitude
           }}
         >
           <div>
-            <h2>{selectedPark.latitude}</h2>
-            <p>{selectedPark.longitude}</p>
+            <h2>{selectedPin.latitude}</h2>
+            <p>{selectedPin.longitude}</p>
           </div>
         </InfoWindow>
       )}

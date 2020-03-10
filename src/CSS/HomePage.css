@@ -1,0 +1,37 @@
+.centreSearch{
+    text-align: center;
+
+}
+
+
+#homepageButton {
+    line-height: 10px !important;
+    font-size: xx-large;
+    min-width: 100px;
+    min-height: 60px;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 10px;
+    background-color: rgb(208, 248, 255);
+    padding: 10px;
+}
+
+#homepageButton:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: rgb(165, 239, 252);
+}
+
+#toggle, span {
+    background: rgba(255, 255, 255, 0.692);
+    border: 1px black solid;
+    padding: 10px;
+    text-align: center;
+}
+
+#title{
+    text-decoration: underline;
+
+}
