@@ -9,12 +9,15 @@ import {
 } from "react-google-maps";
 import mapStyles from "./mapStyles";
 import axios from "axios";
-import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL, MAP_URL} from "../../config/Constants.json";
+import {
+  BASE_URL,
+  GET_FINANCIALS_ALL,
+  GET_CALLS_ALL,
+  GET_VEHICLES_ALL,
+  MAP_URL
+} from "../../config/Constants.json";
 
-
-
-export default function App (){
-
+export default function App() {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <MapWrapped
@@ -28,58 +31,72 @@ export default function App (){
 }
 
 function Map() {
-    const [centreLat, setCentreLat] = useState(this.props.match.params.lat);
-    const [centreLong, setCentreLong] = useState(this.props.match.params.long);
-    const[circleRadius, setRadius] = useState(this.props.match.params.radius);
-    const [startTime, setStartTime] = useState(this.props.match.params.start);
-    const [endTime, setEndTime] = useState(this.props.match.params.end);
+  const [centreLat, setCentreLat] = useState(this.props.match.params.lat);
+  const [centreLong, setCentreLong] = useState(this.props.match.params.long);
+  const [circleRadius, setRadius] = useState(this.props.match.params.radius);
+  const [startTime, setStartTime] = useState(
+    this.props.match.params.beforeTime
+  );
+  const [endTime, setEndTime] = useState(this.props.match.params.afterTime);
 
-    const financeDataToUse = [];
-    const callsDataToUse = [];
-    const vehicleDataToUse = [];
+  const financeDataToUse = [];
+  const callsDataToUse = [];
+  const vehicleDataToUse = [];
 
-    useEffect = () => {
-        
-        axios.get(`${BASE_URL}
-                   ${GET_FINANCIALS_ALL}`, 
-                   {latitude: centreLat, 
-                    longitude: centreLong,
-                    radius: circleRadius,
-                    beforeTime: startTime,
-                    afterTime: endTime })
-              .then(response =>{
-                  console.log(response.data);
-                  financeDataToUse = response.data;
-              })
-              .catch(error => {
-                  console.log(error);
-              });
+  useEffect = () => {
+    axios
+      .get(
+        `${BASE_URL}
+                   ${GET_FINANCIALS_ALL}`,
+        {
+          latitude: centreLat,
+          longitude: centreLong,
+          radius: circleRadius,
+          beforeTime: startTime,
+          afterTime: endTime
+        }
+      )
+      .then(response => {
+        console.log(response.data);
+        financeDataToUse = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
 
-
-        axios.get(`${BASE_URL}
+    axios
+      .get(
+        `${BASE_URL}
               ${GET_CALLS_ALL}`,
-              {latitude: centreLat, 
-                longitude: centreLong,
-                radius: circleRadius,
-                beforeTime: startTime,
-                afterTime: endTime })
-         .then(response =>{
-             console.log(response.data);
-             callsDataToUse = response.data;
-         })
-         .catch(error => {
-             console.log(error);
-         });
+        {
+          latitude: centreLat,
+          longitude: centreLong,
+          radius: circleRadius,
+          beforeTime: startTime,
+          afterTime: endTime
+        }
+      )
+      .then(response => {
+        console.log(response.data);
+        callsDataToUse = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
 
-
-         axios.get(`${BASE_URL}
+    axios
+      .get(
+        `${BASE_URL}
                 ${GET_VEHICLES_ALL}`,
-                {latitude: centreLat, 
-                  longitude: centreLong,
-                  radius: circleRadius,
-                  beforeTime: startTime,
-                  afterTime: endTime })
-    .then(response =>{
+        {
+          latitude: centreLat,
+          longitude: centreLong,
+          radius: circleRadius,
+          beforeTime: startTime,
+          afterTime: endTime
+        }
+      )
+      .then(response => {
         console.log(response.data);
         vehicleDataToUse = response.data;
       })
@@ -149,22 +166,20 @@ function Map() {
             alert(vehicle);
           }}
         />
-
-        
-  
-      ))} 
-           <Circle
-                  defaultCenter={{
-                    lat: centreLat,
-                    lng: centreLong
-                  }}
-                  radius={circleRadius}
-                  options={{options: {
-                    strokeColor: "black"}}
-                  }
-                />
+      ))}
+      <Circle
+        defaultCenter={{
+          lat: centreLat,
+          lng: centreLong
+        }}
+        radius={circleRadius}
+        options={{
+          options: {
+            strokeColor: "black"
+          }
+        }}
+      />
       {selectedPin && (
-
         <InfoWindow
           onCloseClick={() => {
             setSelectedPin(null);
