@@ -98,7 +98,7 @@ export default class App extends Component {
           ></Route>
 
           <Route
-            path="/Map/:lat:/long:/radius:/start:/end"
+            path="/Map/:lat:/long:/radius:/:start:/end"
             component={withRouter(Location)}
           ></Route>
           {/* <Route

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {withGoogleMap,withScriptjs,GoogleMap,Marker,InfoWindow,Circle} from "react-google-maps";
 import mapStyles from "./mapStyles";
 import axios from "axios";
-import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL} from "../../config/Constants.json";
+import {BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL, MAP_URL} from "../../config/Constants.json";
 
 
 
@@ -13,7 +13,7 @@ export default function App (){
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <MapWrapped
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDBxnd19DzbFBaNgtX75EgNx6znWS9pzpY`}
+        googleMapURL={MAP_URL}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `100%` }} />}
         mapElement={<div style={{ height: `100%` }} />}
@@ -26,6 +26,8 @@ function Map() {
     const [centreLat, setCentreLat] = useState(this.props.match.params.lat);
     const [centreLong, setCentreLong] = useState(this.props.match.params.long);
     const[circleRadius, setRadius] = useState(this.props.match.params.radius);
+    const [startTime, setStartTime] = useState(this.props.match.params.start);
+    const [endTime, setEndTime] = useState(this.props.match.params.end);
 
     const financeDataToUse = [];
     const callsDataToUse = [];
@@ -34,12 +36,12 @@ function Map() {
     useEffect = () => {
         
         axios.get(`${BASE_URL}
-                   ${GET_FINANCIALS_ALL}
-                   ${this.props.match.params.lat}
-                   ${this.props.match.params.long}
-                   ${this.props.match.params.radius}
-                   ${this.props.match.params.start}
-                   ${this.props.match.params.end}`)
+                   ${GET_FINANCIALS_ALL}`, 
+                   {latitude: centreLat, 
+                    longitude: centreLong,
+                    radius: circleRadius,
+                    beforeTime: startTime,
+                    afterTime: endTime })
               .then(response =>{
                   console.log(response.data);
                   financeDataToUse = response.data;
@@ -50,12 +52,12 @@ function Map() {
 
 
         axios.get(`${BASE_URL}
-              ${GET_CALLS_ALL}
-              ${this.props.match.params.lat}
-              ${this.props.match.params.long}
-              ${this.props.match.params.radius}
-              ${this.props.match.params.start}
-              ${this.props.match.params.end}`)
+              ${GET_CALLS_ALL}`,
+              {latitude: centreLat, 
+                longitude: centreLong,
+                radius: circleRadius,
+                beforeTime: startTime,
+                afterTime: endTime })
          .then(response =>{
              console.log(response.data);
              callsDataToUse = response.data;
@@ -66,12 +68,12 @@ function Map() {
 
 
          axios.get(`${BASE_URL}
-                ${GET_VEHICLES_ALL}
-                ${this.props.match.params.lat}
-                ${this.props.match.params.long}
-                ${this.props.match.params.radius}
-                ${this.props.match.params.start}
-                ${this.props.match.params.end}`)
+                ${GET_VEHICLES_ALL}`,
+                {latitude: centreLat, 
+                  longitude: centreLong,
+                  radius: circleRadius,
+                  beforeTime: startTime,
+                  afterTime: endTime })
     .then(response =>{
         console.log(response.data);
         vehicleDataToUse = response.data;
