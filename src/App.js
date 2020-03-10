@@ -60,71 +60,60 @@ export default class App extends Component {
       <Provider store={store}>
         <Router>
           <NavigationBar currentPage="Home Page" signedIn="Admin"/>
-          <Route exact path="/"  component={withRouter(HomePage)}></Route>
-          <Route
+          <Route exact path="/"  component={withRouter(Login)}></Route>
+          <Switch>
+          <PrivateRoute
+            exact path="/HomePage"
+            component={withRouter(HomePage)}
+          ></PrivateRoute>
+          <PrivateRoute
             path="/CitizenSearch"
             component={withRouter(CitizenSearch)}
-          ></Route>
-          <Route
+          ></PrivateRoute>
+          <PrivateRoute
             path="/LocationSearch"
             component={withRouter(LocationSearch)}
-          ></Route>
-          <Route
+          ></PrivateRoute>
+          <PrivateRoute
             path="/VehicleSearch"
             component={withRouter(VehicleSearch)}
-          ></Route>
-          <Route
+          ></PrivateRoute>
+          <PrivateRoute
             path="/CitizenList/:forenames/:surname"
             component={withRouter(CitizenList)}
-          ></Route>
-          <Route
+          ></PrivateRoute>
+          <PrivateRoute
             path="/VehicleList/:reg"
             component={withRouter(VehicleList)}
-          ></Route>
-          <Route
+          ></PrivateRoute>
+          <PrivateRoute
             path="/CitizenHome/:id"
             component={withRouter(HomePageCitizen)}
-          ></Route>
-          <Route
+          ></PrivateRoute>
+          <PrivateRoute
             path="/CitizenFinancials/:id"
             component={FinancialsCitizen}
-          ></Route>
-          <Route
+          ></PrivateRoute>
+          <PrivateRoute
             path="/CitizenAssociates/:id"
             component={withRouter(AssociatesCitizen)}
-          ></Route>
-          <Route
+          ></PrivateRoute>
+          <PrivateRoute
             path="/CitizenVehicles/:id"
             component={withRouter(VehicleCitizen)}
-          ></Route>
+          ></PrivateRoute>
 
-          <Route
+          <PrivateRoute
             path="/Map/:lat/:long/:radius/:beforeTime/:afterTime"
             component={withRouter(Location)}
-          ></Route>
-          {/* <Route
+          ></PrivateRoute>
+          {/* <PrivateRoute
             path="/CitizenMap/:id:/beforeTime:/afterTime"
             component={withRouter(PersonLocation)}
-          ></Route> */}
+          ></PrivateRoute> */}
+          </Switch>
         </Router>
       </Provider>
     );
   }
 }
-
-// export default class App extends Component {
-//   render() {
-//     return (
-// <Provider store={store}>
-//   <Router>
-//     <Link to="/">Home</Link>
-//     <Route exact path="/" component={Login}></Route>
-//     {/* <Route path="/loggedIn/:username" component={HomePage}></Route> */}
-//     <Switch>
-//       <PrivateRoute exact path="/loggedIn" component={HomePage} />
-//     </Switch>
-//   </Router>
-// </Provider>
-
-//   );
-// }
