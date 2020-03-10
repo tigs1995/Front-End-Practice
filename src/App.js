@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   withRouter,
-  Link,
   Switch
 } from "react-router-dom";
 import "./App.css";
@@ -60,9 +59,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <PrivateRoute>
             <NavigationBar currentPage="Home Page" signedIn="Admin"/>
-          </PrivateRoute>
           <Route exact path="/"  component={withRouter(Login)}></Route>
           <Route exact path="/register"  component={withRouter(Register)}></Route>
           <Switch>

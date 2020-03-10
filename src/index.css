@@ -40,3 +40,23 @@ caption {
 #error {
   color: red;
 }
+
+#registerLink{
+  display: block;
+  text-align: center;
+  margin-right: 45%;
+  color: black;
+}
+
+.login{
+  text-align: center;
+}
+
+#loggedInAs{
+  float: left;
+}
+
+#logout{
+  float: right;
+  margin-top: 0;
+}

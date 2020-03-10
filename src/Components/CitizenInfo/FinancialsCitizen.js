@@ -3,13 +3,17 @@ import axios from "axios";
 import Styles from "../SortingTable/Styles";
 import SortingTable from "../SortingTable/SortingTable";
 import LoadingSpinner from '../LoadingSpinner';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../Actions/authActions";
+
 import {
   BASE_URL,
   GET_BANKCARD_INFO,
   GET_CITIZEN_FINANCIALS
 } from "../../config/Constants.json";
 
-export default class FinancialsCitizen extends Component {
+class FinancialsCitizen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +29,12 @@ export default class FinancialsCitizen extends Component {
       loading: true
     };
   }
+
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+};
+
   componentDidMount(props) {
     this.setState({ citizenID: this.props.match.params.id });
     console.log("CitizenID", this.props.match.params.id);
@@ -70,8 +80,17 @@ export default class FinancialsCitizen extends Component {
   }
 
   render() {
+    const { user } = this.props.auth;
     return (
       <div>
+        <p id='loggedInAs'>You are logged in as {user.username.split(" ")[0]}</p><button id='logout'
+                style={{
+                    width: "150px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px",
+                    marginTop: "1rem"
+                }}
+                onClick={this.onLogoutClick}>Logout</button>
          
         <Styles>
           <h2>Bank cards</h2>
@@ -95,3 +114,18 @@ export default class FinancialsCitizen extends Component {
     );
   }
 }
+
+
+
+FinancialsCitizen.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(FinancialsCitizen);

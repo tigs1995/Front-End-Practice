@@ -5,9 +5,6 @@ import { logoutUser } from "../Actions/authActions";
 import "../CSS/HomePage.css";
 
 
-
-
-
 class HomePage extends React.Component {
 
     onLogoutClick = e => {
@@ -36,9 +33,16 @@ class HomePage extends React.Component {
 
     render() {
         const { user } = this.props.auth;
-        return (<div class="centreSearch">
+        return (<div className="centreSearch">
             <br />
-            <p>You are logged in as {user.username.split(" ")[0]}</p>
+            <p id='loggedInAs'>You are logged in as {user.username.split(" ")[0]}</p><button id='logout'
+                style={{
+                    width: "150px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px",
+                    marginTop: "1rem"
+                }}
+                onClick={this.onLogoutClick}>Logout</button>
             <br />
             <br />
             <br />
@@ -75,19 +79,6 @@ class HomePage extends React.Component {
             <br />
             <br />
             <p id="toggle" style={{ visibility: "hidden" }}><span></span></p>
-
-            <button
-                style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "1rem"
-                }}
-                onClick={this.onLogoutClick}
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-            >
-                Logout
-            </button>
         </div>
         );
     }
