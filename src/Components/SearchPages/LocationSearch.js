@@ -1,7 +1,6 @@
 import React from "react";
 import DateTimeRangeContainer from "react-advanced-datetimerange-picker";
 import moment from "moment";
-import DataInput from "../DataInput";
 import DateFormatter from "./DateFormatter";
 
 export default class LocationSearch extends React.Component {
@@ -52,9 +51,9 @@ export default class LocationSearch extends React.Component {
     let start = moment(
       new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0)
     );
-    let end = moment(start)
-      .add(1, "days")
-      .subtract(1, "seconds");
+    // let end = moment(start)
+    //   .add(1, "days")
+    //   .subtract(1, "seconds");
     let local = {
       format: "DD-MM-YYYY HH:mm",
       sundayFirst: false

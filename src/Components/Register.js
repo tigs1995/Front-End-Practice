@@ -63,20 +63,6 @@ render() {
                 <div className="input-field col s12">
                   <input
                     onChange={this.onChange}
-                    value={this.state.name}
-                    error={errors.name}
-                    id="name"
-                    type="text"
-                    className={classnames("", {
-                      invalid: errors.name
-                    })}
-                  />
-                  <label htmlFor="name">Name</label>
-                  <span className="red-text">{errors.name}</span>
-                </div>
-                <div className="input-field col s12">
-                  <input
-                    onChange={this.onChange}
                     value={this.state.username}
                     error={errors.username}
                     id="username"

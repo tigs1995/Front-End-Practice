@@ -30,7 +30,6 @@ export default class VehicleList extends Component {
 
   handleClick = e => {
     e.preventDefault();
-    let id = "";
     axios
       .post(`${BASE_URL}${GET_VEHICLE_INFO}`, {
         vehicleRegistrationNo: e.target.value
@@ -56,10 +55,6 @@ export default class VehicleList extends Component {
   }
 
   render() {
-    const headings = ["Vehicle Registration"];
-    const rows = this.state.vehicleList.map(vehicle => [
-      vehicle.vehicleRegistrationNo
-    ]);
 
     return (
       <div id="cardList">
