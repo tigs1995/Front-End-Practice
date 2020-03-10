@@ -29,26 +29,26 @@ import HomePageCitizen from "./Components/CitizenInfo/HomePageCitizen";
 import FinancialsCitizen from "./Components/CitizenInfo/FinancialsCitizen";
 import Header from "./Components/Header";
 import Location from "./Components/Map/Location";
-// import PersonLocation from "./Components/Map/PersonLocation";
+import PersonLocation from "./Components/Map/PersonLocation";
 
-// // Check for token to keep user logged in
-// if (sessionStorage.jwtToken) {
-//   // Set auth token header auth
-//   const token = sessionStorage.jwtToken;
-//   setAuthToken(token);
-//   // Decode token and get user info and exp
-//   const decoded = jwt_decode(token);
-//   // Set user and isAuthenticated
-//   store.dispatch(setCurrentUser(decoded));
-// // Check for expired token
-//   const currentTime = Date.now() / 1000; // to get in milliseconds
-//   if (decoded.exp < currentTime) {
-//     // Logout user
-//     store.dispatch(logoutUser());
-//     // Redirect to login
-//     window.location.href = "./login";
-//   }
-// }
+// Check for token to keep user logged in
+if (sessionStorage.jwtToken) {
+  // Set auth token header auth
+  const token = sessionStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+// Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // Redirect to login
+    window.location.href = "./login";
+  }
+}
 
 export default class App extends Component {
   render() {
@@ -56,7 +56,11 @@ export default class App extends Component {
       <Provider store={store}>
         <Router>
           <Header />
-          <Route exact path="/" component={withRouter(HomePage)}></Route>
+          <Route exact path="/" component={withRouter(Login)}></Route>
+          <Route
+            path="/HomePage"
+            component={withRouter(HomePage)}
+          ></Route>
           <Route
             path="/CitizenSearch"
             component={withRouter(CitizenSearch)}

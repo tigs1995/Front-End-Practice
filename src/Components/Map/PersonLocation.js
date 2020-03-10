@@ -145,7 +145,7 @@ export default function App (){
                     lat: centreLat,
                     lng: centreLong
                   }}
-                  radius={circleRadius}
+                  // radius={circleRadius}
                   options={{options: {
                     strokeColor: "black"}}
                   }
@@ -166,7 +166,7 @@ export default function App (){
           </div>
         </InfoWindow>
       )}
- <button onClick={() => setRadius(500000)}>heello</button>
+ {/* <button onClick={() => setRadius(500000)}>heello</button> */}
     </GoogleMap>
    
   );
