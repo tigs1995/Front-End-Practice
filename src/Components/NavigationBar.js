@@ -1,51 +1,27 @@
-import { Nav, NavDropdown } from "react-bootstrap";
+import { Nav, NavDropdown, Navbar, Form, FormControl, Button } from "react-bootstrap";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "../CSS/NavBar.css";
 
 export default class NavigationBar extends Component {
-  render() {
+constructor(props){
+  super(props);
+}
+
+  render(props) {
     return (
-      <Nav id="navigationBar">
-        <NavDropdown title="Menu" id="nav-dropdown">
-          <NavDropdown.Item eventKey="4.1">
-            <Nav.Link>
-              <Link to="/">Home</Link>
-            </Nav.Link>
-          </NavDropdown.Item>
+      <div class="topnav">
+         <a class="active" href="/">National Investigation Unit</a>
+         <a class="activeSmall">Signed in as: {this.props.signedIn}</a>
 
-          <NavDropdown.Divider />
+       
 
-          <NavDropdown.Item eventKey="4.2">
-            <Nav.Link>
-              <Link to="/CitizenSearch">Citizen search</Link>
-            </Nav.Link>
-          </NavDropdown.Item>
-
-          <NavDropdown.Divider />
-
-          <NavDropdown.Item eventKey="4.3">
-            <Nav.Link>
-              <Link to="/VehicleSearch">Vehicle search</Link>
-            </Nav.Link>
-          </NavDropdown.Item>
-
-          <NavDropdown.Divider />
-
-          <NavDropdown.Item eventKey="4.3">
-            <Nav.Link>
-              <Link to="/LocationSearch">Location search</Link>
-            </Nav.Link>
-          </NavDropdown.Item>
-
-          <NavDropdown.Divider />
-
-          <NavDropdown.Item eventKey="4.4">
-            <Nav.Link>
-              <Link to="/SignOut">Sign out</Link>
-            </Nav.Link>
-          </NavDropdown.Item>
-        </NavDropdown>
-      </Nav>
+         <a class="bold" href="#about">Sign Out</a>
+         <a href="/VehicleSearch">Vehicle Search</a>
+         <a href="/LocationSearch">Location Search</a>
+         <a  href="/CitizenSearch">Citizen Search</a> 
+         <p id="middle" >{this.props.currentPage}</p>
+      </div>
     );
   }
 }

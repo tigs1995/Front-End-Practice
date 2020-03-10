@@ -2,14 +2,74 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../Actions/authActions";
+import "../CSS/HomePage.css";
+
+
+
+
 
 export default class HomePage extends React.Component {
 
+
+
+showText = ({target: {name}}) => {
+    let x = document.getElementById("toggle");
+        x.style.visibility = "visible"
+    if (name === "Citizen"){
+        x.innerHTML = "Search for a citizen by name. \n\n Displays finances, vehicles, associates and whereabouts of the given citizen."
+    }  
+    if (name === "Vehicle"){
+        x.innerHTML = "Search for a vehicle by registration. \n\n Displays known owners and appearances."
+    } 
+    if (name === "Location"){
+        x.innerHTML = "Search for event within a given location and timeframe. \n\n Displays transactions, vehicles and calls within the parameters."
+    } 
+  }
+hideText = ({target: {name}}) => {
+    let x = document.getElementById("toggle");
+    x.style.visibility = "hidden"
+}
+
     render() {
-        return (<div>
-            <button onClick={()=> this.props.history.push("./CitizenSearch")} name="Citizen">Citizen </button>
-            <button onClick={()=> this.props.history.push("./VehicleSearch")} name="Vehicle">Vehicle</button>
-            <button onClick={()=> this.props.history.push("./LocationSearch")} name="Location">Location</button>
+        return (<div class="centreSearch">
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <h1 id="title">Homepage</h1>
+            <br/>
+            <h2>Search By:</h2>
+            <br/>
+            <br/>
+            <br/>
+            
+
+            <button id="homepageButton"
+                    onMouseOver={this.showText}
+                    onMouseOut={this.hideText} 
+                    onClick={()=> this.props.history.push("./CitizenSearch")} 
+                    name="Citizen">Citizen 
+            </button>
+         
+            <button 
+                    id="homepageButton"
+                    onMouseOver={this.showText}
+                    onMouseOut={this.hideText} 
+                    onClick={()=> this.props.history.push("./VehicleSearch")} 
+                    name="Vehicle">Vehicle</button>
+ 
+            <button 
+                    id="homepageButton"
+                    onMouseOver={this.showText}
+                    onMouseOut={this.hideText} 
+                    onClick={()=> this.props.history.push("./LocationSearch")} 
+                    name="Location">Location</button>
+<br/>
+<br/>
+            <p id="toggle" style={{visibility: "hidden"}}><span></span></p>
+
                 </div>
         );
     }
