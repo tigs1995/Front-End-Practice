@@ -6,8 +6,11 @@ import {
 } from "../../config/Constants.json";
 import axios from "axios";
 import { Card } from "react-bootstrap";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../Actions/authActions";
 
-export default class VehicleList extends Component {
+class VehicleList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +18,11 @@ export default class VehicleList extends Component {
       citizenID: ""
     };
   }
+
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+};
 
   componentDidMount(props) {
     axios
@@ -55,7 +63,7 @@ export default class VehicleList extends Component {
   }
 
   render() {
-
+    const { user } = this.props.auth;
     return (
       <div id="cardList">
         <h4>Please choose a vehicle to view more information:</h4>
@@ -78,3 +86,16 @@ export default class VehicleList extends Component {
     );
   }
 }
+
+VehicleList.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(VehicleList);
