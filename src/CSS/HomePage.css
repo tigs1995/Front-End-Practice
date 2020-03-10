@@ -24,7 +24,7 @@
     background-color: rgb(165, 239, 252);
 }
 
-#toggle, span {
+#toggle {
     background: rgba(255, 255, 255, 0.692);
     border: 1px black solid;
     padding: 10px;

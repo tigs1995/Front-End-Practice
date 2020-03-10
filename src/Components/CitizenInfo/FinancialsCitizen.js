@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import Styles from "../SortingTable/Styles";
 import SortingTable from "../SortingTable/SortingTable";
-
+import LoadingSpinner from '../LoadingSpinner';
 import {
-  GET_ATM_INFO,
   BASE_URL,
-  GET_EPOS_INFO,
-  GET_BANKCARD_INFO
+  GET_BANKCARD_INFO,
+  GET_CITIZEN_FINANCIALS
 } from "../../config/Constants.json";
 
 export default class FinancialsCitizen extends Component {
@@ -20,22 +19,27 @@ export default class FinancialsCitizen extends Component {
       bankCards: [],
       EPOSTransactions: [],
       ATMTransactions: [],
-      error: ""
+      bankCardError: "",
+      EPOSError: "",
+      ATMError: "",
+      loading: true
     };
   }
   componentDidMount(props) {
     this.setState({ citizenID: this.props.match.params.id });
     console.log("CitizenID", this.props.match.params.id);
 
-    // axios
-    //   .post(`${BASE_URL}${GET_EPOS_INFO}${this.state.citizenID}`)
-    //   .then(response => {
-    //     if (response.data.Error) {
-    //       console.log(response.data.Error);
-    //     } else {
-    //       this.setState({ EPOSTransactions: response.data });
-    //     }
-    //   });
+    axios
+      .post(`${BASE_URL}${GET_CITIZEN_FINANCIALS}`, {citizenID: this.props.match.params.id, eposOrAtm: "epos"})
+      .then(response =>  {
+        if (response.data.Error) {
+          console.log(response.data.Error);
+        } else if (response.data.Warning) {
+          this.setState({ EPOSError: response.data.Warning });
+        }else {
+          this.setState({ loading: false, EPOSTransactions: response.data });
+        }
+      });
 
     axios
       .post(`${BASE_URL}${GET_BANKCARD_INFO}`, {
@@ -45,31 +49,47 @@ export default class FinancialsCitizen extends Component {
         if (response.data.Error) {
           console.log(response.data.Error);
         } else if (response.data.Warning) {
-          this.setState({ error: response.data.Warning });
+          this.setState({ bankCardError: response.data.Warning });
         } else {
           console.log("Bank cards", response.data);
           this.setState({ bankCards: response.data });
         }
       });
 
-    // axios
-    //   .get(`${BASE_URL}${GET_ATM_INFO}${this.state.citizenID}`)
-    //   .then(response => {
-    //     if (response.data.Error) {
-    //       console.log(response.data.Error);
-    //     } else {
-    //       this.setState({ ATMTransactions: response.data });
-    //     }
-    //   });
+    axios
+      .get(`${BASE_URL}${GET_CITIZEN_FINANCIALS}`, {citizenID: this.props.match.params.id, eposOrAtm: "atm"})
+      .then(response => {
+        if (response.data.Error) {
+          console.log(response.data.Error);
+        } else if (response.data.Warning) {
+          this.setState({ ATMError: response.data.Warning });
+        }else {
+          this.setState({ ATMTransactions: response.data });
+        }
+      });
   }
 
   render() {
     return (
       <div>
+         
         <Styles>
           <h2>Bank cards</h2>
-          <span id="error">{this.state.error}</span>
-          <SortingTable data={this.state.bankCards} />
+          <span id="error">{this.state.bankCardError}</span>
+          {this.state.loading ? <LoadingSpinner /> :
+          <SortingTable data={this.state.bankCards} />}
+        </Styles>
+        <Styles>
+          <h2>EPOS information</h2>
+          <span id="error">{this.state.EPOSError}</span>
+          {this.state.loading ? <LoadingSpinner /> :
+          <SortingTable data={this.state.EPOSTransactions} />}
+        </Styles>
+        <Styles>
+          <h2>ATM information</h2>
+          <span id="error">{this.state.ATMError}</span>
+          {this.state.loading ? <LoadingSpinner /> :
+          <SortingTable data={this.state.ATMTransactions} />}
         </Styles>
       </div>
     );
