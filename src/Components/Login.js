@@ -15,6 +15,22 @@ class Login extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.auth.isAuthenticated) {
+            this.props.history.push("/HomePage"); // push user to dashboard when they login
+        }
+        if (nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
+        if (nextProps.errors) {
+            this.setState({
+              errors: nextProps.errors
+            });
+          }
+    }
+
     componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
@@ -29,7 +45,6 @@ class Login extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-
         const userData = {
             username: this.state.username,
             password: this.state.password
@@ -37,21 +52,6 @@ class Login extends Component {
         this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
 
     }
-
-
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/HomePage"); // push user to dashboard when they login
-        }
-        if (nextProps.errors) {
-            this.setState({
-                errors: nextProps.errors
-            });
-        }
-    }
-
-
 
     render() {
         const { errors } = this.state;
@@ -72,8 +72,8 @@ class Login extends Component {
                                     invalid: errors.email || errors.emailnotfound
                                 })} />
                                 <span className="red-text">
-                                    {errors.email}
-                                    {errors.emailnotfound}
+                                    {errors.username}
+                                    {errors.usernamenotfound}
                                 </span>
                             </div>
                             <div className="input-field col s12">

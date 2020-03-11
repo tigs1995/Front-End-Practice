@@ -15,11 +15,11 @@ class NavigationBar extends Component {
     const { user } = this.props.auth;
     return auth.isAuthenticated ?
       <div className="topnav">
-        <a id='navbarA' href="/VehicleSearch">Vehicle Search</a>
-        <a id='navbarA' href="/LocationSearch">Location Search</a>
-        <a id='navbarA' href="/CitizenSearch">Citizen Search</a>
+        <a id='signOut' onClick={this.onLogoutClick}>Sign Out</a>
+        <a href="/VehicleSearch">Vehicle Search</a>
+        <a href="/LocationSearch">Location Search</a>
+        <a href="/CitizenSearch">Citizen Search</a>
         {/* <p id="middle" >{this.props.currentPage}</p> */}
-        <button className="logout" onClick={this.onLogoutClick}>Sign Out</button>
         <p id='signedInAs'>Signed in as: {user.username.split(" ")[0]}</p>
       </div>
       :

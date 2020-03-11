@@ -22,11 +22,7 @@ export const loginUser = userData => dispatch => {
     axios
         .post("http://localhost:8080/login", userData)
         .then(res => {
-            // Save to sessionStorage
-
-            // Set token to sessionStorage
-            console.log(res.data.token);
-            // const { token } = res.data.token;
+            if(res.data.token){
             sessionStorage.setItem("jwtToken", res.data.token);
             // Set token to Auth header
             setAuthToken(res.data.token);
@@ -34,6 +30,10 @@ export const loginUser = userData => dispatch => {
             const decoded = jwt_decode(res.data.token);
             // Set current user
             dispatch(setCurrentUser(decoded));
+            }
+            else{
+                console.log(res);
+            }
         })
         .catch(err =>{
             console.log(err);
