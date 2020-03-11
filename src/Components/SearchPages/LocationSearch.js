@@ -2,11 +2,8 @@ import React from "react";
 import DateTimeRangeContainer from "react-advanced-datetimerange-picker";
 import moment from "moment";
 import DateFormatter from "./DateFormatter";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { logoutUser } from "../../Actions/authActions";
 
-class LocationSearch extends React.Component {
+export default class LocationSearch extends React.Component {
   constructor(props) {
     super(props);
     let now = new Date();
@@ -26,11 +23,6 @@ class LocationSearch extends React.Component {
 
     this.applyCallback = this.applyCallback.bind(this);
   }
-
-  onLogoutClick = e => {
-    e.preventDefault();
-    this.props.logoutUser();
-};
 
   applyCallback(startDate, endDate) {
     this.setState({
@@ -53,7 +45,6 @@ class LocationSearch extends React.Component {
   };
 
   render() {
-    const { user } = this.props.auth;
     let startDisplay = new Date(this.state.start);
     let endDisplay = new Date(this.state.end);
     let now = new Date();
@@ -118,16 +109,3 @@ class LocationSearch extends React.Component {
   }
 }
 
-
-LocationSearch.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export default connect(
-  mapStateToProps,
-  { logoutUser }
-)(LocationSearch);

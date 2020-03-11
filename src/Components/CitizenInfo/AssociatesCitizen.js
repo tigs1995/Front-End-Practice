@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Styles from "../SortingTable/Styles";
 import SortingTable from "../SortingTable/SortingTable";
+import LoadingSpinner from '../LoadingSpinner';
 
 import {
   BASE_URL,
@@ -58,7 +59,8 @@ export default class AssociatesCitizen extends Component {
         <Styles>
           <h2>Associates</h2>
           <span id="error">{this.state.vehicleError}</span>
-          <SortingTable data={this.state.associates} />
+          {this.state.loading ? <LoadingSpinner /> :
+          <SortingTable data={this.state.associates} />}
         </Styles>
       </div>
     );

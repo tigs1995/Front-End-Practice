@@ -3,10 +3,6 @@ import axios from 'axios';
 import DataInput from '../DataInput';
 import { CHECK_EXISTING_CITIZEN, BASE_URL } from '../../config/Constants.json';
 import styled from 'styled-components';
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { logoutUser } from "../../Actions/authActions";
-
 
 const Styles = styled.div`
   div {
@@ -35,10 +31,7 @@ const Button = styled.button`
   border: 2px solid ${props => props.theme.main};
 `;
 
-    
-
-
-class CitizenSearch extends Component {
+export default class CitizenSearch extends Component {
     
     constructor(props) {
         super(props);
@@ -48,12 +41,6 @@ class CitizenSearch extends Component {
             errorMessage: null
         }
     }
-
-    
-    onLogoutClick = e => {
-        e.preventDefault();
-        this.props.logoutUser();
-    };
 
     handleChange = ({ target }) => {
         this.setState({ [target.name]: target.value });
@@ -76,7 +63,6 @@ class CitizenSearch extends Component {
 
 
     render() {
-        const { user } = this.props.auth;
         return (
            <Styles>
                <div>
@@ -94,16 +80,3 @@ class CitizenSearch extends Component {
         )
     }
 }
-
-CitizenSearch.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth
-});
-
-export default connect(
-    mapStateToProps,
-    { logoutUser }
-)(CitizenSearch);
