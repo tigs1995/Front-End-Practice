@@ -24,6 +24,7 @@ export default class LocationSearch extends React.Component {
     this.applyCallback = this.applyCallback.bind(this);
   }
 
+
   applyCallback(startDate, endDate) {
     this.setState({
       start: startDate,
@@ -45,6 +46,7 @@ export default class LocationSearch extends React.Component {
   };
 
   render() {
+
     let startDisplay = new Date(this.state.start);
     let endDisplay = new Date(this.state.end);
     let now = new Date();
@@ -108,4 +110,5 @@ export default class LocationSearch extends React.Component {
     );
   }
 }
+
 
