@@ -34,7 +34,10 @@ export default class Register extends Component {
       username: this.state.username,
       password: this.state.password
     };
-    if(!this.state.password===this.state.password2){
+    console.log(this.state.password);
+    console.log(this.state.password2);
+    if(this.state.password !== this.state.password2){
+      console.log("Dont match");
       this.setState({error: 'Passwords do not match.'})
     }
     else{
@@ -53,15 +56,15 @@ export default class Register extends Component {
       <div className="login">
         <h4> <b>Register</b> below</h4>
         <form onSubmit={this.onSubmit}>
-          <input minlength='5' placeholder='Username' onChange={this.onChange} value={this.state.username} id="username" type="username" />
+          <input minLength='5' placeholder='Username' onChange={this.onChange} value={this.state.username} id="username" type="username" />
           <br />
-          <input minlength='5' placeholder='Password' onChange={this.onChange} value={this.state.password}  id="password" type="password" />
+          <input minLength='5' placeholder='Password' onChange={this.onChange} value={this.state.password}  id="password" type="password" />
           <br />
-          <input minlength='5' placeholder='Confirm password' onChange={this.onChange} value={this.state.password2}  id="password2" type="password" />
+          <input minLength='5' placeholder='Confirm password' onChange={this.onChange} value={this.state.password2}  id="password2" type="password" />
           <br />
-          <button type="submit"> Sign up </button>
+          <button>Sign up</button>
           <br/>
-          <span id='error'>{this.state.userNotFound}</span>
+          <span id='error'>{this.state.error}</span>
           <br/>
         </form>
         <p className="grey-text text-darken-1">Already have an account? </p>
