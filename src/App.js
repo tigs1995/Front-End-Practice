@@ -31,7 +31,7 @@ import FinancialsCitizen from "./Components/CitizenInfo/FinancialsCitizen";
 import Location from "./Components/Map/Location";
 
 import NavigationBar from "./Components/NavigationBar";
-// import PersonLocation from "./Components/Map/PersonLocation";
+import PersonLocation from "./Components/Map/PersonLocation";
 
 // Check for token to keep user logged in
 if (sessionStorage.jwtToken) {
@@ -59,7 +59,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-            <NavigationBar currentPage="Home Page" signedIn="Admin"/>
+        <NavigationBar currentPage="Home Page" signedIn="Admin"/>
           <Route exact path="/"  component={withRouter(Login)}></Route>
           <Route exact path="/register"  component={withRouter(Register)}></Route>
           <Switch>
@@ -108,10 +108,10 @@ export default class App extends Component {
             path="/Map/:lat/:long/:radius/:beforeTime/:afterTime"
             component={withRouter(Location)}
           ></PrivateRoute>
-          {/* <PrivateRoute
-            path="/CitizenMap/:id:/beforeTime:/afterTime"
+          <PrivateRoute
+            path="/CitizenMap/:id/:beforeTime/:afterTime"
             component={withRouter(PersonLocation)}
-          ></PrivateRoute> */}
+          ></PrivateRoute>
           </Switch>
         </Router>
       </Provider>

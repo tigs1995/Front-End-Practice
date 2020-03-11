@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Styles from "../SortingTable/Styles";
 import SortingTable from "../SortingTable/SortingTable";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { logoutUser } from '../../Actions/authActions';
+import LoadingSpinner from '../LoadingSpinner';
 
 import {
   BASE_URL,
@@ -12,7 +10,7 @@ import {
 } from "../../config/Constants.json";
 import axios from "axios";
 
-class AssociatesCitizen extends Component {
+export default class AssociatesCitizen extends Component {
   constructor(props) {
     super(props);
 
@@ -22,11 +20,6 @@ class AssociatesCitizen extends Component {
       errorMessage: ""
     };
   }
-
-  onLogoutClick = e => {
-    e.preventDefault();
-    this.props.logoutUser();
-};
 
   componentDidMount() {
     this.setState({ citizenID: this.props.match.params.id });
@@ -60,16 +53,14 @@ class AssociatesCitizen extends Component {
   }
 
   render() {
-    const { user } = this.props.auth;
     return (
       <div>
-        <p id='loggedInAs'>You are logged in as {user.username.split(" ")[0]}</p>
-        <button id='logout' onClick={this.onLogoutClick}>Logout</button>
         <p>Associates of: {this.state.citizenBeingSearched}</p>
         <Styles>
           <h2>Associates</h2>
           <span id="error">{this.state.vehicleError}</span>
-          <SortingTable data={this.state.associates} />
+          {this.state.loading ? <LoadingSpinner /> :
+          <SortingTable data={this.state.associates} />}
         </Styles>
       </div>
     );
@@ -77,15 +68,3 @@ class AssociatesCitizen extends Component {
 }
 
 
-AssociatesCitizen.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export default connect(
-  mapStateToProps,
-  { logoutUser }
-)(AssociatesCitizen);

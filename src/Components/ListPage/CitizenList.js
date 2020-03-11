@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { CITIZEN_LIST, BASE_URL } from '../../config/Constants.json';
 import { Card } from "react-bootstrap";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { logoutUser } from "../../Actions/authActions";
 
-class CitizenList extends Component {
+export default class CitizenList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,11 +13,6 @@ class CitizenList extends Component {
             ]
         }
     }
-
-    onLogoutClick = e => {
-        e.preventDefault();
-        this.props.logoutUser();
-    };
 
     componentDidMount(props) {
         this.setState({forenames: this.props.match.params.forenames});
@@ -57,7 +49,6 @@ class CitizenList extends Component {
     }
 
 render() {
-    const { user } = this.props.auth;
     return (
         <div id='cardList'>
             <h4>You searched for: {this.state.forenames} {this.state.surname}</h4>
@@ -67,24 +58,10 @@ render() {
                     <Card.Body>
                         <Card.Title>Citizen ID: {citizen.citizenID}</Card.Title>
                         <Card.Text>{citizen.forenames} {citizen.surname}</Card.Text>
-                        <button className='cardButton' value={citizen.citizenID} onClick={this.handleClick}>Submit</button>
+                        <button className='cardButton' value={citizen.citizenID} onClick={this.handleClick}>Select</button>
                     </Card.Body>
                 </Card>)}
         </div>
     );
 }
 }
-
-
-CitizenList.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth
-});
-
-export default connect(
-    mapStateToProps,
-    { logoutUser }
-)(CitizenList);
