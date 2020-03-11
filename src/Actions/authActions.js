@@ -5,45 +5,17 @@ import {
     GET_ERRORS,
     SET_CURRENT_USER,
 } from "./types";
-// Register User
-export const registerUser = (userData, history) => dispatch => {
-    axios
-        .post("http://localhost:8080/login/create", userData)
-        .then(res => history.push("/")) // re-direct to login on successful register
-        .catch(err =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            })
-        );
-};
-// Login - get user token
-export const loginUser = userData => dispatch => {
-    axios
-        .post("http://localhost:8080/login", userData)
-        .then(res => {
-            if(res.data.token){
-            sessionStorage.setItem("jwtToken", res.data.token);
-            // Set token to Auth header
-            setAuthToken(res.data.token);
-            // Decode token to get user data
-            const decoded = jwt_decode(res.data.token);
-            // Set current user
-            dispatch(setCurrentUser(decoded));
-            }
-            else{
-                console.log(res);
-            }
-        })
-        .catch(err =>{
-            console.log(err);
-        }
-            // dispatch({
-            //     type: GET_ERRORS,
-            //     payload: err.res.data
-            // })
-        );
-};
+
+export const loginUser = token => dispatch => {
+    sessionStorage.setItem("jwtToken", token);
+    // Set token to Auth header
+    setAuthToken(token);
+    // Decode token to get user data
+    const decoded = jwt_decode(token);
+    // Set current user
+    dispatch(setCurrentUser(decoded));
+}
+
 // Set logged in user
 export const setCurrentUser = decoded => {
     return {
