@@ -60,3 +60,7 @@ caption {
   float: right;
   margin-top: 0;
 }
+
+#signedInAs{
+  color: white;
+}

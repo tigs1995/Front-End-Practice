@@ -1,17 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { logoutUser } from "../Actions/authActions";
 import "../CSS/HomePage.css";
 
-
-class HomePage extends React.Component {
-
-    onLogoutClick = e => {
-        e.preventDefault();
-        this.props.logoutUser();
-    };
-
+export default class HomePage extends React.Component {
 
     showText = ({ target: { name } }) => {
         let x = document.getElementById("toggle");
@@ -32,17 +22,8 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const { user } = this.props.auth;
         return (<div className="centreSearch">
             <br />
-            <p id='loggedInAs'>You are logged in as {user.username.split(" ")[0]}</p><button id='logout'
-                style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "1rem"
-                }}
-                onClick={this.onLogoutClick}>Logout</button>
             <br />
             <br />
             <br />
@@ -54,7 +35,6 @@ class HomePage extends React.Component {
             <br />
             <br />
             <br />
-
 
             <button id="homepageButton"
                 onMouseOver={this.showText}
@@ -84,15 +64,15 @@ class HomePage extends React.Component {
     }
 }
 
-HomePage.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth
-});
+// HomePage.propTypes = {
+//     logoutUser: PropTypes.func.isRequired,
+//     auth: PropTypes.object.isRequired
+// };
+// const mapStateToProps = state => ({
+//     auth: state.auth
+// });
 
-export default connect(
-    mapStateToProps,
-    { logoutUser }
-)(HomePage);
+// export default connect(
+//     mapStateToProps,
+//     { logoutUser }
+// )(HomePage);

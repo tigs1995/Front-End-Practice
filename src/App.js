@@ -59,7 +59,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-            <NavigationBar currentPage="Home Page" signedIn="Admin"/>
+        <NavigationBar currentPage="Home Page" signedIn="Admin"/>
           <Route exact path="/"  component={withRouter(Login)}></Route>
           <Route exact path="/register"  component={withRouter(Register)}></Route>
           <Switch>
