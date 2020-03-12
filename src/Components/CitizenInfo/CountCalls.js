@@ -3,28 +3,38 @@ function CountCalls(arr) {
   let outboundCalls = arr.outboundCallAssociates;
   let citizenArray = [];
   let citizenSet = new Set();
-  let numOfCalls = new Set();
+  let numOfCalls = [];
+  let output = [];
 
   for (let i = 0; i < inboundCalls.length; i++) {
-    citizenArray.push(inboundCalls[i]);
-    citizenSet.add(inboundCalls[i]);
+    let citizen = inboundCalls[i].citizenID;
+    citizenArray.push(inboundCalls[i].citizenID);
+    citizenSet.add(inboundCalls[i].citizenID);
   }
+
   for (let i = 0; i < outboundCalls.length; i++) {
-    citizenArray.push(inboundCalls[i]);
-    citizenSet.add(inboundCalls[i]);
+    citizenArray.push(inboundCalls[i].citizenID);
+    citizenSet.add(inboundCalls[i].citizenID);
   }
 
-  for (let i = 0; i < citizenSet.length; i++){
-    numOfCalls.add(0);
+  for (let i = 0; i < citizenSet.size; i++){
+    numOfCalls.push(0);
   }
 
-  for (let i = 0; i < citizenSet.length; i++) {
-    for (let n of citizenArray) {
-      if (n == citizenSet[i]) {
-        numOfCalls[i]++;
+  let citizenArrayNew = Array.from(citizenSet);
+
+  for (let n = 0; n < citizenArrayNew.length; n++) {
+    for (let n = 0; n < citizenArray.length; n++) {
+      if (citizenArray[n] === citizenArrayNew[n]) {
+        numOfCalls[n]++;
       }
     }
   }
+
+  for(let i = 0; i < citizenArrayNew.length; i++){
+    output.push({"Citizen ID": citizenArrayNew[i], "Number Of Calls": numOfCalls[i]})
+  }
+  return output;
 }
 
 export default CountCalls;
