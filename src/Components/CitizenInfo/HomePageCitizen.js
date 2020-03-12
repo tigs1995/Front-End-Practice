@@ -43,6 +43,9 @@ export default class HomePageCitizen extends Component {
   };
 
   handleClick = ({ target: { name } }) => {
+    console.log(this.state.lastWeeksDate);
+    console.log(this.state.todaysDate);
+    console.log(this.state.citizenID);
     if (name === "vehicles") {
       this.props.history.push(`/CitizenVehicles/${this.state.citizenID}`);
     }
@@ -75,7 +78,7 @@ export default class HomePageCitizen extends Component {
         <button onClick={this.handleClick} name="financials">
           Financials
         </button>
-        <button name="whereabouts">Whereabouts</button>
+        <button onClick={this.handleClick} name="whereabouts">Whereabouts</button>
         <button onClick={this.handleClick} name="associates">
           Associates
         </button>
