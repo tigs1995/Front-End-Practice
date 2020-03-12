@@ -41,7 +41,7 @@ export default class LocationSearch extends React.Component {
     let startDate = DateFormatter(this.state.start);
     let endDate = DateFormatter(this.state.end);
     this.props.history.push(
-      `Map/${this.state.latitude}/${this.state.longitude}/${this.state.radius}/${startDate}/${endDate}`
+      `Map/${this.state.radius}/${this.state.latitude}/${this.state.longitude}/${startDate}/${endDate}`
     );
   };
 
@@ -81,6 +81,7 @@ export default class LocationSearch extends React.Component {
         <br />
         <form onSubmit={this.handleSubmit}>
           <input
+          step='0.01'
             type="number"
             min="-90"
             max="90"
@@ -89,6 +90,7 @@ export default class LocationSearch extends React.Component {
             onChange={this.handleChange}
           ></input>
           <input
+                    step='0.01'
             type="number"
             min="-180"
             max="180"

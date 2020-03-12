@@ -10,7 +10,7 @@ import {
 import mapStyles from "./mapStyles";
 
 function Map(props) {
-  let { latitude, longitude, radius, beforeTime, afterTime } = props;
+  let { lat, long, radius, beforeTime, afterTime } = props;
   let {
     financialDataToUseEpos,
     financiaDataToUseAtm,
@@ -18,6 +18,7 @@ function Map(props) {
     callDataToUseOutbound,
     vehicleDataToUse
   } = props;
+  console.log(vehicleDataToUse);
   const [selectedPin, setSelectedPin] = useState(null);
 
   useEffect(() => {
@@ -52,15 +53,15 @@ function Map(props) {
         setSelectedPin(props);
       }}
       defaultZoom={10}
-      defaultCenter={{ lat: +latitude, lng: +longitude }}
+      defaultCenter={{ lat: +lat, lng: +long }}
       defaultOptions={{ styles: mapStyles }}
     >
       {vehicleDataToUse.map(vehicle => (
         <Marker
-        //   key={vehicle.citizenID}
+          key={vehicle.vehicleRegistrationNo}
           position={{
-            lat: +vehicle.latitude + 1,
-            lng: +vehicle.longitude + 1
+            lat: +(vehicle.latitude ),
+            lng: +(vehicle.longitude)
           }}
           icon={vehicleIcon}
           onClick={() => {
@@ -69,7 +70,7 @@ function Map(props) {
         />
       ))}
 
-      {callDataToUseInbound.map(call => (
+      {/* {callDataToUseInbound.map(call => (
         <Marker
         //   key={call.citizenID}
           position={{
@@ -122,14 +123,14 @@ function Map(props) {
           onClick={() => {
             setSelectedPin(finance);
           }}
-        />
-      ))}
+        /> */}
+      {/* ))} */}
       <Circle
         defaultCenter={{
-          lat: +latitude,
-          lng: +longitude
+          lat: +lat,
+          lng: +long
         }}
-        radius={+radius}
+        radius={+radius*1000}
         options={{
           options: {
             strokeColor: "black"

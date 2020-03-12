@@ -105,7 +105,7 @@ export default class App extends Component {
           ></PrivateRoute>
 
           <PrivateRoute
-            path="/Map/:lat/:long/:radius/:beforeTime/:afterTime"
+            path="/Map/:radius/:lat/:long/:afterTime/:beforeTime"
             component={withRouter(Location)}
           ></PrivateRoute>
           <PrivateRoute
