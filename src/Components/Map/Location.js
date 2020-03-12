@@ -1,120 +1,170 @@
 import React from "react";
 import axios from "axios";
-import { BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL, MAP_URL } from "../../config/Constants.json";
+import {
+  BASE_URL,
+  GET_FINANCIALS_ALL,
+  GET_CALLS_ALL,
+  GET_VEHICLES_ALL,
+  MAP_URL
+} from "../../config/Constants.json";
 import MapWrapped from "./MapComponent";
+
 import SpinnerOverlay from '../SpinnerOverlay';
 import AccordianSide from "../AccordianSideBar/Accordian";
-
 
 export default class Location extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lat: 0,
-      long: 0,
+      latitude: 0,
+      longitude: 0,
       radius: 0,
+      inboundOrOutbound: "inbound",
       beforeTime: "",
       afterTime: "",
       vehicleDataToUse: [],
-      callDataToUse: [],
-      financialDataToUse: [],
+      callDataToUseInbound: [],
+      callDataToUseOutbound: [],
+      financialDataToUseEpos: [],
+      financialDataToUseAtm: [],
       loading: true,
       vehicleFilter: 1,
       callsFilter: 1,
       financeFilter: 1
     }
+
   }
 
+  axiosRequests = async choice => {
+    // const searchDetails = {
+    //   latitude: 57,
+    //   longitude: -90,
+    //   radius: 10,
+    //   inboundOrOutbound: "inbound",
+    //   afterTime: "2014-02-20T0:0:0Z",
+    //   beforeTime: "2020-02-11T23:59:59Z"
+    // };
 
-  axiosRequests = async (choice) => {
-    const searchDetails = {
-      "latitude": 57,
-      "longitude": -90,
-      "radius": 10,
-      "afterTime": "2014-02-20T0:0:0Z",
-      "beforeTime": "2020-02-11T23:59:59Z"
+    if (choice === "vehicle") {
+      
+      await axios.post(`${BASE_URL}${GET_VEHICLES_ALL}`, {
+        radius: this.props.match.params.radius,
+        latitude: this.props.match.params.lat,
+        longitude: this.props.match.params.long,
+        afterTime: this.props.match.params.afterTime,
+        beforeTime: this.props.match.params.beforeTime
+      }).then(response => {
+        if(response.data.Exception){
+          this.setState({vehicleDataToUse: []})
+        }
+        else if (response.data.Warning){
+          this.setState({vehicleDataToUse: []})
+        }
+        else{
+          this.setState({  loading: false, vehicleDataToUse: response.data })
+        console.log(response.data);
+        }
+        
+      });
     }
-    let response = [
-      {"citizenID": 4, latitude:52.70225113709832 , longitude: -2.0368518763076935},
-      {"citizenID": 5, latitude:57.88098926576203 , longitude: -4.034929812735241},
-      {"citizenID": 6, latitude:56.008258223718215 , longitude: -3.6839238260073324},
-      {"citizenID": 7, latitude:56.0220524152082 , longitude: -3.9185647797263736},
-      {"citizenID": 8, latitude:53.45706016101823 , longitude: -2.9149797465275173},
-      {"citizenID": 9, latitude:52.70225113709832 , longitude: -1.2654176264722115}
-      ];
-    
-
-    if (choice === "vehicle"){
-      console.log("axios started");
-      //const response = await axios.post(`${BASE_URL}${GET_VEHICLES_ALL}`, searchDetails);
-      return response;
-    }
-    if (choice === "call"){
-      console.log("axios started");
-       //const response = await axios.post(`${BASE_URL}${GET_CALLS_ALL}`, searchDetails);
-       return response;
-    }
-    if (choice === "finance"){
-      console.log("axios started");
-      //const response = await axios.post(`${BASE_URL}${GET_FINANCIALS_ALL}`, searchDetails);
-      return response;
-    }
-    console.log("axios finished");
-    //console.log(response.data);
-    
-    return response;
-  }
-
+      // if (choice === "callInbound") {
+      //   await axios.post(`${BASE_URL}${GET_CALLS_ALL}`, {
+      //     radius: this.props.match.params.radius,
+      //   lat: this.props.match.params.lat,
+      //   long: this.props.match.params.long,
+      //   inboundOrOutbound: "inbound",
+      //   afterTime: this.props.match.params.afterTime,
+      //   beforeTime: this.props.match.params.beforeTime
+      //   }).then(response => {
+      //     this.setState({  callDataToUseInbound: response.data })
+      //     console.log(response.data);
+      //   });
+      // }
+      // if (choice === "callOutbound") {
+      //   console.log("axios started");
+      //   await axios.post(`${BASE_URL}${GET_CALLS_ALL}`, {
+      //     radius: this.props.match.params.radius,
+      //   lat: this.props.match.params.lat,
+      //   long: this.props.match.params.long,
+      //   inboundOrOutbound: "outbound",
+      //   afterTime: this.props.match.params.afterTime,
+      //   beforeTime: this.props.match.params.beforeTime
+      //   }).then(response => {
+      //     this.setState({ callDataToUseOutbound: response.data })
+      //     console.log(response.data);
+      //   });
+      // }
+      // if (choice === "financeEpos") {
+      //   console.log("axios started");
+      //   await axios.post(`${BASE_URL}${GET_FINANCIALS_ALL}`, {
+      //     radius: this.props.match.params.radius,
+      //   lat: this.props.match.params.lat,
+      //   long: this.props.match.params.long,
+      //   eposOrAtm: "epos",
+      //   afterTime: this.props.match.params.afterTime,
+      //   beforeTime: this.props.match.params.beforeTime
+      //   }).then(response => {
+      //     this.setState({  financialDataToUseEpos: response.data })
+      //     console.log(response.data);
+      //   });
+      // }
+      // if (choice === "financeAtm") {
+      //   console.log("axios started");
+      //   await axios.post(`${BASE_URL}${GET_FINANCIALS_ALL}`, {
+      //     radius: this.props.match.params.radius,
+      //   lat: this.props.match.params.lat,
+      //   longe: this.props.match.params.long,
+      //   eposOrAtm: "atm",
+      //   afterTime: this.props.match.params.afterTime,
+      //   beforeTime: this.props.match.params.beforeTime
+      //   }).then(response => {
+      //     this.setState({ loading: false, financialDataToUseAtm: response.data })
+      //     console.log(response.data);
+      //   });
+      // }
+  };
 
   componentDidMount() {
-    this.axiosRequests("vehicle").then(vehicleDataToUse => {
-      this.setState({
-        ...this.props.match.params,
-        vehicleDataToUse,
-      });
-    });
+    this.axiosRequests("vehicle");
+    console.log("VEHICLE", this.state.vehicleDataToUse)
+  
+    // this.axiosRequests("callInbound");
+    // console.log("CALL INBOUND", this.state.callDataToUseInbound)
 
-    this.axiosRequests("call").then(callDataToUse => {
-      this.setState({
-        callDataToUse,
-      });
-    });
-    
-    this.axiosRequests("finance").then(financialDataToUse => {
-      this.setState({
-        financialDataToUse,
-        loading: false
-      });
-    });
+    // this.axiosRequests("callOutbound");
+    // console.log("CALL OUTBOUND",this.state.callDataToUseOutbound)
 
-     }
-     handleFinanceChange = (trueOrFalse) => {this.setState({financeFilter:trueOrFalse})}
+
+    // this.axiosRequests("financeEpos");
+    // console.log("FINANCE EPOS", this.state.financialDataToUseEpos)
+
+    // this.axiosRequests("financeAtm");
+    // console.log("FINANCE ATM",this.state.financialDataToUseAtm)
+  }
+handleFinanceChange = (trueOrFalse) => {this.setState({financeFilter:trueOrFalse})}
      handleCallsChange = (trueOrFalse) => {this.setState({callsFilter:trueOrFalse})}
      handleVehicleChange = (trueOrFalse) => {this.setState({vehicleFilter:trueOrFalse})}
 
   render() {
     return (<div style={{display:"inline-block"}}>
-
-      <div style={{ width: "calc(100vw - 30vw)", height: "calc(100vh - 64px)", float: "left" }}>
-        <MapWrapped 
-        {...this.props.match.params}
-        history={this.props.history}
-        vehicleDataToUse={this.state.vehicleDataToUse}
-        callDataToUse={this.state.callDataToUse}
-        financialDataToUse={this.state.financialDataToUse}
-        vehicleFilter={this.state.vehicleFilter}
+      <div style={{ width: "100vw", height: "calc(100vh - 64px)" }}>
+        {this.state.loading ? <SpinnerOverlay /> : <MapWrapped
+          {...this.props.match.params}
+          history={this.props.history}
+          vehicleDataToUse={this.state.vehicleDataToUse}
+          // callDataToUseInbound={this.state.callDataToUseInbound}
+          // callDataToUseOutbound={this.state.callDataToUseInbound}
+          // financialDataToUseEpos={this.state.financialDataToUseEpos}
+          // financialDataToUseAtm={this.state.financialDataToUseAtm}
+      vehicleFilter={this.state.vehicleFilter}
         callsFilter={this.state.callsFilter}
         financeFilter={this.state.financeFilter}
-        googleMapURL={MAP_URL}
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `100%` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-      />
-      { this.state.loading && <SpinnerOverlay /> }
-     
-      </div>
-
-        <div style={{float:"right", width: "29vw"}}>
+          googleMapURL={MAP_URL}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `100%` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />} </div>
+             <div style={{float:"right", width: "29vw"}}>
           <AccordianSide {
             ...this.props.match.params} 
             onFinanceChange={this.handleFinanceChange}
@@ -122,7 +172,6 @@ export default class Location extends React.Component {
             onVehicleChange={this.handleVehicleChange}
             handleSubmit={this.handleSubmit}/>
         </div>
-                      
       </div>
     );
   }
