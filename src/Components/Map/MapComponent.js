@@ -8,9 +8,6 @@ import {
   Circle
 } from "react-google-maps";
 import mapStyles from "./mapStyles";
-import "../../CSS/Location.css"
-
-
 function Map(props) {
   let { lat, long, radius, beforeTime, afterTime } = props;
   let {
@@ -22,8 +19,6 @@ function Map(props) {
   } = props;
   console.log(vehicleDataToUse);
   const [selectedPin, setSelectedPin] = useState(null);
-
-
   useEffect(() => {
     const listener = e => {
       if (e.key === "Escape") {
@@ -35,41 +30,40 @@ function Map(props) {
       window.removeEventListener("keydown", listener);
     };
   }, []);
-  
   var vehicleIcon = {
-        url: "https://i.pinimg.com/originals/86/fd/17/86fd17769a3b2537d2b028601cda7b92.png", // url
-        scaledSize: { width: 20, height: 25 }
-    }
-    var callIcon = {
-        url: "https://www.pngkit.com/png/full/48-480186_google-pin-image-google-maps-markers-blue.png", // url
-        scaledSize: { width: 20, height: 32 }
-    }
-    var financeIcon = {
-        url: "https://webstockreview.net/images/google-map-marker-png-4.png", // url
-        scaledSize: { width: 20, height: 32 }
-    }
-
-    if (props.callsFilter === true) {
-        callIcon = {
-            url: "https://www.pngkit.com/png/full/48-480186_google-pin-image-google-maps-markers-blue.png", // url
-            scaledSize: { width: 0, height: 0 }
-        }
-    }
-
-    if (props.financeFilter === true) {
-        financeIcon = {
-            url: "https://webstockreview.net/images/google-map-marker-png-4.png", // url
-            scaledSize: { width: 0, height: 0 }
-        }
-    }
-
-    if (props.vehicleFilter === true) {
-        vehicleIcon = {
-            url: "https://i.pinimg.com/originals/86/fd/17/86fd17769a3b2537d2b028601cda7b92.png", // url
-            scaledSize: { width: 0, height: 0 }
-        }
-    }
-
+    url:
+      "https://i.pinimg.com/originals/86/fd/17/86fd17769a3b2537d2b028601cda7b92.png", // url
+    scaledSize: { width: 20, height: 25 }
+  };
+  var callIcon = {
+    url:
+      "https://www.pngkit.com/png/full/48-480186_google-pin-image-google-maps-markers-blue.png", // url
+    scaledSize: { width: 20, height: 32 }
+  };
+  var financeIcon = {
+    url: "https://webstockreview.net/images/google-map-marker-png-4.png", // url
+    scaledSize: { width: 20, height: 32 }
+  };
+  if (props.callsFilter === true) {
+    callIcon = {
+      url:
+        "https://www.pngkit.com/png/full/48-480186_google-pin-image-google-maps-markers-blue.png", // url
+      scaledSize: { width: 0, height: 0 }
+    };
+  }
+  if (props.financeFilter === true) {
+    financeIcon = {
+      url: "https://webstockreview.net/images/google-map-marker-png-4.png", // url
+      scaledSize: { width: 0, height: 0 }
+    };
+  }
+  if (props.vehicleFilter === true) {
+    vehicleIcon = {
+      url:
+        "https://i.pinimg.com/originals/86/fd/17/86fd17769a3b2537d2b028601cda7b92.png", // url
+      scaledSize: { width: 0, height: 0 }
+    };
+  }
   return (
     <GoogleMap
       onClick={() => {
@@ -83,8 +77,8 @@ function Map(props) {
         <Marker
           key={vehicle.vehicleRegistrationNo}
           position={{
-            lat: +(vehicle.latitude ),
-            lng: +(vehicle.longitude)
+            lat: +vehicle.latitude,
+            lng: +vehicle.longitude
           }}
           icon={vehicleIcon}
           onClick={() => {
@@ -92,7 +86,6 @@ function Map(props) {
           }}
         />
       ))}
-
       {/* {callDataToUseInbound.map(call => (
         <Marker
         //   key={call.citizenID}
@@ -106,7 +99,6 @@ function Map(props) {
           }}
         />
       ))}
-
       {callDataToUseOutbound.map(call => (
         <Marker
         //   key={call.citizenID}
@@ -120,8 +112,6 @@ function Map(props) {
           }}
         />
       ))}
-
-
       {financialDataToUseEpos.map(finance => (
         <Marker
         //   key={finance.citizenID}
@@ -135,7 +125,6 @@ function Map(props) {
           }}
         />
       ))}
-
       {financiaDataToUseAtm.map(finance => (
         <Marker
         //   key={finance.citizenID}
@@ -154,7 +143,7 @@ function Map(props) {
           lat: +lat,
           lng: +long
         }}
-        radius={+radius*1000}
+        radius={+radius * 1000}
         options={{
           options: {
             strokeColor: "black"
@@ -183,7 +172,6 @@ function Map(props) {
       {/* <button onClick={() => setRadius(500000)}>heello</button> */}
     </GoogleMap>
   );
-
 }
 const MapWrapped = withScriptjs(withGoogleMap(Map));
 export default MapWrapped;
