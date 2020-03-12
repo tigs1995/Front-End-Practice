@@ -3,6 +3,9 @@ import axios from "axios";
 import { BASE_URL, GET_FINANCIALS_ALL, GET_CALLS_ALL, GET_VEHICLES_ALL, MAP_URL } from "../../config/Constants.json";
 import MapWrapped from "./MapComponent";
 import SpinnerOverlay from '../SpinnerOverlay';
+import AccordianSide from "../AccordianSideBar/Accordian";
+
+
 export default class Location extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +18,10 @@ export default class Location extends React.Component {
       vehicleDataToUse: [],
       callDataToUse: [],
       financialDataToUse: [],
-      loading: true
+      loading: true,
+      vehicleFilter: 1,
+      callsFilter: 1,
+      financeFilter: 1
     }
   }
 
@@ -82,23 +88,41 @@ export default class Location extends React.Component {
     });
 
      }
-
+     handleFinanceChange = (trueOrFalse) => {this.setState({financeFilter:trueOrFalse})}
+     handleCallsChange = (trueOrFalse) => {this.setState({callsFilter:trueOrFalse})}
+     handleVehicleChange = (trueOrFalse) => {this.setState({vehicleFilter:trueOrFalse})}
 
   render() {
-    return (
-      <div style={{ width: "100vw", height: "calc(100vh - 64px)" }}>
-        <MapWrapped
+    return (<div style={{display:"inline-block"}}>
+
+      <div style={{ width: "calc(100vw - 30vw)", height: "calc(100vh - 64px)", float: "left" }}>
+        <MapWrapped 
         {...this.props.match.params}
         history={this.props.history}
         vehicleDataToUse={this.state.vehicleDataToUse}
         callDataToUse={this.state.callDataToUse}
         financialDataToUse={this.state.financialDataToUse}
+        vehicleFilter={this.state.vehicleFilter}
+        callsFilter={this.state.callsFilter}
+        financeFilter={this.state.financeFilter}
         googleMapURL={MAP_URL}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `100%` }} />}
         mapElement={<div style={{ height: `100%` }} />}
       />
       { this.state.loading && <SpinnerOverlay /> }
+     
+      </div>
+
+        <div style={{float:"right", width: "29vw"}}>
+          <AccordianSide {
+            ...this.props.match.params} 
+            onFinanceChange={this.handleFinanceChange}
+            onCallsChange={this.handleCallsChange}
+            onVehicleChange={this.handleVehicleChange}
+            handleSubmit={this.handleSubmit}/>
+        </div>
+                      
       </div>
     );
   }

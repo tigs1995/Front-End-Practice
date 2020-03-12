@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { withGoogleMap, withScriptjs, GoogleMap, Marker, InfoWindow, Circle } from "react-google-maps";
 import mapStyles from "./mapStyles";
+import "../../CSS/Location.css"
+
 
 function Map(props) {
     let { lat, long, radius, beforeTime, afterTime } = props;
@@ -18,25 +20,47 @@ function Map(props) {
             window.removeEventListener("keydown", listener);
         };
     }, []);
+
+
+
     var vehicleIcon = {
         url: "https://i.pinimg.com/originals/86/fd/17/86fd17769a3b2537d2b028601cda7b92.png", // url
-        scaledSize: { width: 20, height: 25 } 
-    }
-    var financeIcon = {
-        url: "https://webstockreview.net/images/google-map-marker-png-4.png", // url
-        scaledSize: { width: 20, height: 32 } 
+        scaledSize: { width: 20, height: 25 }
     }
     var callIcon = {
         url: "https://www.pngkit.com/png/full/48-480186_google-pin-image-google-maps-markers-blue.png", // url
-        scaledSize: { width: 20, height: 32 } 
+        scaledSize: { width: 20, height: 32 }
+    }
+    var financeIcon = {
+        url: "https://webstockreview.net/images/google-map-marker-png-4.png", // url
+        scaledSize: { width: 20, height: 32 }
     }
 
-        
-    debugger;
-  
+    if (props.callsFilter === true) {
+        callIcon = {
+            url: "https://www.pngkit.com/png/full/48-480186_google-pin-image-google-maps-markers-blue.png", // url
+            scaledSize: { width: 0, height: 0 }
+        }
+    }
+
+    if (props.financeFilter === true) {
+        financeIcon = {
+            url: "https://webstockreview.net/images/google-map-marker-png-4.png", // url
+            scaledSize: { width: 0, height: 0 }
+        }
+    }
+
+    if (props.vehicleFilter === true) {
+        vehicleIcon = {
+            url: "https://i.pinimg.com/originals/86/fd/17/86fd17769a3b2537d2b028601cda7b92.png", // url
+            scaledSize: { width: 0, height: 0 }
+        }
+    }
+
+
     return (
-        <GoogleMap 
-            onClick={() =>{setSelectedPin(null)}}
+        <GoogleMap
+            onClick={() => { setSelectedPin(null) }}
             defaultZoom={10}
             defaultCenter={{ lat: +lat, lng: +long }}
             defaultOptions={{ styles: mapStyles }}
@@ -45,11 +69,11 @@ function Map(props) {
                 <Marker
                     key={vehicle.citizenID}
                     position={{
-                        lat: (+vehicle.latitude+1),
-                        lng: (+vehicle.longitude+1)
+                        lat: (+vehicle.latitude + 1),
+                        lng: (+vehicle.longitude + 1)
                     }}
-                    icon= {vehicleIcon}
-        
+                    icon={vehicleIcon}
+
                     onClick={() => {
                         setSelectedPin(vehicle);
                     }}
@@ -59,13 +83,8 @@ function Map(props) {
             {callDataToUse.map(call => (
                 <Marker
                     key={call.citizenID}
-                    position={{
-                        lat: +call.latitude,
-                        lng: +call.longitude
-                    }}
-                    icon= {financeIcon}
-    
-   
+                    position={{ lat: +call.latitude, lng: +call.longitude }}
+                    icon={callIcon}
                     onClick={() => {
                         setSelectedPin(call);
                     }}
@@ -77,11 +96,11 @@ function Map(props) {
                 <Marker
                     key={finance.citizenID}
                     position={{
-                        lat: (+finance.latitude+2),
-                        lng: (+finance.longitude+2)
+                        lat: (+finance.latitude + 2),
+                        lng: (+finance.longitude + 2)
                     }}
-                    icon= {callIcon}
-                   
+                    icon={financeIcon}
+
                     onClick={() => {
                         setSelectedPin(finance);
                     }}
@@ -92,7 +111,7 @@ function Map(props) {
                     lat: +lat,
                     lng: +long
                 }}
-                radius={+radius}
+                radius={+radius*1000}
                 options={{
                     options: {
                         strokeColor: "black"
@@ -102,8 +121,8 @@ function Map(props) {
             />
             {selectedPin && (
                 <InfoWindow
-                
-                   
+
+
                     position={{
                         lat: +selectedPin.latitude,
                         lng: +selectedPin.longitude
