@@ -29,8 +29,9 @@ export default class VehicleCitizen extends Component {
         citizenID: this.props.match.params.id
       })
       .then(response => {
-        if (response.data.Warning) {
-          this.setState({ vehicleError: response.data.Warning });
+        console.log(response.data.vehicleRegistrations)
+        if (response.data.vehicleRegistrations.length === 0) {
+          this.setState({ vehicleError: "Citizen does not own any vehicles.", ANPRError: "Citizen does not own any vehicles."});
         } else {
           this.setState({ vehicleList: response.data.vehicleRegistrations });
           for (let i = 0; i < this.state.vehicleList.length; i++) {

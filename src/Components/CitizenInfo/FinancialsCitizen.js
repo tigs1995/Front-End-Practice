@@ -60,7 +60,7 @@ export default class FinancialsCitizen extends Component {
       });
 
     axios
-      .get(`${BASE_URL}${GET_CITIZEN_FINANCIALS}`, {citizenID: this.props.match.params.id, eposOrAtm: "atm"})
+      .post(`${BASE_URL}${GET_CITIZEN_FINANCIALS}`, {citizenID: this.props.match.params.id, eposOrAtm: "atm"})
       .then(response => {
         if (response.data.Error) {
           console.log(response.data.Error);
@@ -70,6 +70,7 @@ export default class FinancialsCitizen extends Component {
           this.setState({ ATMTransactions: response.data });
         }
       });
+      console.log(this.state.ATMTransactions)
   }
 
   render() {
