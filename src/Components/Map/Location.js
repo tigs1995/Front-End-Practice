@@ -8,7 +8,10 @@ import {
   MAP_URL
 } from "../../config/Constants.json";
 import MapWrapped from "./MapComponent";
-import SpinnerOverlay from "../SpinnerOverlay";
+
+import SpinnerOverlay from '../SpinnerOverlay';
+import AccordianSide from "../AccordianSideBar/Accordian";
+
 export default class Location extends React.Component {
   constructor(props) {
     super(props);
@@ -24,8 +27,12 @@ export default class Location extends React.Component {
       callDataToUseOutbound: [],
       financialDataToUseEpos: [],
       financialDataToUseAtm: [],
-      loading: true
-    };
+      loading: true,
+      vehicleFilter: 1,
+      callsFilter: 1,
+      financeFilter: 1
+    }
+
   }
 
   axiosRequests = async choice => {
@@ -127,15 +134,19 @@ export default class Location extends React.Component {
     // this.axiosRequests("callOutbound");
     // console.log("CALL OUTBOUND",this.state.callDataToUseOutbound)
 
+
     // this.axiosRequests("financeEpos");
     // console.log("FINANCE EPOS", this.state.financialDataToUseEpos)
 
     // this.axiosRequests("financeAtm");
     // console.log("FINANCE ATM",this.state.financialDataToUseAtm)
   }
+handleFinanceChange = (trueOrFalse) => {this.setState({financeFilter:trueOrFalse})}
+     handleCallsChange = (trueOrFalse) => {this.setState({callsFilter:trueOrFalse})}
+     handleVehicleChange = (trueOrFalse) => {this.setState({vehicleFilter:trueOrFalse})}
 
   render() {
-    return (
+    return (<div style={{display:"inline-block"}}>
       <div style={{ width: "100vw", height: "calc(100vh - 64px)" }}>
         {this.state.loading ? <SpinnerOverlay /> : <MapWrapped
           {...this.props.match.params}
@@ -145,12 +156,22 @@ export default class Location extends React.Component {
           // callDataToUseOutbound={this.state.callDataToUseInbound}
           // financialDataToUseEpos={this.state.financialDataToUseEpos}
           // financialDataToUseAtm={this.state.financialDataToUseAtm}
+      vehicleFilter={this.state.vehicleFilter}
+        callsFilter={this.state.callsFilter}
+        financeFilter={this.state.financeFilter}
           googleMapURL={MAP_URL}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
-        />}
-        {/* {this.state.loading && <SpinnerOverlay />} */}
+        />} </div>
+             <div style={{float:"right", width: "29vw"}}>
+          <AccordianSide {
+            ...this.props.match.params} 
+            onFinanceChange={this.handleFinanceChange}
+            onCallsChange={this.handleCallsChange}
+            onVehicleChange={this.handleVehicleChange}
+            handleSubmit={this.handleSubmit}/>
+        </div>
       </div>
     );
   }
