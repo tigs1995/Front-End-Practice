@@ -14,8 +14,8 @@ export default class PersonLocation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lat: 0,
-      long: 0,
+      latitude: 0,
+      longitude: 0,
       radius: 0,
       beforeTime: "",
       afterTime: "",
