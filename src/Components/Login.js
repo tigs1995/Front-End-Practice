@@ -85,7 +85,7 @@ class Login extends Component {
                 </form>
                 <p className="grey-text text-darken-1">Don't have an account?
                     <br/>
-                    <button onClick={this.onClick} id='registerLink' to="/register">Register</button>
+                    <button onClick={this.onClick} id='registerButton' to="/register">Register</button>
                 </p>
             </div>
         );
