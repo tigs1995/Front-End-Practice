@@ -69,10 +69,12 @@ export default function CustomizedExpansionPanels(props) {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-            Latitude: <input placeholder={lat}></input><br />
-            Longitude: <input placeholder={long}></input><br />
-            Radius: <input placeholder={radius}></input><br />
+            <form onSubmit={props.handleSearchChange}>
+            Latitude: <input placeholder={lat} onChange={({target}) => {props.newSearchLatitude(target.value)}}></input><br />
+            Longitude: <input placeholder={long} onChange={({target}) => {props.newSearchLongitude(target.value)}}></input><br />
+            Radius: <input placeholder={radius} onChange={({target}) => {props.newSearchRadius(target.value)}}></input><br />
             <button type="submit">Search</button>
+            </form>
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -102,12 +104,10 @@ export default function CustomizedExpansionPanels(props) {
           <Typography>Key</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Typography>
-            <div style={{display:"flex", width: "30%"}}>
-            <div style={{padding: "10px",margin:"5px", backgroundColor:"rgba(225, 0, 0, 0.5)"}}>Vehicle </div>
-            <div style={{padding: "10px",margin:"5px",backgroundColor:"rgba(255,165,0, 0.5)"}}>Finance </div>
-            <div style={{padding: "10px",margin:"5px",backgroundColor:"rgba(0, 0, 225, 0.5)"}}>Calls </div>
-            </div>
+          <Typography style={{display:"flex", width: "30%"}}>
+            <p style={{padding: "10px",margin:"5px", backgroundColor:"rgba(225, 0, 0, 0.5)"}}>Vehicle </p>
+            <p style={{padding: "10px",margin:"5px",backgroundColor:"rgba(255,165,0, 0.5)"}}>Finance </p>
+            <p style={{padding: "10px",margin:"5px",backgroundColor:"rgba(0, 0, 225, 0.5)"}}>Calls </p>
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>

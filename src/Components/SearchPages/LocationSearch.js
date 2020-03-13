@@ -40,10 +40,13 @@ export default class LocationSearch extends React.Component {
     e.preventDefault();
     let startDate = DateFormatter(this.state.start);
     let endDate = DateFormatter(this.state.end);
+    if (startDate === "undefined-undefined-undefinedTundefined:undefined:undefinedZ"){ startDate="2020-01-01T0:0:0Z"}
+    if (endDate === "undefined-undefined-undefinedTundefined:undefined:undefinedZ"){ endDate="2020-03-03T0:0:0Z"}
     this.props.history.push(
       `Map/${this.state.radius}/${this.state.latitude}/${this.state.longitude}/${startDate}/${endDate}`
     );
   };
+
 
   render() {
 
@@ -88,6 +91,7 @@ export default class LocationSearch extends React.Component {
             name="latitude"
             placeholder="Latitude: -90° to 90°"
             onChange={this.handleChange}
+            required
           ></input>
           <input
                     step='0.01'
@@ -97,6 +101,7 @@ export default class LocationSearch extends React.Component {
             name="longitude"
             placeholder="Longitude: 49° to 60°"
             onChange={this.handleChange}
+            required
           ></input>
           <input
             type="number"
@@ -105,6 +110,7 @@ export default class LocationSearch extends React.Component {
             name="radius"
             placeholder="Radius (km)"
             onChange={this.handleChange}
+            required
           ></input>
           <button>Search</button>
         </form>
