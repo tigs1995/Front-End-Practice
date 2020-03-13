@@ -60,11 +60,11 @@ export default class Register extends Component {
       <div className="login">
         <h4> <b>Register</b> below</h4>
         <form onSubmit={this.onSubmit}>
-          <input minLength='5' placeholder='Username' onChange={this.onChange} value={this.state.username} id="username" type="username" />
+          <input minLength='5' placeholder='Username' onChange={this.onChange} value={this.state.username} id="username" type="username" required/>
           <br />
-          <input minLength='5' placeholder='Password' onChange={this.onChange} value={this.state.password}  id="password" type="password" />
+          <input minLength='5' placeholder='Password' onChange={this.onChange} value={this.state.password}  id="password" type="password" required/>
           <br />
-          <input minLength='5' placeholder='Confirm password' onChange={this.onChange} value={this.state.password2}  id="password2" type="password" />
+          <input minLength='5' placeholder='Confirm password' onChange={this.onChange} value={this.state.password2}  id="password2" type="password" required/>
           <br />
           <button id='signupButton'>Sign up</button>
           <br/>
