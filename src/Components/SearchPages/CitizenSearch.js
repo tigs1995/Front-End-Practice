@@ -3,6 +3,7 @@ import axios from 'axios';
 import DataInput from '../DataInput';
 import { CHECK_EXISTING_CITIZEN, BASE_URL } from '../../config/Constants.json';
 import styled from 'styled-components';
+import "../../CSS/LoginSignup.css";
 
 const Styles = styled.div`
   div {
@@ -21,18 +22,20 @@ const Styles = styled.div`
 `;
 
 const Button = styled.button`
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-
-  /* Color the border and text with theme.main */
-  color: ${props => props.theme.main};
-  border: 2px solid ${props => props.theme.main};
+width: 90%;
+padding: 5px;
+border: 0;
+background-color: lightgrey;
+margin-bottom: 3px;
+border-radius: 3px;
+margin-top: 15px;
+margin-bottom: 15px;
+background-color:#CB0000;
+color: white;
 `;
 
 export default class CitizenSearch extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -64,18 +67,19 @@ export default class CitizenSearch extends Component {
 
     render() {
         return (
-           <Styles>
-               <div>
-            <form id = "citizenForm" onSubmit={this.handleSubmit}>
-              
-                <DataInput type='text' placeholder='Forenames' name='forenames' onChange={this.handleChange}></DataInput>
-                <DataInput type='text' placeholder='Surname' name='surname' onChange={this.handleChange}></DataInput>
-               
-                <Button>Search</Button>
-                <span className='error'>{this.state.errorMessage}</span>
-            </form>
-            </div>
-         </Styles>
+            <Styles>
+                <div id="citSearch">
+                    <h4>Citizen Search</h4>
+                    <form id="citizenForm" onSubmit={this.handleSubmit}>
+
+                        <DataInput type='text' placeholder='Forenames' name='forenames' onChange={this.handleChange}></DataInput>
+                        <DataInput type='text' placeholder='Surname' name='surname' onChange={this.handleChange}></DataInput>
+
+                        <Button>Search</Button>
+                        <span className='error'>{this.state.errorMessage}</span>
+                    </form>
+                </div>
+            </Styles>
 
         )
     }

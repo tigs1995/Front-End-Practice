@@ -23,18 +23,8 @@ export default class HomePage extends React.Component {
 
     render() {
         return (<div className="centreSearch">
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <h1 id="title">Homepage</h1>
-            <br />
-            <h2>Search By:</h2>
-            <br />
-            <br />
-            <br />
+
+            <h4>Search</h4>
 
             <button id="homepageButton"
                 onMouseOver={this.showText}
