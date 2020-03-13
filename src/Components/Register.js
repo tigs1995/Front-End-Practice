@@ -28,6 +28,10 @@ export default class Register extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  onClick = e => {
+    this.props.history.push('/');
+  }
+
   onSubmit = e => {
     e.preventDefault();
     const newUser = {
@@ -62,13 +66,13 @@ export default class Register extends Component {
           <br />
           <input minLength='5' placeholder='Confirm password' onChange={this.onChange} value={this.state.password2}  id="password2" type="password" />
           <br />
-          <button>Sign up</button>
+          <button id='signupButton'>Sign up</button>
           <br/>
           <span id='error'>{this.state.error}</span>
           <br/>
         </form>
         <p className="grey-text text-darken-1">Already have an account? </p>
-        <button onClick={this.onClick} id='registerLink' to="/register">Register</button>
+        <button onClick={this.onClick} id='loginButton'>Login</button>
       </div>
     );
   }
