@@ -29,7 +29,7 @@ export default class HomePage extends React.Component {
             <br />
             <br />
             <br />
-            <h1 id="title">Homepage</h1>
+            <h1 id="homepageTitle">Homepage</h1>
             <br />
             <h2>Search By:</h2>
             <br />
