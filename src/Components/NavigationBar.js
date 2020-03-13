@@ -14,7 +14,7 @@ class NavigationBar extends Component {
   loggedIn = (auth) => {
     const { user } = this.props.auth;
     return auth.isAuthenticated ?
-      <div className="topnav">
+      <div>
         <a id='signOut' onClick={this.onLogoutClick}>Sign Out</a>
         <a href="/VehicleSearch">Vehicle Search</a>
         <a href="/LocationSearch">Location Search</a>

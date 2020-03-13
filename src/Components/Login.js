@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { loginUser } from "../Actions/authActions";
 import classnames from "classnames";
 import axios from 'axios';
+import "../CSS/LoginSignup.css";
 
 class Login extends Component {
     constructor(props) {
@@ -70,15 +71,15 @@ class Login extends Component {
     render() {
         const { errors } = this.state;
         return (
-            <div id='loginPage' className="login">
-                <h4 id='loginTitle'><b>Login</b> below</h4>
+            <div className="login">
+                <h4><b>Login</b></h4>
                 <br />
                 <form onSubmit={this.onSubmit}>
                     <input placeholder='username' onChange={this.onChange} value={this.state.username} error={errors.username} id="username" type="text" />
                     <br/>
                     <input placeholder='password' onChange={this.onChange} value={this.state.password} error={errors.password} id="password" type="password" />
                     <br/>
-                    <button style={{ width: "150px", borderRadius: "3px", letterSpacing: "1.5px", marginTop: "1rem" }} type="submit" id='loginButton'>login</button>
+                    <button type="submit" >login</button>
                     <br />
                     <span id='error'>{this.state.userNotFound}</span>
                     <br />
