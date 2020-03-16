@@ -2,7 +2,17 @@ body {
     font-family: 'Baloo Da 2', cursive;
 }
 
-.login {
+
+#form input {
+    width: 90%;
+    padding: 5px;
+    border: 0;
+    background-color: lightgrey;
+    margin-bottom: 3px;
+    border-radius: 3px;
+}
+
+#form {
     color: #323232;
     text-align: center;
     background-color: white;
@@ -16,29 +26,9 @@ body {
     border-radius: 3px;
 }
 
-.login input, .login button {
-    width: 90%;
-    padding: 5px;
-    border: 0;
-    background-color: lightgrey;
-    margin-bottom: 3px;
-    border-radius: 3px;
-}
 
-.login button {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    background-color:#CB0000;
-    color: white;
-}
 
-.login button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.24), 0 2px 2px 0 rgba(0,0,0,0.19);
-    background-color: red;
-}
-
-form button {
+#form button {
     margin-top: 20px;
 }
 
@@ -46,3 +36,4 @@ p.grey-text.text-darken-1 {
     margin-top: 8px;
     margin-bottom: 16px;
 }
+
