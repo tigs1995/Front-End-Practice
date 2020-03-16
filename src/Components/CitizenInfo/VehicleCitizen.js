@@ -1,55 +1,83 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import Styles from "../SortingTable/Styles";
 import SortingTable from "../SortingTable/SortingTable";
-import { GET_ANPR_INFO, GET_VEHICLE_OWNER, GET_VEHICLE_INFO, BASE_URL } from '../Constants';
-import axios from 'axios';
+import LoadingSpinner from '../LoadingSpinner';
+import {
+  GET_CITIZEN,
+  GET_ANPR_INFO,
+  BASE_URL
+} from "../../config/Constants.json";
+import axios from "axios";
 
 export default class VehicleCitizen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      vehicleDetails: []
-    }
+      citizenID: "",
+      vehicleList: [],
+      ANPRList: [],
+      vehicleError: "",
+      ANPRError: ""
+    };
   }
 
-  componentDidMount() {
-    this.setState({ vehicleRegistrationNo: this.props.match.params.reg });
-    console.log(this.state.vehicleRegistrationNo);
-    axios.get(`${BASE_URL}${GET_VEHICLE_OWNER}${this.state.vehicleRegistrationNo}`).then(response => {
-      if (response.data.Error) {
-        console.log(response.data.Error);
-      }
-      else {
-        this.setState({ forenames: response.data.forenames });
-        this.setState({ surname: response.data.surname });
-      }
-    })
+  componentWillMount() {
+    this.setState({ citizenID: this.props.match.params.id });
 
-    axios.get(`${BASE_URL}${GET_VEHICLE_INFO}${this.state.vehicleRegistrationNo}`).then(response => {
-      if (response.data.Error) {
-        console.log(response.data.Error);
-      }
-      else {
-        this.setState({ vehicleDetails: response.data });
-      }
-    })
-
-    axios.get(`${BASE_URL}${GET_ANPR_INFO}${this.state.vehicleRegistrationNo}`).then(response => {
-      if (response.data.Error) {
-        console.log(response.data.Error);
-      }
-      else {
-        this.setState({ ANPRDetails: response.data });
-      }
-    })
+    axios
+      .post(`${BASE_URL}${GET_CITIZEN}`, {
+        citizenID: this.props.match.params.id
+      })
+      .then(response => {
+        console.log(response.data.vehicleRegistrations)
+        if (response.data.vehicleRegistrations.length === 0) {
+          this.setState({ vehicleError: "Citizen does not own any vehicles.", ANPRError: "Citizen does not own any vehicles."});
+        } else {
+          this.setState({ vehicleList: response.data.vehicleRegistrations });
+          for (let i = 0; i < this.state.vehicleList.length; i++) {
+            let vehicleReg = this.state.vehicleList[i].vehicleRegistrationNo;
+            axios
+              .post(`${BASE_URL}${GET_ANPR_INFO}`, {
+                vehicleRegistrationNo: vehicleReg
+              })
+              .then(response => {
+                if (response.data.Error) {
+                  console.log(response.data.Error);
+                } 
+                else if (response.data.Warning) {
+                  this.setState({ ANPRError: "No data found." });
+                } 
+                else {
+                  this.setState({ ANPRList: response.data });
+                }
+              })
+              .catch(error => {
+                console.log("Error: " + error);
+              });
+          }
+        }
+      })
+      .catch(error => {
+        console.log("Error: " + error);
+      });
   }
 
   render() {
-
     return (
-      <Styles>
-        <SortingTable data={this.state.vehicleDetails} />
-      </Styles>
+      <div>
+        <Styles>
+          <h2>Vehicles</h2>
+          <span id="error">{this.state.vehicleError}</span>
+          {this.state.loading ? <LoadingSpinner /> :
+          <SortingTable data={this.state.vehicleList} />}
+        </Styles>
+        <Styles>
+          <h2>ANPR Information</h2>
+          <span id="error">{this.state.ANPRError}</span>
+          {this.state.loading ? <LoadingSpinner /> :
+          <SortingTable data={this.state.ANPRList} />}
+        </Styles>
+      </div>
     );
   }
 }

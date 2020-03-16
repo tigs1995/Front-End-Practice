@@ -1,0 +1,79 @@
+.topnav {
+  /* background-color: rgb(52, 58, 64); */
+  background-color: white;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+}
+
+/* .topnav {
+  -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+  -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+} */
+/* Style the links inside the navigation bar */
+a {
+  margin-left: 20px;
+  float: right;
+  color: #323232;
+  text-align: right;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  border-right: 20px;
+}
+/* Change the color of links on hover */
+a:hover {
+  /* background-color: rgb(96, 105, 114); */
+  color: white;
+}
+/* Add a color to the active/current link */
+a.active {
+  animation-name: hoverOff;
+  animation-duration: 0.2s;
+  float: left;
+  color: #323232;
+  font-size: larger;
+  font-weight: bolder;
+}
+.topnav a.activeSmall{
+  float: left;
+  background-color: rgb(52, 58, 64);
+  color: white;
+  border-left: 70px !important;
+}
+.bold {
+    font-weight: bolder;
+    color: white;
+}
+.active:hover{
+    animation-name: hoverOn;
+    animation-duration: 0.2s;
+    color: #CB0000 !important;
+    text-decoration: none;
+}
+
+@keyframes hoverOn {
+  from {color: #323232;}
+  to {color: #CB0000;}
+}
+
+@keyframes hoverOff {
+  from {color: red;}
+  to {color: #323232;}
+}
+
+.activeSmall:hover{
+  color: white !important;
+}
+.topnav #middle{
+color: white !important;
+text-align: center !important;
+padding-top: 18px;
+font-weight: bolder;
+}
+#signOut{
+  font-weight: bolder;
+  margin-right: 25px;
+}

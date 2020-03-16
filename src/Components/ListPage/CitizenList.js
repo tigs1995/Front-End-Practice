@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { CITIZEN_LIST, BASE_URL } from '../Constants';
+import { CITIZEN_LIST, BASE_URL } from '../../config/Constants.json';
 import { Card } from "react-bootstrap";
 
 export default class CitizenList extends Component {
@@ -17,9 +17,9 @@ export default class CitizenList extends Component {
     componentDidMount(props) {
         this.setState({forenames: this.props.match.params.forenames});
         this.setState({surname: this.props.match.params.surname});
-        // const forenames = this.props.match.params.forenames;
-        // const surname = this.props.match.params.surname;
-        axios.get(`${BASE_URL}${CITIZEN_LIST}`, { forenames: this.state.forenames, surname: this.state.surname }).then(response => {
+        const forenames = this.props.match.params.forenames;
+        const surname = this.props.match.params.surname;
+        axios.post(`${BASE_URL}${CITIZEN_LIST}`, { forenames: forenames, surname: surname }).then(response => {
             if (response.data.Error) {
                 console.log(response.data.Error);
             }
@@ -29,7 +29,8 @@ export default class CitizenList extends Component {
         })
     }
     
-    handleClick(e) {
+    handleClick = (e) => {
+        console.log(e.target.value);
         e.preventDefault();
         this.props.history.push(`/CitizenHome/${e.target.value}`)
     }
@@ -48,17 +49,16 @@ export default class CitizenList extends Component {
     }
 
 render() {
-
     return (
         <div id='cardList'>
             <h4>You searched for: {this.state.forenames} {this.state.surname}</h4>
             <p>Please choose a citizen for more information:</p>
             {this.state.citizenList.sort(this.compare).map(citizen =>
-                <Card border="primary" class='citizenCard'>
+                <Card border="primary" className='citizenCard'>
                     <Card.Body>
                         <Card.Title>Citizen ID: {citizen.citizenID}</Card.Title>
                         <Card.Text>{citizen.forenames} {citizen.surname}</Card.Text>
-                        <button class='cardButton' value={citizen.citizenID} handleClick={this.handleClick}>Submit</button>
+                        <button className='cardButton' value={citizen.citizenID} onClick={this.handleClick}>Select</button>
                     </Card.Body>
                 </Card>)}
         </div>

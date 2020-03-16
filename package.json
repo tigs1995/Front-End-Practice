@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "classnames": "^2.2.6",
+    "google-map-react": "^1.1.6",
     "is-empty": "^1.2.0",
     "jQuery": "^1.7.4",
     "jquery": "^3.4.1",
@@ -22,6 +23,7 @@
     "react-advanced-datetimerange-picker": "^1.0.10",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-dom": "^16.13.0",
+    "react-google-maps": "^9.4.5",
     "react-moment": "^0.9.7",
     "react-redux": "^7.2.0",
     "react-router": "^5.1.2",
@@ -40,7 +42,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8080",
+  "proxy":"http://localhost:8080",
   "eslintConfig": {
     "extends": "react-app"
   },

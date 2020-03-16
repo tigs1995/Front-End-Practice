@@ -1,23 +1,26 @@
 import React, { Component } from "react";
-import { BASE_URL, VEHICLE_LIST } from "../Constants";
+import {
+  BASE_URL,
+  VEHICLE_LIST,
+  GET_VEHICLE_INFO
+} from "../../config/Constants.json";
 import axios from "axios";
-import { Card, ListItem } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 export default class VehicleList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      vehicleList: [
-        { vehicleRegistrationNo: "A" },
-        { vehicleRegistrationNo: "B" }
-      ]
+      vehicleList: [],
+      citizenID: ""
     };
   }
 
   componentDidMount(props) {
-    const vehicleRegistrationNo = this.props.match.params.reg;
     axios
-      .get(`${BASE_URL}${VEHICLE_LIST}`, { vehicleRegistrationNo })
+      .post(`${BASE_URL}${VEHICLE_LIST}`, {
+        vehicleRegistrationNo: this.props.match.params.reg
+      })
       .then(res => {
         console.log(res);
         this.setState({ vehicleList: res.data });
@@ -25,10 +28,18 @@ export default class VehicleList extends Component {
       .catch(err => console.warn(err));
   }
 
-  handleClick(e) {
+  handleClick = e => {
     e.preventDefault();
-    console.log(e.target.value);
-  }
+    axios
+      .post(`${BASE_URL}${GET_VEHICLE_INFO}`, {
+        vehicleRegistrationNo: e.target.value
+      })
+      .then(res => {
+        this.props.history.push(`/CitizenVehicles/${res.data.citizenID}`);
+      })
+      .catch(err => console.warn(err));
+    console.log(this.state.citizenID);
+  };
 
   compare(a, b) {
     const vehicleA = a.vehicleRegistrationNo;
@@ -44,24 +55,18 @@ export default class VehicleList extends Component {
   }
 
   render() {
-    const headings = ["Vehicle Registration"];
-
-    const rows = this.state.vehicleList.map(vehicle => [
-      vehicle.vehicleRegistrationNo
-    ]);
-
     return (
       <div id="cardList">
         <h4>Please choose a vehicle to view more information:</h4>
         {this.state.vehicleList.sort(this.compare).map(vehicle => (
-          <Card border="primary" class="vehicleCard">
+          <Card border="primary" className="vehicleCard">
             <Card.Body>
               <Card.Title>Vehicle Registration Number:</Card.Title>
               <Card.Text>{vehicle.vehicleRegistrationNo}</Card.Text>
               <button
-                class="cardButton"
+                className="cardButton"
                 value={vehicle.vehicleRegistrationNo}
-                handleClick={this.handleClick}
+                onClick={this.handleClick}
               >
                 Submit
               </button>

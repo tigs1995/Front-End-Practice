@@ -46,59 +46,68 @@ const ExpansionPanelDetails = withStyles(theme => ({
   },
 }))(MuiExpansionPanelDetails);
 
+
+
 export default function CustomizedExpansionPanels(props) {
+
+
   const [expanded, setExpanded] = React.useState('panel1');
+  let { lat, long, radius, beforeTime, afterTime } = props;
+
+  
 
   const handleChange = panel => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
+
   return (
     <div>
       <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>{props.title1}</Typography>
+          <Typography>Change Search</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-              <input placeholder={props.info1[0]}></input><br/>
-              <input placeholder={props.info1[1]}></input><br/>
-              <input placeholder={props.info1[2]}></input><br/>
-              <input placeholder={props.info1[3]}></input><br/>
-              <button type="submit">Change Search</button>
-           </Typography>
+            <form onSubmit={props.handleSearchChange}>
+            Latitude: <input placeholder={lat} onChange={({target}) => {props.newSearchLatitude(target.value)}}></input><br />
+            Longitude: <input placeholder={long} onChange={({target}) => {props.newSearchLongitude(target.value)}}></input><br />
+            Radius: <input placeholder={radius} onChange={({target}) => {props.newSearchRadius(target.value)}}></input><br />
+            <button type="submit">Search</button>
+            </form>
+          </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <ExpansionPanelSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>{props.title2}</Typography>
+          <Typography>Filter</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography><div>
-          <form action="/action_page.php" method="get">
-  <input type="checkbox" name="vehicle1" value="Bike"></input>
-  <label for="vehicle1"> {props.info2[0]}</label><br/>
-  <input type="checkbox" name="vehicle2" value="Car"></input>
-  <label for="vehicle2"> {props.info2[1]}</label><br/>
-  <input type="checkbox" name="vehicle3" value="Boat" checked></input>
-  <label for="vehicle3"> {props.info2[2]}</label><br/>
-  <input type="submit" value="Submit"></input>
-</form>
-</div>
-              
-       
+            <form>
+              <input type="checkbox" name="vehicle" value="true" onChange={({target}) => {props.onVehicleChange(target.checked)}}></input>
+              <label for="vehicle1">Vehicle</label><br />
+              <input type="checkbox" name="finance" value="true" onChange={({target}) => {props.onFinanceChange(target.checked)}}></input>
+              <label for="vehicle2">Finance</label><br />
+              <input type="checkbox" name="calls" value="true" onChange={({target}) => {props.onCallsChange(target.checked)}}></input>
+              <label for="vehicle3">Calls</label><br />
+    
+            </form>
+          </div>
+
+
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <ExpansionPanelSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Collapsible Group Item #3</Typography>
+          <Typography>Key</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
+          <Typography style={{display:"flex", width: "30%"}}>
+            <p style={{padding: "10px",margin:"5px", backgroundColor:"rgba(225, 0, 0, 0.5)"}}>Vehicle </p>
+            <p style={{padding: "10px",margin:"5px",backgroundColor:"rgba(255,165,0, 0.5)"}}>Finance </p>
+            <p style={{padding: "10px",margin:"5px",backgroundColor:"rgba(0, 0, 225, 0.5)"}}>Calls </p>
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
