@@ -20,7 +20,7 @@ export default class HomePageCitizen extends Component {
 
     let today = new Date();
     let todaysDate = DateConverter(today);
-    this.setState({ todaysDate: todaysDate});
+    this.setState({ todaysDate: todaysDate });
 
     let lastWeek = new Date(today);
     lastWeek.setDate(lastWeek.getDate() - 7);
@@ -56,7 +56,7 @@ export default class HomePageCitizen extends Component {
       this.props.history.push(`/CitizenAssociates/${this.state.citizenID}`);
     }
     if (name === "whereabouts") {
-      this.props.history.push(`/CitizenMap/${this.state.citizenID}/${this.state.lastWeeksDate}/${this.state.todaysDate}`);
+      this.props.history.push(`/CitizenMap/${this.state.citizenID}/2010-03-09T14:16:43Z/2020-03-09T14:16:43Z`);
     }
   };
 
@@ -72,14 +72,14 @@ export default class HomePageCitizen extends Component {
           Address: {person.streetName} {person.city} {person.postcode}
         </p>
 
-        <button onClick={this.handleClick} name="vehicles">
+        <button id="citizenGoToVehicleButton" onClick={this.handleClick} name="vehicles">
           Vehicles
         </button>
-        <button onClick={this.handleClick} name="financials">
+        <button id="citizenGoToFinanceButton" onClick={this.handleClick} name="financials">
           Financials
         </button>
-        <button onClick={this.handleClick} name="whereabouts">Whereabouts</button>
-        <button onClick={this.handleClick} name="associates">
+        <button id="citizenGoToWhereaboutsButton" onClick={this.handleClick} name="whereabouts">Whereabouts</button>
+        <button id="citizenGoToAssociatesButton" onClick={this.handleClick} name="associates">
           Associates
         </button>
       </div>

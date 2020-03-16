@@ -62,8 +62,9 @@ export default class VehicleSearch extends Component {
           name="vehicleRegistrationNo"
           placeholder="Vehicle Registration Number"
           onChange={this.handleChange}
+          id="vehicleRegistrationNo"
         ></DataInput>
-        <button>Search</button>
+        <button id="vehicleSubmitButton">Search</button>
         <span className="error">{this.state.errorMessage}</span>
       </form>
       </div>
