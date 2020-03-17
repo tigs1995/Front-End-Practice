@@ -24,7 +24,9 @@ export default class FinancialsCitizen extends Component {
       bankCardError: "",
       EPOSError: "",
       ATMError: "",
-      loading: true
+      loadingEPOS: true,
+      loadingATM: true,
+      loadingBank: true
     };
   }
 
@@ -36,12 +38,13 @@ export default class FinancialsCitizen extends Component {
     axios
       .post(`${BASE_URL}${GET_CITIZEN_FINANCIALS}`, { citizenID: this.props.match.params.id, eposOrAtm: "epos" })
       .then(response => {
+        console.log(response);
         if (response.data.Error) {
           console.log(response.data.Error);
         } else if (response.data.Warning) {
-          this.setState({ EPOSError: "No data found." });
+          this.setState({ loadingEPOS: false, EPOSError: "No data found." });
         } else {
-          this.setState({ loading: false, EPOSTransactions: response.data });
+          this.setState({ loadingEPOS: false, EPOSTransactions: response.data });
         }
       });
 
@@ -50,13 +53,14 @@ export default class FinancialsCitizen extends Component {
         citizenID: this.props.match.params.id
       })
       .then(response => {
+        console.log(response);
         if (response.data.Error) {
           console.log(response.data.Error);
         } else if (response.data.Warning) {
-          this.setState({ bankCardError: "No data found." });
+          this.setState({ loadingBank: false, bankCardError: "No data found." });
         } else {
           console.log("Bank cards", response.data);
-          this.setState({ bankCards: response.data });
+          this.setState({ loadingBank: false, bankCards: response.data });
         }
       });
 
@@ -67,12 +71,11 @@ export default class FinancialsCitizen extends Component {
         if (response.data.Error) {
           console.log(response.data.Error);
         } else if (response.data.Warning) {
-          this.setState({ ATMError: "No data found." });
+          this.setState({ loadingATM: false, ATMError: "No data found." });
         } else {
-          this.setState({ ATMTransactions: response.data });
+          this.setState({ loadingATM: false, ATMTransactions: response.data });
         }
       });
-    console.log(this.state.ATMTransactions)
   }
 
   backClick = e => {
@@ -84,7 +87,7 @@ export default class FinancialsCitizen extends Component {
       <div>
         <Styles>
           <h2>Bank cards</h2>
-          {this.state.loading ? <LoadingSpinner /> :
+          {this.state.loadingBank ? <LoadingSpinner /> :
             <div>
               <span id="error">{this.state.bankCardError}</span>
               <SortingTable data={this.state.bankCards} />
@@ -92,7 +95,7 @@ export default class FinancialsCitizen extends Component {
         </Styles>
         <Styles>
           <h2>EPOS information</h2>
-          {this.state.loading ? <LoadingSpinner /> :
+          {this.state.loadingEPOS ? <LoadingSpinner /> :
             <div>
               <span id="error">{this.state.EPOSError}</span>
               <SortingTable data={this.state.EPOSTransactions} />
@@ -100,7 +103,7 @@ export default class FinancialsCitizen extends Component {
         </Styles>
 
         <h2>ATM information</h2>
-        {this.state.loading ? <LoadingSpinner /> :
+        {this.state.loadingATM ? <LoadingSpinner /> :
           <div>
             <span id="error">{this.state.ATMError}</span>
             <Styles><SortingTable data={this.state.ATMTransactions} /></Styles>

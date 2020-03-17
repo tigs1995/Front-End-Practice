@@ -18,11 +18,13 @@ export default class VehicleCitizen extends Component {
       vehicleList: [],
       ANPRList: [],
       vehicleError: "",
-      ANPRError: ""
+      ANPRError: "",
+      loadingVehicle: true,
+      loadingANPR: true
     };
   }
 
-  componentWillMount() {
+  componentDidMount(props) {
     this.setState({ citizenID: this.props.match.params.id });
 
     axios
@@ -32,9 +34,9 @@ export default class VehicleCitizen extends Component {
       .then(response => {
         console.log(response.data.vehicleRegistrations)
         if (response.data.vehicleRegistrations.length === 0) {
-          this.setState({ vehicleError: "Citizen does not own any vehicles.", ANPRError: "Citizen does not own any vehicles." });
+          this.setState({ loadingVehicle: false, loadingANPR: false, vehicleError: "Citizen does not own any vehicles.", ANPRError: "Citizen does not own any vehicles." });
         } else {
-          this.setState({ vehicleList: response.data.vehicleRegistrations });
+          this.setState({ loadingVehicle: false, vehicleList: response.data.vehicleRegistrations });
           for (let i = 0; i < this.state.vehicleList.length; i++) {
             let vehicleReg = this.state.vehicleList[i].vehicleRegistrationNo;
             axios
@@ -46,10 +48,10 @@ export default class VehicleCitizen extends Component {
                   console.log(response.data.Error);
                 }
                 else if (response.data.Warning) {
-                  this.setState({ ANPRError: "No data found." });
+                  this.setState({ loadingANPR: false, ANPRError: "No data found." });
                 }
                 else {
-                  this.setState({ ANPRList: response.data });
+                  this.setState({ loadingANPR: false, ANPRList: response.data });
                 }
               })
               .catch(error => {
@@ -72,7 +74,7 @@ export default class VehicleCitizen extends Component {
       <div>
         <Styles>
           <h2>Vehicles</h2>
-          {this.state.loading ? <LoadingSpinner /> :
+          {this.state.loadingVehicle ? <LoadingSpinner /> :
             <div>
               <span id="error">{this.state.vehicleError}</span>
               <SortingTable data={this.state.vehicleList} />
@@ -80,7 +82,7 @@ export default class VehicleCitizen extends Component {
         </Styles>
         <Styles>
           <h2>ANPR Information</h2>
-          {this.state.loading ? <LoadingSpinner /> :
+          {this.state.loadingANPR ? <LoadingSpinner /> :
             <div>
               <span id="error">{this.state.ANPRError}</span>
               <SortingTable data={this.state.ANPRList} />
