@@ -20,12 +20,18 @@ export default class VehicleCitizen extends Component {
       vehicleError: "",
       ANPRError: "",
       loadingVehicle: true,
-      loadingANPR: true
+      loadingANPR: true,
+      citizenButton: 'display: none;'
     };
   }
 
   componentDidMount(props) {
     this.setState({ citizenID: this.props.match.params.id });
+
+    let citizenButton = document.getElementById("citizenButton");
+    if(this.props.match.params.page === 'citizen'){
+      citizenButton.style.display = "none";
+    } 
 
     axios
       .post(`${BASE_URL}${GET_CITIZEN}`, {
@@ -65,13 +71,20 @@ export default class VehicleCitizen extends Component {
       });
   }
 
+  handleClick = e => {
+    this.props.history.push('../../CitizenHome/' + this.state.citizenID)
+  }
+
   backClick = e => {
     this.props.history.goBack();
   }
 
   render() {
+    let id = this.state.citizenID;
     return (
       <div>
+        <p>Vehicles of citizen {this.state.citizenID}</p>
+        <button id='citizenButton' onClick={this.handleClick}>Go to citizen page</button>
         <Styles>
           <h2>Vehicles</h2>
           {this.state.loadingVehicle ? <LoadingSpinner /> :

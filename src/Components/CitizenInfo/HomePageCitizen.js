@@ -43,7 +43,7 @@ export default class HomePageCitizen extends Component {
 
   handleClick = ({ target: { name } }) => {
     if (name === "vehicles") {
-      this.props.history.push(`/CitizenVehicles/${this.state.citizenID}`);
+      this.props.history.push(`/CitizenVehicles/${this.state.citizenID}/citizen`);
     }
     if (name === "financials") {
       this.props.history.push(`/CitizenFinancials/${this.state.citizenID}`);

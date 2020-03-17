@@ -34,7 +34,7 @@ export default class AssociatesCitizen extends Component {
         console.log(response);
         if (response.data.Error) {
           console.log(response.data.Error);
-        } else if (response.data.inboundCallAssociates.length === 0 && response.data.outboundCallAssociates.length === 0 ) {
+        } else if (response.data.inboundCallAssociates.length === 0 && response.data.outboundCallAssociates.length === 0) {
           this.setState({ loading: false, errorMessage: "No data available." });
         } else {
           this.setState({ associates: response.data });
@@ -51,7 +51,7 @@ export default class AssociatesCitizen extends Component {
   render() {
     return (
       <div>
-        <p>Associates of: {this.state.citizenBeingSearched}</p>
+        <p>Associates of citizen {this.state.citizenID}</p>
         <Styles>
           <h2>Associates</h2>
           {this.state.loading ? <LoadingSpinner /> :

@@ -100,7 +100,7 @@ export default class App extends Component {
             component={withRouter(AssociatesCitizen)}
           ></PrivateRoute>
           <PrivateRoute
-            path="/CitizenVehicles/:id"
+            path="/CitizenVehicles/:id/:page"
             component={withRouter(VehicleCitizen)}
           ></PrivateRoute>
 

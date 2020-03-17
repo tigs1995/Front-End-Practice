@@ -85,6 +85,7 @@ export default class FinancialsCitizen extends Component {
   render() {
     return (
       <div>
+        <p>Financials of citizen {this.state.citizenID}</p>
         <Styles>
           <h2>Bank cards</h2>
           {this.state.loadingBank ? <LoadingSpinner /> :

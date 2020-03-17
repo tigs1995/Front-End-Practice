@@ -35,7 +35,7 @@ export default class VehicleList extends Component {
         vehicleRegistrationNo: e.target.value
       })
       .then(res => {
-        this.props.history.push(`/CitizenVehicles/${res.data.citizenID}`);
+        this.props.history.push(`/CitizenVehicles/${res.data.citizenID}/vehicle`);
       })
       .catch(err => console.warn(err));
     console.log(this.state.citizenID);
