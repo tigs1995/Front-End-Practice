@@ -75,7 +75,7 @@ export default class LocationSearch extends React.Component {
           maxDate={maxDate}
           applyCallback={this.applyCallback}
         >
-          <button>Select a timerange</button>
+          <button id="but">Select a timerange</button>
           <br />
           Start: <input name="start" type="text" value={startDisplay}></input>
           <br />
@@ -113,7 +113,7 @@ export default class LocationSearch extends React.Component {
             onChange={this.handleChange}
             required
           ></input>
-          <button>Search</button>
+          <button id="but">Search</button>
         </form>
       </div>
     );

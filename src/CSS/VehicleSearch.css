@@ -28,8 +28,9 @@ body {
 
 
 
-#form button {
+#form #but {
     margin-top: 20px;
+    width: 90%;
 }
 
 p.grey-text.text-darken-1 {
