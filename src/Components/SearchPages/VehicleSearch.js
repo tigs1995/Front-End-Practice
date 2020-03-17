@@ -59,12 +59,13 @@ export default class VehicleSearch extends Component {
         <form id="form" onSubmit={this.handleSubmit}>
         <h4 id="space">Vehicle Search</h4>
           <input
+            id="vehicleRegistrationNo"
             type="text"
             name="vehicleRegistrationNo"
             placeholder="Vehicle Registration Number"
             onChange={this.handleChange}
           ></input>
-          <button>Search</button>
+          <button id="vehicleSubmitButton">Search</button>
           <span className="error">{this.state.errorMessage}</span>
         </form>
       </div>
