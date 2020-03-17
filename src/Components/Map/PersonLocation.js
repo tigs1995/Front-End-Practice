@@ -25,7 +25,6 @@ export default class PersonLocation extends React.Component {
     };
   }
 
-
   loadStuff = async () => {
     const newState = this.state;
 
@@ -63,8 +62,6 @@ export default class PersonLocation extends React.Component {
     this.setState(newState);
     this.setState({loading:false});
   }
-
-
 
   componentDidMount() {
       this.loadStuff();

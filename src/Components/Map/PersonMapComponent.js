@@ -7,6 +7,8 @@ import {
     InfoWindow
 } from "react-google-maps";
 import mapStyles from "./mapStyles";
+import {vehicleIcon, callIcon, financeIcon} from "./MarkerIcons.js";
+
 
 function Map(props) {
     let { lat, long, radius} = props;
@@ -32,21 +34,6 @@ function Map(props) {
         };
     }, []);
 
-    
-    const vehicleIcon = {
-        url:
-            "https://i.pinimg.com/originals/86/fd/17/86fd17769a3b2537d2b028601cda7b92.png", // url
-        scaledSize: { width: 20, height: 25 }
-    };
-    const callIcon = {
-        url:
-            "https://www.pngkit.com/png/full/48-480186_google-pin-image-google-maps-markers-blue.png", // url
-        scaledSize: { width: 20, height: 32 }
-    };
-    const financeIcon = {
-        url: "https://webstockreview.net/images/google-map-marker-png-4.png", // url
-        scaledSize: { width: 20, height: 32 }
-    };
 
     const typeTitleMap = {  
         'vehicle': 'Vehicle Sighting',
@@ -141,14 +128,13 @@ function Map(props) {
                 >
                     <div
                         onClick={() => {
-                            console.log("hi");
                             props.history.push(`/CitizenHome/${selectedPin.citizenID}`);
                         }}
                     >
                         <p>{selectedPin.forenames} {selectedPin.surname}</p>
                         <p>ID: {selectedPin.citizenID}</p>
                         <p>Timestamp: {selectedPin.timestamp.split("T").join(" at ").split("Z")}</p>
-                    <p>Event: {typeTitleMap[selectedPin.type] || 'Unknown type'}</p>
+                        <p>Event: {typeTitleMap[selectedPin.type] || 'Unknown type'}</p>
                     </div>
                 </InfoWindow>
             )}
