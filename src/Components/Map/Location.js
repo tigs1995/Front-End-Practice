@@ -12,6 +12,7 @@ import MapWrapped from "./MapComponent";
 import SpinnerOverlay from '../SpinnerOverlay';
 import AccordianSide from "../AccordianSideBar/Accordian";
 
+
 export default class Location extends React.Component {
   constructor(props) {
     super(props);
@@ -27,9 +28,9 @@ export default class Location extends React.Component {
       financialDataToUseEpos: [],
       financialDataToUseAtm: [],
       loading: true,
-      vehicleFilter: 1,
-      callsFilter: 1,
-      financeFilter: 1,
+      vehicleFilter: true,
+      callsFilter: true,
+      financeFilter: true,
       newSearchLatitude: 0,
       newSearchLongitude: 0,
       newSearchRadius: 0
@@ -37,10 +38,8 @@ export default class Location extends React.Component {
 
   }
 
-
-
-  axiosRequests = async choice => {
-
+  loadStuff = async () => {
+    const newState = this.state;
     const requestBody = {
       radius: this.props.match.params.radius,
       latitude: this.props.match.params.lat,
@@ -49,120 +48,47 @@ export default class Location extends React.Component {
       beforeTime: this.props.match.params.beforeTime
     }
 
-    if (choice === "vehicle") {
-      await axios.post(`${BASE_URL}${GET_VEHICLES_ALL}`, requestBody)
-        .then(response => {
-          if (response.data.Exception) {
-            this.setState({loading: false, vehicleDataToUse: [] });
-          }
-          else if (response.data.Warning) {
-            this.setState({loading: false, vehicleDataToUse: [] });
-            console.log("Warning: No data from " + choice);
-          }
-          else {
-            this.setState({ loading: false, vehicleDataToUse: response.data })
-          }
-        }).catch(error => {
-          console.log("Error " + error);
-          this.setState({ vehicleDataToUse: [] });
-        });
-    }
+    const apiCalls = [
+      { key: 'financialDataToUseAtm', url: `${BASE_URL}${GET_FINANCIALS_ALL}`, data: { ...requestBody, eposOrAtm: 'atm' } },
+      { key: 'financialDataToUseEpos', url: `${BASE_URL}${GET_FINANCIALS_ALL}`, data: { ...requestBody, eposOrAtm: 'epos' } },
+      { key: 'callDataToUseOutbound', url: `${BASE_URL}${GET_CALLS_ALL}`, data: { ...requestBody, inboundOrOutbound: 'outbound' } },
+      { key: 'callDataToUseInbound', url: `${BASE_URL}${GET_CALLS_ALL}`, data: { ...requestBody, inboundOrOutbound: 'inbound' } },
+      { key: 'vehicleDataToUse', url: `${BASE_URL}${GET_VEHICLES_ALL}`, data: { ...requestBody } },
+    ];
 
-    if (choice === "callInbound") {
-      requestBody.inboundOrOutbound = "inbound";
-      await axios.post(`${BASE_URL}${GET_CALLS_ALL}`, requestBody)
-        .then(response => {
-          if (response.data.Exception) {
-            this.setState({ callDataToUseInbound: [] });
-          }
-          else if (response.data.Warning) {
-            this.setState({ callDataToUseInbound: [] });
-            console.log("Warning: No data from " + choice);
-          }
-          else {
-            this.setState({ callDataToUseInbound: response.data });
-          }
-        }).catch(error => {
-          console.log(error);
-          this.setState({ callDataToUseInbound: [] });
-        });
-    }
-
-    if (choice === "callOutbound") {
-      requestBody.inboundOrOutbound = "outbound";
-      await axios.post(`${BASE_URL}${GET_CALLS_ALL}`, requestBody)
-        .then(response => {
-          if (response.data.Exception) {
-            this.setState({ callDataToUseOutbound: [] });
-          }
-          else if (response.data.Warning) {
-            this.setState({ callDataToUseOutbound: [] });
-            console.log("Warning: No data from " + choice);
-          }
-          else {
-            this.setState({ callDataToUseOutbound: response.data })
-          }
-        }).catch(error => {
-          console.log(error);
-          this.setState({ callDataToUseOutbound: [] });
-        })
-    }
-
-    if (choice === "financeEpos") {
-      requestBody.eposOrAtm = "epos";
-      await axios.post(`${BASE_URL}${GET_FINANCIALS_ALL}`, requestBody).then(response => {
+    for (let { key, url, data } of apiCalls) {
+      await axios.post(url, data).then(response => {
         if (response.data.Exception) {
-          this.setState({ financialDataToUseEpos: [] });
+          newState[key] = [];
         }
         else if (response.data.Warning) {
-          this.setState({ financialDataToUseEpos: [] });
-          console.log("Warning: No data from " + choice);
+          newState[key] = [];
+          console.log("Warning: No data from " + key);
         }
         else {
-          this.setState({ financialDataToUseEpos: response.data });
+          newState[key] = response.data;
         }
       }).catch(error => {
         console.log(error);
-        this.setState({ financialDataToUseEpos: [] });
+        newState[key] = [];
       });
     }
-
-    if (choice === "financeAtm") {
-      requestBody.eposOrAtm = "atm";
-      await axios.post(`${BASE_URL}${GET_FINANCIALS_ALL}`, requestBody).then(response => {
-        if (response.data.Exception) {
-          this.setState({ financialDataToUseAtm: [] });
-        }
-        else if (response.data.Warning) {
-          this.setState({ financialDataToUseAtm: [] });
-          console.log("Warning: No data from " + choice);
-        }
-        else {
-          this.setState({ financialDataToUseAtm: response.data });
-        }
-      }).catch(error => {
-        console.log(error);
-        this.setState({ financialDataToUseAtm: [] });
-      });
-    }
+    this.setState(newState);
+    this.setState({ loading: false });
   }
 
   componentDidMount() {
-    this.axiosRequests("vehicle");
-    this.axiosRequests("callInbound");
-    this.axiosRequests("callOutbound");
-    this.axiosRequests("financeEpos");
-    this.axiosRequests("financeAtm");
+    this.loadStuff();
 
   }
 
-  handleFinanceChange = (trueOrFalse) => {this.setState({ financeFilter: trueOrFalse }) }
+  handleFinanceChange = (trueOrFalse) => { this.setState({ financeFilter: trueOrFalse }) }
   handleCallsChange = (trueOrFalse) => { this.setState({ callsFilter: trueOrFalse }) }
   handleVehicleChange = (trueOrFalse) => { this.setState({ vehicleFilter: trueOrFalse }) }
 
-  newSearchLatitude = (changedParameter) => {console.log("i am changn"); console.log(changedParameter); this.setState({newSearchLatitude: changedParameter})}
-  newSearchLongitude = (changedParameter) => { this.setState({newSearchLongitude:changedParameter})}
-  newSearchRadius = (changedParameter) => { this.setState({newSearchRadius:changedParameter})}
+  newSearchLatitude = (changedParameter) => {this.setState({ newSearchLatitude: changedParameter }) }
+  newSearchLongitude = (changedParameter) => { this.setState({ newSearchLongitude: changedParameter }) }
+  newSearchRadius = (changedParameter) => { this.setState({ newSearchRadius: changedParameter }) }
 
   handleSearchChange = (event) => {
     //event.preventDefault();
@@ -190,11 +116,11 @@ export default class Location extends React.Component {
           mapElement={<div style={{ height: `100%` }} />}
         />} </div>
       <div style={{ width: "27vw", display: "inline-block", float: "right", paddingLeft: "1vw" }}>
-        <AccordianSide 
-        handleSearchChange={this.handleSearchChange}
-        newSearchLatitude = {this.newSearchLatitude}
-        newSearchLongitude ={this.newSearchLongitude}
-          newSearchRadius ={this.newSearchRadius}
+        <AccordianSide
+          handleSearchChange={this.handleSearchChange}
+          newSearchLatitude={this.newSearchLatitude}
+          newSearchLongitude={this.newSearchLongitude}
+          newSearchRadius={this.newSearchRadius}
           {...this.props.match.params}
           onFinanceChange={this.handleFinanceChange}
           onCallsChange={this.handleCallsChange}

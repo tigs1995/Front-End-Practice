@@ -107,9 +107,9 @@ export default class LocationSearch extends React.Component {
           <input
             type="number"
             min="0"
-            max="1000"
+            max="50"
             name="radius"
-            placeholder="Radius (km)"
+            placeholder="Radius (km): Up to 50km"
             onChange={this.handleChange}
             required
           ></input>
