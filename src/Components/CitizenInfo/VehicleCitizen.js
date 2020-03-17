@@ -8,6 +8,7 @@ import {
   BASE_URL
 } from "../../config/Constants.json";
 import axios from "axios";
+import BackButton from '../BackButton';
 
 export default class VehicleCitizen extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ export default class VehicleCitizen extends Component {
       .then(response => {
         console.log(response.data.vehicleRegistrations)
         if (response.data.vehicleRegistrations.length === 0) {
-          this.setState({ vehicleError: "Citizen does not own any vehicles.", ANPRError: "Citizen does not own any vehicles."});
+          this.setState({ vehicleError: "Citizen does not own any vehicles.", ANPRError: "Citizen does not own any vehicles." });
         } else {
           this.setState({ vehicleList: response.data.vehicleRegistrations });
           for (let i = 0; i < this.state.vehicleList.length; i++) {
@@ -43,10 +44,10 @@ export default class VehicleCitizen extends Component {
               .then(response => {
                 if (response.data.Error) {
                   console.log(response.data.Error);
-                } 
+                }
                 else if (response.data.Warning) {
                   this.setState({ ANPRError: "No data found." });
-                } 
+                }
                 else {
                   this.setState({ ANPRList: response.data });
                 }
@@ -62,21 +63,30 @@ export default class VehicleCitizen extends Component {
       });
   }
 
+  backClick = e => {
+    this.props.history.goBack();
+  }
+
   render() {
     return (
       <div>
         <Styles>
           <h2>Vehicles</h2>
-          <span id="error">{this.state.vehicleError}</span>
           {this.state.loading ? <LoadingSpinner /> :
-          <SortingTable data={this.state.vehicleList} />}
+            <div>
+              <span id="error">{this.state.vehicleError}</span>
+              <SortingTable data={this.state.vehicleList} />
+            </div>}
         </Styles>
         <Styles>
           <h2>ANPR Information</h2>
-          <span id="error">{this.state.ANPRError}</span>
           {this.state.loading ? <LoadingSpinner /> :
-          <SortingTable data={this.state.ANPRList} />}
+            <div>
+              <span id="error">{this.state.ANPRError}</span>
+              <SortingTable data={this.state.ANPRList} />
+            </div>}
         </Styles>
+        <BackButton backClick={this.backClick} />
       </div>
     );
   }
