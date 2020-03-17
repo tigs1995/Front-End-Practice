@@ -48,7 +48,7 @@ export default class HomePage extends React.Component {
                 name="Location">Location</button>
             <br />
             <br />
-            <p class="error" id="toggle" style={{ visibility: "hidden" }}><span></span></p>
+            <p className="error" id="toggle" style={{ visibility: "hidden" }}><span></span></p>
         </div>
         );
     }

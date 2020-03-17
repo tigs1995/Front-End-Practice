@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BASE_URL, GET_CITIZEN } from "../../config/Constants.json";
 import axios from "axios";
-import CitizenName from './CitizenName';
 import DateConverter from './DateConverter';
+import BackButton from '../BackButton';
 
 export default class HomePageCitizen extends Component {
   constructor(props) {
@@ -35,7 +35,6 @@ export default class HomePageCitizen extends Component {
       })
       .then(response => {
         this.setState({ personList: response.data });
-        console.log(this.state.personList);
       })
       .catch(error => {
         console.log("Error: " + error);
@@ -43,11 +42,8 @@ export default class HomePageCitizen extends Component {
   };
 
   handleClick = ({ target: { name } }) => {
-    console.log(this.state.lastWeeksDate);
-    console.log(this.state.todaysDate);
-    console.log(this.state.citizenID);
     if (name === "vehicles") {
-      this.props.history.push(`/CitizenVehicles/${this.state.citizenID}`);
+      this.props.history.push(`/CitizenVehicles/${this.state.citizenID}/citizen`);
     }
     if (name === "financials") {
       this.props.history.push(`/CitizenFinancials/${this.state.citizenID}`);
@@ -60,11 +56,15 @@ export default class HomePageCitizen extends Component {
     }
   };
 
+  backClick = e => {
+    this.props.history.goBack();
+  }
+
   render() {
     const person = this.state.personList;
     return (
       <div>
-        <CitizenName forenames={person.forenames} surname={person.surname}></CitizenName>
+        <p>{person.forenames} {person.surname}</p>
         <p>Citizen ID: {person.citizenID}</p>
         <p>Date of birth: {person.dateOfBirth}</p>
         <p>Place of birth: {person.placeOfBirth}</p>
@@ -82,6 +82,7 @@ export default class HomePageCitizen extends Component {
         <button id="citizenGoToAssociatesButton" onClick={this.handleClick} name="associates">
           Associates
         </button>
+        <BackButton backClick={this.backClick}></BackButton>
       </div>
     );
   }

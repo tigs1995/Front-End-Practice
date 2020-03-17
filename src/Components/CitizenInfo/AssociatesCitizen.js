@@ -3,6 +3,7 @@ import Styles from "../SortingTable/Styles";
 import SortingTable from "../SortingTable/SortingTable";
 import LoadingSpinner from '../LoadingSpinner';
 import CountCalls from './CountCalls';
+import BackButton from '../BackButton';
 import {
   BASE_URL,
   GET_ASSOCIATES,
@@ -30,30 +31,36 @@ export default class AssociatesCitizen extends Component {
         citizenID: this.props.match.params.id
       })
       .then(response => {
+        console.log(response);
         if (response.data.Error) {
           console.log(response.data.Error);
-        } else if (response.data.Warning) {
-          this.setState({ errorMessage: "No data available." });
+        } else if (response.data.inboundCallAssociates.length === 0 && response.data.outboundCallAssociates.length === 0) {
+          this.setState({ loading: false, errorMessage: "No data available." });
         } else {
-          this.setState({ associates: response.data});
+          this.setState({ associates: response.data });
           let countCalls = CountCalls(response.data);
-          this.setState({calls: countCalls});
-          console.log("CALLS",this.state.calls);
+          this.setState({ loading: false, calls: countCalls });
         }
       });
   }
 
+  backClick = e => {
+    this.props.history.goBack();
+  }
 
   render() {
     return (
       <div>
-        <p>Associates of: {this.state.citizenBeingSearched}</p>
+        <p>Associates of citizen {this.state.citizenID}</p>
         <Styles>
           <h2>Associates</h2>
-          <span id="error">{this.state.errorMessage}</span>
           {this.state.loading ? <LoadingSpinner /> :
-          <SortingTable data={this.state.calls} />}
+            <div>
+              <span id="error">{this.state.errorMessage}</span>
+              <SortingTable data={this.state.calls} />
+            </div>}
         </Styles>
+        <BackButton backClick={this.backClick} />
       </div>
     );
   }
