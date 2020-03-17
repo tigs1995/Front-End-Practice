@@ -79,7 +79,7 @@ class Login extends Component {
                     <br/>
                     <input placeholder='password' onChange={this.onChange} value={this.state.password} error={errors.password} id="password" type="password" />
                     <br/>
-                    <button type="submit" >login</button>
+                    <button type="submit" id="loginButton">login</button>
                     <br />
                     <span id='error'>{this.state.userNotFound}</span>
                     <br />
