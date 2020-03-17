@@ -2,6 +2,7 @@ import React from "react";
 import DateTimeRangeContainer from "react-advanced-datetimerange-picker";
 import moment from "moment";
 import DateFormatter from "./DateFormatter";
+import "../../CSS/LocationSearch.css";
 
 export default class LocationSearch extends React.Component {
   constructor(props) {
@@ -66,7 +67,7 @@ export default class LocationSearch extends React.Component {
     let maxDate = moment(start).add(24, "hour");
 
     return (
-      <div>
+      <div id="form">
         <DateTimeRangeContainer
           start={this.state.start}
           end={this.state.end}

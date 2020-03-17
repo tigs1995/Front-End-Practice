@@ -3,7 +3,7 @@ import axios from 'axios';
 import DataInput from '../DataInput';
 import { CHECK_EXISTING_CITIZEN, BASE_URL } from '../../config/Constants.json';
 import styled from 'styled-components';
-import "../../CSS/LoginSignup.css";
+import "../../CSS/CitizenSearch.css";
 
 const Styles = styled.div`
   div {
