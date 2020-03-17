@@ -172,7 +172,7 @@ export default class Location extends React.Component {
 
   render() {
     return (<div style={{ display: "inline-block" }}>
-      <div style={{ width: "calc(100vw - 30vw)", height: "calc(100vh - 64px)", float: "left" }}>
+      <div style={{ width: "calc(100vw - 30vw)", height: "calc(100vh - 70px)", float: "left", marginLeft: "10px"}}>
         {this.state.loading ? <SpinnerOverlay /> : <MapWrapped
           {...this.props.match.params}
           history={this.props.history}
