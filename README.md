@@ -1,5 +1,8 @@
 # National Investigation Unit
 
+![Map](./Map.png) 
+ 
+
 ## Description 
 
 NIU is a SERN stack application with user authentication via Passport and JWTs. The application can be used to access senstive information pertaining to a citizen's biographical and financial information as well as their whereabouts and associates. See the functionality overview section for further information. 
