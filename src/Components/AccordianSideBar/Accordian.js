@@ -61,6 +61,8 @@ export default function CustomizedExpansionPanels(props) {
     setExpanded(newExpanded ? panel : false);
   };
 
+  
+
 
   return (
     <div id="accordian">
@@ -86,11 +88,11 @@ export default function CustomizedExpansionPanels(props) {
         <ExpansionPanelDetails>
           <Typography><div>
             <form>
-              <input type="checkbox" name="vehicle" value="true" onChange={({target}) => {props.onVehicleChange(target.checked)}}></input>
+              <input type="checkbox" name="vehicle" value="true" defaultChecked="true" onChange={({target}) => {props.onFinanceChange(target.checked)}}></input>
               <label for="vehicle1">Vehicle</label><br />
-              <input type="checkbox" name="finance" value="true" onChange={({target}) => {props.onFinanceChange(target.checked)}}></input>
+              <input type="checkbox" name="finance" value="true" defaultChecked="true" onChange={({target}) => {props.onFinanceChange(target.checked)}}></input>
               <label for="vehicle2">Finance</label><br />
-              <input type="checkbox" name="calls" value="true" onChange={({target}) => {props.onCallsChange(target.checked)}}></input>
+              <input type="checkbox" name="calls" value="true" defaultChecked="true" onChange={({target}) => {props.onCallsChange(target.checked)}}></input>
               <label for="vehicle3">Calls</label><br />
     
             </form>
