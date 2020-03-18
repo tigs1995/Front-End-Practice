@@ -55,7 +55,7 @@ Install Eclipse or another Java IDE
 To run the selenium tests for the front-end of the application:
 
 ```
-Clone this branch to your local machine
+Clone this repository to your local machine https://github.com/tigs1995/SeleniumFinalProject.git
 ```
 
 Open the cloned project in either Eclipse or another Java IDE
