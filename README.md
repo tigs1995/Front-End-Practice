@@ -32,7 +32,7 @@ $ npm start
 ```
 * Open ```http://localhost:3000``` to view it in the browser
 
--- Image of what website home page looks like here 
+![Landing Page]() 
 
 * To run selenium tests- selenium tests are written in Java
 ```
