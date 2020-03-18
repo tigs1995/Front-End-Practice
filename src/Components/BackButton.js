@@ -4,7 +4,7 @@ export default class BackButton extends Component{
 
   render() {
       return (
-      <button onClick={this.props.backClick}>Back</button>
+      <button class="button" onClick={this.props.backClick}>Back</button>
       )
   }
 

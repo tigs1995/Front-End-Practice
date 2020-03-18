@@ -4,6 +4,7 @@ import Styles from "../SortingTable/Styles";
 import SortingTable from "../SortingTable/SortingTable";
 import LoadingSpinner from '../LoadingSpinner';
 import BackButton from '../BackButton';
+import "../../CSS/Tables.css";
 
 import {
   BASE_URL,
@@ -84,7 +85,7 @@ export default class FinancialsCitizen extends Component {
 
   render() {
     return (
-      <div>
+      <div id="table2">
         <p>Financials of citizen {this.state.citizenID}</p>
         <Styles>
           <h2>Bank cards</h2>

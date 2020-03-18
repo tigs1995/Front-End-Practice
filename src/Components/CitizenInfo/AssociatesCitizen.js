@@ -4,6 +4,7 @@ import SortingTable from "../SortingTable/SortingTable";
 import LoadingSpinner from '../LoadingSpinner';
 import CountCalls from './CountCalls';
 import BackButton from '../BackButton';
+import "../../CSS/Tables.css";
 import {
   BASE_URL,
   GET_ASSOCIATES,
@@ -51,16 +52,17 @@ export default class AssociatesCitizen extends Component {
   render() {
     return (
       <div>
-        <p>Associates of citizen {this.state.citizenID}</p>
         <Styles>
-          <h2>Associates</h2>
           {this.state.loading ? <LoadingSpinner /> :
-            <div>
+            <div id="table">
+            <h2>Associates</h2>
+            <p>Citizen ID: {this.state.citizenID}</p>
               <span id="error">{this.state.errorMessage}</span>
               <SortingTable data={this.state.calls} />
+              <BackButton backClick={this.backClick} />
             </div>}
         </Styles>
-        <BackButton backClick={this.backClick} />
+        
       </div>
     );
   }
