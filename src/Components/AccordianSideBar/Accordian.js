@@ -73,9 +73,9 @@ export default function CustomizedExpansionPanels(props) {
         <ExpansionPanelDetails>
           <Typography>
             <form onSubmit={props.handleSearchChange}>
-            Latitude: <input type="text" placeholder={"Current: " + lat} onChange={({target}) => {props.newSearchLatitude(target.value)}}></input><br />
-            Longitude: <input type="text"  placeholder={"Current: " + long} onChange={({target}) => {props.newSearchLongitude(target.value)}}></input><br />
-            Radius: <input type="text"  placeholder={"Current: " + radius} onChange={({target}) => {props.newSearchRadius(target.value)}}></input><br />
+            Latitude: <input type="text" placeholder={"Current: " + lat} defaultValue={lat} onChange={({target}) => {props.newSearchLatitude(target.value)}}></input><br />
+            Longitude: <input type="text"  placeholder={"Current: " + long} defaultValue={long} onChange={({target}) => {props.newSearchLongitude(target.value)}}></input><br />
+            Radius: <input type="text"  placeholder={"Current: " + radius} defaultValue={radius} onChange={({target}) => {props.newSearchRadius(target.value)}}></input><br />
             <button type="submit">Search</button>
             </form>
           </Typography>
@@ -88,7 +88,7 @@ export default function CustomizedExpansionPanels(props) {
         <ExpansionPanelDetails>
           <Typography><div>
             <form>
-              <input type="checkbox" name="vehicle" value="true" defaultChecked="true" onChange={({target}) => {props.onFinanceChange(target.checked)}}></input>
+              <input type="checkbox" name="vehicle" value="true" defaultChecked="true" onChange={({target}) => {props.onVehicleChange(target.checked)}}></input>
               <label for="vehicle1">Vehicle</label><br />
               <input type="checkbox" name="finance" value="true" defaultChecked="true" onChange={({target}) => {props.onFinanceChange(target.checked)}}></input>
               <label for="vehicle2">Finance</label><br />
