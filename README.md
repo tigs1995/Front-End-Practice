@@ -141,7 +141,7 @@ Add notes about how to deploy this on a live system here
 ## Site Map
 
 
-![Image of Sitemap]https://github.com/tigs1995/Front-End-Final-Project.git/NIU_sitemap.png
+![Sitemap](./NIU_sitemap.png)
 
 ## Authors
 
