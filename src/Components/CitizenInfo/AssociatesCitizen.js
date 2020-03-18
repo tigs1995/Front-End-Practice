@@ -51,16 +51,16 @@ export default class AssociatesCitizen extends Component {
 
   render() {
     return (
-      <div>
+      <div id="table">
         <Styles>
           {this.state.loading ? <LoadingSpinner /> :
-            <div id="table">
+            <div>
             <h2>Associates</h2>
             <p>Citizen ID: {this.state.citizenID}</p>
               <span id="error">{this.state.errorMessage}</span>
               <SortingTable data={this.state.calls} />
-              <BackButton backClick={this.backClick} />
             </div>}
+            <BackButton backClick={this.backClick} />
         </Styles>
         
       </div>
