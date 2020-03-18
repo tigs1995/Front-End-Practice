@@ -38,6 +38,12 @@ $ npm start
 ```
 Install Eclipse or another Java IDE
 ```
+### Making requests to the backend API
+
+
+- notes on how connect to BE 
+
+ The source code for the backend server can be found in the repo ```https://github.com/Ewan-James-Donovan/bae-project-back-end.git. ```
 
 
 ## Running the tests
@@ -52,7 +58,7 @@ Clone this branch to your local machine
 Open the cloned project in either Eclipse or another Java IDE
 
 ```
-Run the front- and backend of the application
+Run the front and backend of the application
 ```
 
 ```
@@ -81,14 +87,6 @@ Add notes about how to deploy this on a live system here
 * [Passport](http://www.passportjs.org/) - The JavaScript authentication middleware used 
 * [Eclipse](https://www.eclipse.org/)  - Java IDE used to write and test Selenium 
 * [Selenium](https://www.selenium.dev/) - Used for automated testing 
-
-
-### Making requests to the backend API
-
-
-- notes on how connect to BE 
-
- The source code for the backend server can be found in the repo ```https://github.com/Ewan-James-Donovan/bae-project-back-end.git. ```
 
 
 ## Functionality Overview
