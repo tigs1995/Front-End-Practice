@@ -60,7 +60,7 @@ function Map(props) {
                         lat: +vehicle.latitude,
                         lng: +vehicle.longitude
                     }}
-                    icon={(props.vehicleFilter && vehicleIcon) || noVehicle}
+                    icon={props.vehicleFilter ? vehicleIcon : noVehicle}
                     onClick={() => {
                         axios.post(`${BASE_URL}${GET_VEHICLE_INFO}`, { vehicleRegistrationNo: vehicle.vehicleRegistrationNumber })
                         .then(response => {
@@ -83,7 +83,7 @@ function Map(props) {
                         lat: +call.latitude,
                         lng: +call.longitude
                     }}
-                    icon={(props.callsFilter && callIcon) || noCall}
+                    icon={props.callsFilter ? callIcon : noCall}
                     onClick={() => {
                         axios.post(`${BASE_URL}${GET_CITIZEN_BY_PHONE}`, { number: call.callerMSISDN })
                         .then(response => {
@@ -104,7 +104,7 @@ function Map(props) {
                         lat: +call.latitude,
                         lng: +call.longitude
                     }}
-                    icon={(props.callsFilter && callIcon) || noCall}
+                    icon={props.callsFilter ? callIcon : noCall}
                     onClick={() => {
                         axios.post(`${BASE_URL}${GET_CITIZEN_BY_PHONE}`, { number: call.callerMSISDN })
                         .then(response => {
@@ -126,7 +126,7 @@ function Map(props) {
                         lat: +finance.latitude,
                         lng: +finance.longitude
                     }}
-                    icon={(props.financeFilter && financeIcon) || noFinance}
+                    icon={props.financeFilter ? financeIcon : noFinance}
                     onClick={() => {
                         axios.post(`${BASE_URL}${GET_CITIZEN_BY_CARD}`, {number: finance.cardNumber})
                         .then(response => {
@@ -148,7 +148,7 @@ function Map(props) {
                         lat: +finance.latitude,
                         lng: +finance.longitude
                     }}
-                    icon={financeIcon}
+                    icon={props.financeFilter ? financeIcon : noFinance}
                     onClick={() => {
                         axios.post(`${BASE_URL}${GET_CITIZEN_BY_CARD}`, {number: finance.cardNumber})
                         .then(response => {

@@ -82,7 +82,7 @@ export default class Location extends React.Component {
 
   }
 
-  handleFinanceChange = (trueOrFalse) => { this.setState({ financeFilter: trueOrFalse }) }
+  handleFinanceChange = (trueOrFalse) => {this.setState({ financeFilter: trueOrFalse }) }
   handleCallsChange = (trueOrFalse) => { this.setState({ callsFilter: trueOrFalse }) }
   handleVehicleChange = (trueOrFalse) => { this.setState({ vehicleFilter: trueOrFalse }) }
 
