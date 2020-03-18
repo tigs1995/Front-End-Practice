@@ -26,10 +26,9 @@ To get the development environment running, open the terminal in the folder wher
 $ npm install              
 ```
 
-* To start the local server(this project uses create-react-app)
+* To start the local server (this project uses create-react-app)
 ```
 $ npm start
-
 ```
 * Open ```http://localhost:3000``` to view it in the browser
 
