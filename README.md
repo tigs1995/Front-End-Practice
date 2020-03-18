@@ -2,8 +2,15 @@
 
 ## Description 
 
-NIU is a SERN stack application with user authentication via Passport and JWTs. The application can be used to access senstive information pertaining to a citizen's biographical and financial information as well as their whereabouts and associates. See the functionality overview section for further information. 
+NIU is a SERN stack application with user authentication via Passport and JWTs. This project was made to complete three tasks: reveal details of a detained suspect, locate the whereabouts and owner of a vehicle and find events occuring within an area at a specific time. As such, this application can be used to access senstive information pertaining to a citizen's biographical and financial information as well as their whereabouts and associates. See the functionality overview section for further information. 
 
+## Data Architecture
+
+The data for this project was received in the form of multiple CSV files with repeating fields. This data was first broken up and relationships were established. These relations can be seen in the diagram below.
+
+![Data Flow BackEnd](./DataFlowBE.jpg)
+
+It can be seen that the three focuses are vehicles, financials and calls. All other data builds into these three areas and each originate from a citizen. 
 
 ## Getting Started
 
@@ -40,19 +47,19 @@ Install Eclipse or another Java IDE
 ```
 ### Making requests to the backend API
 
-
-- notes on how connect to BE 
+To get the back-end running locally:
 
  The source code for the backend server can be found in the repo ```https://github.com/Ewan-James-Donovan/bae-project-back-end.git. ```
 
+Run the same commands as specified for the front-end. Tables will be automatically generated and the application will be ready to use.
 
 ## Running the tests
 
 
-To run the selenium tests for the front-end of the application:
+To run the selenium tests for the front-end of the application use the following repo:
 
 ```
-Clone this branch to your local machine
+https://github.com/tigs1995/SeleniumFinalProject.git
 ```
 
 Open the cloned project in either Eclipse or another Java IDE
@@ -87,11 +94,43 @@ Add notes about how to deploy this on a live system here
 * [Passport](http://www.passportjs.org/) - The JavaScript authentication middleware used 
 * [Eclipse](https://www.eclipse.org/)  - Java IDE used to write and test Selenium 
 * [Selenium](https://www.selenium.dev/) - Used for automated testing 
+* [Sequelize](https://sequelize.org/) - Used to setup SQL database
+* [AWS](https://aws.amazon.com/) - Used to host the database and testing/live environment
 
 
-## Functionality Overview
+## Functionality
 
-### General Functionality: 
+### Site Map
+
+Below is a screenshot showing the flow of the application. You are unable to access any section until you are logged in. Upon logging in you are sent a JWT token which is checked upon accessing any page. Also, if you possess a JWT token, you cannot go to the login or register page.
+
+### Front-End Design
+
+![Sitemap](./NIU_sitemap.png)
+
+Upon logging in, you will be taken to the homepage where you can begin one of your three searches:
+
+![Homepage](./HomePage.png)
+
+Each search allows for inserting partial information, for example, just a first name, or a few characters of a number plate. You will be taken to a list of all partial matches to your search.
+
+![Citizen List](./CitizenList.png)
+
+The screenshot above shows all partial matches to a search of just Anthony. You can select to view more information on any citizen.
+
+![Citizen Homepage](./CitizenHomePage.png)
+
+Upon viewing a citizen, you can view all gathered information on them, including their known vehicles, bank cards and transactions, their associates as determined by phone call interactions and their whereabouts. The whereabouts button will take you to a Google Map page with pins plotted of all known appearances.
+
+![Citizen Vehicle](./CitizenVehicle.png)
+
+The screenshot above shows the layout of the vehicle page related to this citizen. Their know vehicles are displayed in a sortable table along with any sightings from cameras.
+
+![Map Function](./SearchMap.png)
+
+The location search allows you to specify a location via latitude and longitude, along with a timeframe and radius. These results are used to plot a region on a map and display any events within that timeframe and location. The events are colour-coded to correspond to vehicle sightings, calls and financial transactions. Each pin can be clicked on to display more information and the citizen behind the event, and the information can also be clicked on again to be taken to that citizen's homepage.
+
+### Functionality Summary: 
 
 * Authenticate users via JWT(login / register pages and logout button)
 * Access citizen's biographical and financial information as well as their whereabouts and associates.
@@ -134,11 +173,6 @@ Add notes about how to deploy this on a live system here
 	* Table displaying a citizen's associates based on calls data
 * Financials page(URL:/CitizenFinancials/:id)
 	* Tables displaying citizen's financial information
-
-## Site Map
-
-
-![Sitemap](./NIU_sitemap.png)
 
 ## Authors
 
