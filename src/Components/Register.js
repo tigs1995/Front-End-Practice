@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from 'axios';
+import { BASE_URL } from "../config/Constants.json";
 
 export default class Register extends Component {
   constructor() {
@@ -45,7 +46,7 @@ export default class Register extends Component {
       this.setState({error: 'Passwords do not match.'})
     }
     else{
-      axios.post("http://localhost:8080/login/create", newUser).then(res => 
+      axios.post(BASE_URL + "/login/create", newUser).then(res => 
       this.props.history.push("/"))
       .catch(err => {
         this.setState({error: "Username already exists."})

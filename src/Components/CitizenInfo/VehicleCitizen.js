@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Styles from "../SortingTable/Styles";
 import SortingTable from "../SortingTable/SortingTable";
 import LoadingSpinner from '../LoadingSpinner';
+import "../../CSS/Tables.css";
+
 import {
   GET_CITIZEN,
   GET_ANPR_INFO,
@@ -82,11 +84,10 @@ export default class VehicleCitizen extends Component {
   render() {
     let id = this.state.citizenID;
     return (
-      <div>
-        <p>Vehicles of citizen {this.state.citizenID}</p>
-        <button id='citizenButton' onClick={this.handleClick}>Go to citizen page</button>
+      <div id="table2">
         <Styles>
           <h2>Vehicles</h2>
+          <p>Vehicles of citizen {this.state.citizenID}</p>
           {this.state.loadingVehicle ? <LoadingSpinner /> :
             <div>
               <span id="error">{this.state.vehicleError}</span>
@@ -101,6 +102,7 @@ export default class VehicleCitizen extends Component {
               <SortingTable data={this.state.ANPRList} />
             </div>}
         </Styles>
+        <button id='citizenButton' class="button" onClick={this.handleClick}>Go to citizen page</button>
         <BackButton backClick={this.backClick} />
       </div>
     );
