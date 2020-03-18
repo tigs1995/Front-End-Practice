@@ -110,33 +110,33 @@ Add notes about how to deploy this on a live system here
 ### Page breakdown:
 
 * Sign in/Register Pages (URL:/#/)
-	** Use JWT (store the token in sessionStorage)
+	* Use JWT (store the token in sessionStorage)
 * Home Page (URL:/HomePage)
-	** Citizen, vehicle and location search buttons
+	* Citizen, vehicle and location search buttons
 * Citizen search page(/CitizenSearch")
- 	** Search a citizen by forenames and surnames
+ 	* Search a citizen by forenames and surnames
 * Vehicle search page(URL:/VehicleSearch)
- 	** Search a vehicle by registration number
+ 	* Search a vehicle by registration number
 * Location search page (URL:/LocationSearch)
-   ** Search events by location, timestamp and radius
+   * Search events by location, timestamp and radius
 * Citizen / vehicle results pages (URL:/CitizenList/:forenames/:surname ) (URL:/VehicleList/:reg)
-   ** List of citizen/vehicle results including parial matches
-   ** List of citizens/ vehicles can be toggled alphanumerically by selecting column
+   * List of citizen/vehicle results including parial matches
+   * List of citizens/ vehicles can be toggled alphanumerically by selecting column
 * Vehicle profile page (URL:/CitizenVehicles/:id/:pag)
-	** Shows citizen vehicle information including ANPR data
+	* Shows citizen vehicle information including ANPR data
 * Citizen profile page (URL:/CitizenHome/:id)
-	** Shows citizen biographical data
-	** Buttons to navigate to citizen finances, vehicles, whereabouts(links to map page), calls data.
+	* Shows citizen biographical data
+	* Buttons to navigate to citizen finances, vehicles, whereabouts(links to map page), calls data.
 * Map page (URL:/Map/:radius/:lat/:long/:afterTime/:beforeTime)(URL:/CitizenMap/:id/:afterTime/:beforeTime)
-	** Renders react-google-map 
-	** Can be accessed from Location search or via citizen profile page
-	** Populated with color-coded markers for the relevant financial, calls and vehicle information searched for. 
-	** Clickable markers to navigate to relevant citizen's profile
-	** Side bar and filters to toggle data displayed on the map
+	* Renders react-google-map 
+	* Can be accessed from Location search or via citizen profile page
+	* Populated with color-coded markers for the relevant financial, calls and vehicle information searched for. 
+	* Clickable markers to navigate to relevant citizen's profile
+	* Side bar and filters to toggle data displayed on the map
 * Associates page( URL:/CitizenAssociates/:id)
-	** Table displaying a citizen's associates based on calls data
+	* Table displaying a citizen's associates based on calls data
 * Financials page(URL:/CitizenFinancials/:id)
-	** Tables displaying citizen's financial information
+	* Tables displaying citizen's financial information
 
 ## Site Map
 
