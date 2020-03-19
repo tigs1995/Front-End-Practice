@@ -180,7 +180,11 @@ The location search allows you to specify a location via latitude and longitude,
 
 ## Acknowledgments
 
-* 
+* We would like to show our gratitude to Jordan for his help, guidance and enthusiasm throughout our time at the academy. This has greatly contributed to the success of this project.
+
+* Thanks also to Nick and Ian for helping us solve the bugs in our code that would have kept us up at night.
+
+* The rest of our cohort for valuable suggestions and feedback which gave us the inspiration to improve our project.
 
 
 
