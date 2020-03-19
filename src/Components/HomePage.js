@@ -24,7 +24,7 @@ export default class HomePage extends React.Component {
     render() {
         return (<div className="centreSearch">
 
-            <h4>Search</h4>
+            <h4 id="homepageTitle">Search</h4>
 
             <button id="homepageButton"
                 onMouseOver={this.showText}
@@ -48,7 +48,7 @@ export default class HomePage extends React.Component {
                 name="Location">Location</button>
             <br />
             <br />
-            <p id="toggle" style={{ visibility: "hidden" }}><span></span></p>
+            <p className="error" id="toggle" style={{ visibility: "hidden" }}><span></span></p>
         </div>
         );
     }

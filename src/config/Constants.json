@@ -1,5 +1,5 @@
 {
-    "BASE_URL": "http://localhost:8080",
+    "BASE_URL": "http://18.130.222.165:8080",
     "CHECK_EXISTING_CITIZEN": "/citizenExists",
     "CHECK_EXISTING_VEHICLE": "/vehicleExists",
     "CITIZEN_LIST": "/citizenList",
@@ -14,6 +14,8 @@
     "GET_VEHICLE_INFO": "/getVehicleInfo",
     "GET_VEHICLE_OWNER": "/getVehicleOwner",
     "GET_ANPR_INFO": "/getANPRInfo",
+    "GET_CITIZEN_BY_CARD": "/getCitByCard",
+    "GET_CITIZEN_BY_PHONE": "/getCitByPhone",
     "GET_BANKCARD_INFO": "/getBankCardInfo",
     "GET_ASSOCIATES": "/getAssociates",
     "MAP_URL": "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDBxnd19DzbFBaNgtX75EgNx6znWS9pzpY"

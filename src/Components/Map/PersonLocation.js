@@ -7,82 +7,78 @@ import {
   GET_CITIZEN_VEHICLES,
   MAP_URL
 } from "../../config/Constants.json";
-import MapWrapped from "./MapComponent";
+import MapWrapped from "./PersonMapComponent";
 import SpinnerOverlay from "../SpinnerOverlay";
 
 export default class PersonLocation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      latitude: 0,
-      longitude: 0,
-      radius: 0,
       beforeTime: "",
       afterTime: "",
       vehicleDataToUse: [],
-      callDataToUse: [],
-      financialDataToUse: [],
+      callDataToUseInbound: [],
+      callDataToUseOutbound: [],
+      financialDataToUseEpos: [],
+      financialDataToUseAtm: [],
       loading: true
     };
   }
 
-  axiosRequests = async (choice) => {
-    const searchDetails = {
-      "citizenID": "D42HIS456",
-      "afterTime": "2014-02-20T0:0:0Z",
-      "beforeTime": "2020-02-11T23:59:59Z"
-    };
-    let response = [
-      {"citizenID": 8, latitude:53.45706016101823 , longitude: -2.9149797465275173},
-      {"citizenID": 9, latitude:52.70225113709832 , longitude: -1.2654176264722115}];
+  loadStuff = async () => {
+    const newState = this.state;
 
-    if (choice === "vehicle") {
-      console.log("axios started");
-      //const response = await axios.post(`${BASE_URL}${GET_CITIZEN_VEHICLES}`, searchDetails);
-      return response;
+    const searchDetails = {
+      citizenID: this.props.match.params.id,
+      afterTime: this.props.match.params.afterTime,
+      beforeTime: this.props.match.params.beforeTime
+    };
+
+    const apiCalls = [
+      { key: 'financialDataToUseAtm', url: `${BASE_URL}${GET_CITIZEN_FINANCIALS}`, data: {...searchDetails, eposOrAtm: 'atm'} },
+      { key: 'financialDataToUseEpos', url: `${BASE_URL}${GET_CITIZEN_FINANCIALS}`, data: {...searchDetails, eposOrAtm: 'epos'} },
+      { key: 'callDataToUseOutbound', url: `${BASE_URL}${GET_CITIZEN_CALLS}`, data: {...searchDetails, inboundOrOutbound: 'outbound'} },
+      { key: 'callDataToUseInbound', url: `${BASE_URL}${GET_CITIZEN_CALLS}`, data: {...searchDetails, inboundOrOutbound: 'inbound'} },
+      { key: 'vehicleDataToUse', url: `${BASE_URL}${GET_CITIZEN_VEHICLES}`, data: {...searchDetails} },
+    ];
+
+    for(let {key, url, data} of apiCalls) {
+      await axios.post(url, data).then(response => {
+        if (response.data.Exception) {
+          newState[key] = [];
+        }
+        else if (response.data.Warning) {
+          newState[key] = [];
+          console.log("Warning: No data from " + key);
+        }
+        else {
+          newState[key] = response.data;
+        }
+      }).catch(error => {
+        console.log(error);
+        newState[key] = [];
+      });
     }
-    if (choice === "call") {
-      console.log("axios started");
-      //const response = await axios.post(`${BASE_URL}${ GET_CITIZEN_CALLS}`, searchDetails);
-      return response;
-    }
-    if (choice === "financial") {
-      console.log("axios started");
-      //const response = await axios.post(`${BASE_URL}${GET_CITIZEN_FINANCIALS}`, searchDetails);
-      return response;
-    }
-    console.log("axios finished");
-    //console.log(response.data);
-    return response;
+    this.setState(newState);
+    this.setState({loading:false});
   }
+
   componentDidMount() {
-    this.axiosRequests("vehicle").then(vehicleDataToUse => {
-      this.setState({
-        ...this.props.match.params,
-        vehicleDataToUse,
-      });
-    });
-    this.axiosRequests("call").then(callDataToUse => {
-      this.setState({
-        callDataToUse,
-      });
-    });
-    this.axiosRequests("financial").then(financialDataToUse => {
-      this.setState({
-        financialDataToUse,
-        loading: false
-      });
-    });
+      this.loadStuff();
   }
+
   render() {
     return (
       <div style={{ width: "100vw", height: "calc(100vh - 64px)" }}>
         
         <MapWrapped
           {...this.props.match.params}
+          history={this.props.history}
           vehicleDataToUse={this.state.vehicleDataToUse}
-          callDataToUse={this.state.callDataToUse}
-          financialDataToUse={this.state.financialDataToUse}
+          callDataToUseInbound={this.state.callDataToUseInbound}
+          callDataToUseOutbound={this.state.callDataToUseOutbound}
+          financialDataToUseEpos={this.state.financialDataToUseEpos}
+          financialDataToUseAtm={this.state.financialDataToUseAtm}
           googleMapURL={MAP_URL}
           history={this.props.history}
           loadingElement={<div style={{ height: `100%` }} />}

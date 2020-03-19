@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { BASE_URL, GET_CITIZEN } from "../../config/Constants.json";
 import axios from "axios";
-import CitizenName from './CitizenName';
 import DateConverter from './DateConverter';
+import BackButton from '../BackButton';
+import "../../CSS/CitizenHome.css";
 
 export default class HomePageCitizen extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export default class HomePageCitizen extends Component {
 
     let today = new Date();
     let todaysDate = DateConverter(today);
-    this.setState({ todaysDate: todaysDate});
+    this.setState({ todaysDate: todaysDate });
 
     let lastWeek = new Date(today);
     lastWeek.setDate(lastWeek.getDate() - 7);
@@ -35,7 +36,6 @@ export default class HomePageCitizen extends Component {
       })
       .then(response => {
         this.setState({ personList: response.data });
-        console.log(this.state.personList);
       })
       .catch(error => {
         console.log("Error: " + error);
@@ -43,11 +43,8 @@ export default class HomePageCitizen extends Component {
   };
 
   handleClick = ({ target: { name } }) => {
-    console.log(this.state.lastWeeksDate);
-    console.log(this.state.todaysDate);
-    console.log(this.state.citizenID);
     if (name === "vehicles") {
-      this.props.history.push(`/CitizenVehicles/${this.state.citizenID}`);
+      this.props.history.push(`/CitizenVehicles/${this.state.citizenID}/citizen`);
     }
     if (name === "financials") {
       this.props.history.push(`/CitizenFinancials/${this.state.citizenID}`);
@@ -56,15 +53,19 @@ export default class HomePageCitizen extends Component {
       this.props.history.push(`/CitizenAssociates/${this.state.citizenID}`);
     }
     if (name === "whereabouts") {
-      this.props.history.push(`/CitizenMap/${this.state.citizenID}/${this.state.lastWeeksDate}/${this.state.todaysDate}`);
+      this.props.history.push(`/CitizenMap/${this.state.citizenID}/2010-03-09T14:16:43Z/2020-03-09T14:16:43Z`);
     }
   };
+
+  backClick = e => {
+    this.props.history.goBack();
+  }
 
   render() {
     const person = this.state.personList;
     return (
-      <div>
-        <CitizenName forenames={person.forenames} surname={person.surname}></CitizenName>
+      <div class="main">
+        <p>{person.forenames} {person.surname}</p>
         <p>Citizen ID: {person.citizenID}</p>
         <p>Date of birth: {person.dateOfBirth}</p>
         <p>Place of birth: {person.placeOfBirth}</p>
@@ -72,16 +73,17 @@ export default class HomePageCitizen extends Component {
           Address: {person.streetName} {person.city} {person.postcode}
         </p>
 
-        <button onClick={this.handleClick} name="vehicles">
+        <button id="citizenGoToVehicleButton" onClick={this.handleClick} name="vehicles">
           Vehicles
         </button>
-        <button onClick={this.handleClick} name="financials">
+        <button id="citizenGoToFinanceButton" onClick={this.handleClick} name="financials">
           Financials
         </button>
-        <button onClick={this.handleClick} name="whereabouts">Whereabouts</button>
-        <button onClick={this.handleClick} name="associates">
+        <button id="citizenGoToWhereaboutsButton" onClick={this.handleClick} name="whereabouts">Whereabouts</button>
+        <button id="citizenGoToAssociatesButton" onClick={this.handleClick} name="associates">
           Associates
         </button>
+        <BackButton backClick={this.backClick}></BackButton>
       </div>
     );
   }

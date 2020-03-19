@@ -4,6 +4,7 @@ import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
+import "../../CSS/Accordian.css";
 
 const ExpansionPanel = withStyles({
   root: {
@@ -60,9 +61,11 @@ export default function CustomizedExpansionPanels(props) {
     setExpanded(newExpanded ? panel : false);
   };
 
+  
+
 
   return (
-    <div>
+    <div id="accordian">
       <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
           <Typography>Change Search</Typography>
@@ -70,9 +73,9 @@ export default function CustomizedExpansionPanels(props) {
         <ExpansionPanelDetails>
           <Typography>
             <form onSubmit={props.handleSearchChange}>
-            Latitude: <input placeholder={lat} onChange={({target}) => {props.newSearchLatitude(target.value)}}></input><br />
-            Longitude: <input placeholder={long} onChange={({target}) => {props.newSearchLongitude(target.value)}}></input><br />
-            Radius: <input placeholder={radius} onChange={({target}) => {props.newSearchRadius(target.value)}}></input><br />
+            Latitude: <input type="text" placeholder={"Current: " + lat} defaultValue={lat} onChange={({target}) => {props.newSearchLatitude(target.value)}}></input><br />
+            Longitude: <input type="text"  placeholder={"Current: " + long} defaultValue={long} onChange={({target}) => {props.newSearchLongitude(target.value)}}></input><br />
+            Radius: <input type="text"  placeholder={"Current: " + radius} defaultValue={radius} onChange={({target}) => {props.newSearchRadius(target.value)}}></input><br />
             <button type="submit">Search</button>
             </form>
           </Typography>
@@ -85,11 +88,11 @@ export default function CustomizedExpansionPanels(props) {
         <ExpansionPanelDetails>
           <Typography><div>
             <form>
-              <input type="checkbox" name="vehicle" value="true" onChange={({target}) => {props.onVehicleChange(target.checked)}}></input>
+              <input type="checkbox" name="vehicle" value="true" defaultChecked="true" onChange={({target}) => {props.onVehicleChange(target.checked)}}></input>
               <label for="vehicle1">Vehicle</label><br />
-              <input type="checkbox" name="finance" value="true" onChange={({target}) => {props.onFinanceChange(target.checked)}}></input>
+              <input type="checkbox" name="finance" value="true" defaultChecked="true" onChange={({target}) => {props.onFinanceChange(target.checked)}}></input>
               <label for="vehicle2">Finance</label><br />
-              <input type="checkbox" name="calls" value="true" onChange={({target}) => {props.onCallsChange(target.checked)}}></input>
+              <input type="checkbox" name="calls" value="true" defaultChecked="true" onChange={({target}) => {props.onCallsChange(target.checked)}}></input>
               <label for="vehicle3">Calls</label><br />
     
             </form>
@@ -105,9 +108,9 @@ export default function CustomizedExpansionPanels(props) {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography style={{display:"flex", width: "30%"}}>
-            <p style={{padding: "10px",margin:"5px", backgroundColor:"rgba(225, 0, 0, 0.5)"}}>Vehicle </p>
-            <p style={{padding: "10px",margin:"5px",backgroundColor:"rgba(255,165,0, 0.5)"}}>Finance </p>
-            <p style={{padding: "10px",margin:"5px",backgroundColor:"rgba(0, 0, 225, 0.5)"}}>Calls </p>
+            <p style={{padding: "10px",margin:"5px", backgroundColor:"rgba(225, 0, 0, 0.5)", transform: "translate(-70%, -10px)"}}>Vehicle </p>
+            <p style={{padding: "10px",margin:"5px",backgroundColor:"rgba(255,165,0, 0.5)", transform: "translate(-70%, -10px)"}}>Finance </p>
+            <p style={{padding: "10px",margin:"5px",backgroundColor:"rgba(0, 0, 225, 0.5)", transform: "translate(calc(-70% - 20px), -10px)"}}>Calls </p>
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>

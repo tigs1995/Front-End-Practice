@@ -22,11 +22,13 @@ a {
   text-decoration: none;
   font-size: 17px;
   border-right: 20px;
+  margin-top: 5px;
 }
 /* Change the color of links on hover */
-a:hover {
-  /* background-color: rgb(96, 105, 114); */
-  color: white;
+a:hover, #signOut:hover {
+  text-decoration: none;
+  color: red;
+  cursor: pointer;
 }
 /* Add a color to the active/current link */
 a.active {

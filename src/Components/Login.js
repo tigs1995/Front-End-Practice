@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../Actions/authActions";
 import classnames from "classnames";
+import { BASE_URL } from "../config/Constants.json";
 import axios from 'axios';
 import "../CSS/LoginSignup.css";
 
@@ -52,7 +53,7 @@ class Login extends Component {
             username: this.state.username,
             password: this.state.password
         };
-        axios.post("http://localhost:8080/login", userData).then(res => {
+        axios.post(BASE_URL + "/login", userData).then(res => {
             if (res.data.token) {
                 this.props.loginUser(res.data.token); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
             }
@@ -79,7 +80,7 @@ class Login extends Component {
                     <br/>
                     <input placeholder='password' onChange={this.onChange} value={this.state.password} error={errors.password} id="password" type="password" />
                     <br/>
-                    <button type="submit" >login</button>
+                    <button type="submit" id="loginButton">login</button>
                     <br />
                     <span id='error'>{this.state.userNotFound}</span>
                     <br />

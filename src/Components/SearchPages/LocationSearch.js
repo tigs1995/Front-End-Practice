@@ -2,6 +2,7 @@ import React from "react";
 import DateTimeRangeContainer from "react-advanced-datetimerange-picker";
 import moment from "moment";
 import DateFormatter from "./DateFormatter";
+import "../../CSS/LocationSearch.css";
 
 export default class LocationSearch extends React.Component {
   constructor(props) {
@@ -66,7 +67,7 @@ export default class LocationSearch extends React.Component {
     let maxDate = moment(start).add(24, "hour");
 
     return (
-      <div>
+      <div id="form">
         <DateTimeRangeContainer
           start={this.state.start}
           end={this.state.end}
@@ -74,7 +75,7 @@ export default class LocationSearch extends React.Component {
           maxDate={maxDate}
           applyCallback={this.applyCallback}
         >
-          <button>Select a timerange</button>
+          <button id="but">Select a timerange</button>
           <br />
           Start: <input name="start" type="text" value={startDisplay}></input>
           <br />
@@ -106,13 +107,13 @@ export default class LocationSearch extends React.Component {
           <input
             type="number"
             min="0"
-            max="1000"
+            max="50"
             name="radius"
-            placeholder="Radius (km)"
+            placeholder="Radius (km): Up to 50km"
             onChange={this.handleChange}
             required
           ></input>
-          <button>Search</button>
+          <button id="but">Search</button>
         </form>
       </div>
     );

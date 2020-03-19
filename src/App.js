@@ -100,7 +100,7 @@ export default class App extends Component {
             component={withRouter(AssociatesCitizen)}
           ></PrivateRoute>
           <PrivateRoute
-            path="/CitizenVehicles/:id"
+            path="/CitizenVehicles/:id/:page"
             component={withRouter(VehicleCitizen)}
           ></PrivateRoute>
 
@@ -109,7 +109,7 @@ export default class App extends Component {
             component={withRouter(Location)}
           ></PrivateRoute>
           <PrivateRoute
-            path="/CitizenMap/:id/:beforeTime/:afterTime"
+            path="/CitizenMap/:id/:afterTime/:beforeTime"
             component={withRouter(PersonLocation)}
           ></PrivateRoute>
           </Switch>

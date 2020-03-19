@@ -8,6 +8,10 @@ import {
     Circle
 } from "react-google-maps";
 import mapStyles from "./mapStyles";
+import { vehicleIcon, callIcon, financeIcon, noVehicle, noCall, noFinance } from "./MarkerIcons.js";
+import { BASE_URL, GET_VEHICLE_INFO, GET_CITIZEN_BY_CARD, GET_CITIZEN_BY_PHONE } from "../../config/Constants";
+import axios from "axios";
+
 function Map(props) {
     let { lat, long, radius, beforeTime, afterTime } = props;
     let {
@@ -31,41 +35,14 @@ function Map(props) {
             window.removeEventListener("keydown", listener);
         };
     }, []);
-    var vehicleIcon = {
-        url:
-            "https://i.pinimg.com/originals/86/fd/17/86fd17769a3b2537d2b028601cda7b92.png", // url
-        scaledSize: { width: 20, height: 25 }
-    };
-    var callIcon = {
-        url:
-            "https://www.pngkit.com/png/full/48-480186_google-pin-image-google-maps-markers-blue.png", // url
-        scaledSize: { width: 20, height: 32 }
-    };
-    var financeIcon = {
-        url: "https://webstockreview.net/images/google-map-marker-png-4.png", // url
-        scaledSize: { width: 20, height: 32 }
-    };
-    if (props.callsFilter === true) {
-        callIcon = {
-            url:
-                "https://www.pngkit.com/png/full/48-480186_google-pin-image-google-maps-markers-blue.png", // url
-            scaledSize: { width: 1, height: 1 }
-        };
-    }
-    if (props.financeFilter === true) {
-        financeIcon = {
-            url: "https://webstockreview.net/images/google-map-marker-png-4.png", // url
-            scaledSize: { width: 1, height: 1 }
-        };
-    }
-    if (props.vehicleFilter === true) {
-        vehicleIcon = {
-            url:
-                "https://i.pinimg.com/originals/86/fd/17/86fd17769a3b2537d2b028601cda7b92.png", // url
-            scaledSize: { width: 1, height: 1 }
-        };
-    }
 
+    const typeTitleMap = {
+        'vehicle': 'Vehicle Sighting',
+        'financeEpos': 'ePOS Transaction',
+        'financeAtm': 'ATM Transaction',
+        'callInbound': 'Inbound Call',
+        'callOutbound': 'Outbound Call'
+    };
 
     return (
         <GoogleMap
@@ -78,53 +55,89 @@ function Map(props) {
         >
             {vehicleDataToUse?.map(vehicle => (
                 <Marker
-                    //key={vehicle.vehicleRegistrationNo}
+                    key={vehicle.vehicleRegistrationNumber + vehicle.timestamp}
                     position={{
                         lat: +vehicle.latitude,
                         lng: +vehicle.longitude
                     }}
-                    icon={vehicleIcon}
+                    icon={props.vehicleFilter ? vehicleIcon : noVehicle}
                     onClick={() => {
-                        setSelectedPin(vehicle);
+                        axios.post(`${BASE_URL}${GET_VEHICLE_INFO}`, { vehicleRegistrationNo: vehicle.vehicleRegistrationNumber })
+                        .then(response => {
+                                setSelectedPin({citizenID: response.data[0].citizenID, 
+                                                forenames: response.data[0].forenames, 
+                                                surname: response.data[0].surname, 
+                                                type: 'vehicle', 
+                                                ...vehicle });
+                            })
+                            .catch(error=>{setSelectedPin({type: 'vehicle', ...vehicle })});
+
                     }}
                 />
             ))}
             {callDataToUseInbound?.map(call => (
                 <Marker
-                    //   key={call.citizenID}
+                    key={call.callerMSISDN + call.timestamp}
+
                     position={{
                         lat: +call.latitude,
                         lng: +call.longitude
                     }}
-                    icon={callIcon}
+                    icon={props.callsFilter ? callIcon : noCall}
                     onClick={() => {
-                        setSelectedPin(call);
+                        axios.post(`${BASE_URL}${GET_CITIZEN_BY_PHONE}`, { number: call.callerMSISDN })
+                        .then(response => {
+                                setSelectedPin({citizenID: response.data[0].citizenID, 
+                                                forenames: response.data[0].forenames, 
+                                                surname: response.data[0].surname, 
+                                                type: 'callInbound', 
+                                                ...call });
+                            })
+                            .catch(error=>{setSelectedPin({type: 'callInbound', ...call})});
                     }}
                 />
             ))}
             {callDataToUseOutbound?.map(call => (
                 <Marker
-                    //   key={call.citizenID}
+                    key={call.callerMSISDN + call.timestamp}
                     position={{
                         lat: +call.latitude,
                         lng: +call.longitude
                     }}
-                    icon={callIcon}
+                    icon={props.callsFilter ? callIcon : noCall}
                     onClick={() => {
-                        setSelectedPin(call);
+                        axios.post(`${BASE_URL}${GET_CITIZEN_BY_PHONE}`, { number: call.callerMSISDN })
+                        .then(response => {
+                            setSelectedPin({citizenID: response.data[0].citizenID, 
+                                            forenames: response.data[0].forenames, 
+                                            surname: response.data[0].surname,  
+                                            type: 'callOutbound', 
+                                            ...call });
+                        })
+                        .catch(error=>{setSelectedPin({type: 'callOutbound', ...call})});
+
                     }}
                 />
             ))}
             {financialDataToUseEpos?.map(finance => (
                 <Marker
-                    //   key={finance.citizenID}
+                    key={finance.cardnumber + finance.timestamp}
                     position={{
                         lat: +finance.latitude,
                         lng: +finance.longitude
                     }}
-                    icon={financeIcon}
+                    icon={props.financeFilter ? financeIcon : noFinance}
                     onClick={() => {
-                        setSelectedPin(finance);
+                        axios.post(`${BASE_URL}${GET_CITIZEN_BY_CARD}`, {number: finance.cardNumber})
+                        .then(response => {
+                            setSelectedPin({citizenID: response.data[0].citizenID, 
+                                            forenames:response.data[0].forenames, 
+                                            surname:response.data[0].surname, 
+                                            type: 'financeEpos', 
+                                            ...finance });
+                        })
+                        .catch(error =>{setSelectedPin({type: 'financeEpos', ...finance})});
+                   
                     }}
                 />
             ))}
@@ -135,9 +148,18 @@ function Map(props) {
                         lat: +finance.latitude,
                         lng: +finance.longitude
                     }}
-                    icon={financeIcon}
+                    icon={props.financeFilter ? financeIcon : noFinance}
                     onClick={() => {
-                        setSelectedPin(finance);
+                        axios.post(`${BASE_URL}${GET_CITIZEN_BY_CARD}`, {number: finance.cardNumber})
+                        .then(response => {
+                            setSelectedPin({ citizenID: response.data[0].citizenID, 
+                                             forenames: response.data[0].forenames, 
+                                             surname: response.data[0].surname, 
+                                             type: 'financeAtm', 
+                                             ...finance });
+                        })
+                        .catch(error=>{setSelectedPin({type: 'financeAtm', ...finance})});
+                        
                     }}
                 />
             ))}
@@ -165,17 +187,16 @@ function Map(props) {
                 >
                     <div
                         onClick={() => {
-                            console.log("hi");
-                            props.history.push(`/CitizenHome/${selectedPin.citizenID}`);
+                            if (selectedPin.citizenID) { props.history.push(`/CitizenHome/${selectedPin.citizenID}`) };
                         }}
                     >
-                        <h2>{selectedPin.citizenID}</h2>
-                        <p>{selectedPin.latitude}</p>
-                        <p>{selectedPin.longitude}</p>
+                        <p>Name: {selectedPin.forenames || "Unknown"} {selectedPin.surname}</p>
+                        <p>ID: {selectedPin.citizenID || "Unknown"}</p>
+                        <p>Timestamp: {selectedPin.timestamp.split("T").join(" at ").split("Z")}</p>
+                        <p>Event: {typeTitleMap[selectedPin.type] || "Unknown Type"}</p>
                     </div>
                 </InfoWindow>
             )}
-            {/* <button onClick={() => setRadius(500000)}>heello</button> */}
         </GoogleMap>
     );
 }

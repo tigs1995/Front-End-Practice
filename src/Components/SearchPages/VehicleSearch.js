@@ -3,6 +3,7 @@ import DataInput from "../DataInput";
 import axios from "axios";
 import { CHECK_EXISTING_VEHICLE, BASE_URL } from "../../config/Constants.json";
 import styled from 'styled-components';
+import "../../CSS/VehicleSearch.css";
 
 const Styles = styled.div`
   div {
@@ -54,20 +55,21 @@ export default class VehicleSearch extends Component {
 
   render() {
     return (
-      <Styles>
-        <div>
-      <form onSubmit={this.handleSubmit}>
-        <DataInput
-          type="text"
-          name="vehicleRegistrationNo"
-          placeholder="Vehicle Registration Number"
-          onChange={this.handleChange}
-        ></DataInput>
-        <button>Search</button>
-        <span className="error">{this.state.errorMessage}</span>
-      </form>
+      <div>
+        <form id="form" onSubmit={this.handleSubmit}>
+        <h4 id="space">Vehicle Search</h4>
+          <input
+            id="vehicleRegistrationNo"
+            type="text"
+            name="vehicleRegistrationNo"
+            placeholder="Vehicle Registration Number"
+            onChange={this.handleChange}
+            required
+          ></input>
+          <button id="vehicleSubmitButton">Search</button>
+          <span className="error">{this.state.errorMessage}</span>
+        </form>
       </div>
-      </Styles>
     );
   }
 }
