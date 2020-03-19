@@ -78,7 +78,7 @@ Run the selenium tests in the Java IDE
    Accessible from anywhere on port 3000
    ```
    ```
-   Accessible only from Jenkins virtual machine  and qa for ssh on port 22
+   Accessible only from Jenkins virtual machine and qa for SSH on port 22
    ```
    * Back-end
    ```
