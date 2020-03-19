@@ -69,17 +69,23 @@ Run the front and backend of the application
 ```
 Run the selenium tests in the Java IDE
 ```
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
-Add notes about how to deploy this on a live system here
+* Set up AWS EC2 instances with security groups for the front-end, back-end and Jenkins
+  * Front-end security group:
+   ```
+   Accessible from anywhere on port 3000
+   ```
+   ```
+   Accessible only from Jenkins virtual machine  and qa for ssh on port 22
+   ```
+   * Back-end
+   ```
+   Accessible from the front-end virtual machine on port 8080
+   ```
+* Configure a new Jenkins Freestyle Project that will SSH into each virtual machine, git clones and npm start's the projects
+* Jenkins polls GitHub every hour and on a merge to master rebuilds the project
 
 ## Built With
 
